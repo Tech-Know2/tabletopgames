@@ -17,6 +17,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HexTile Variant (Grey) Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1994850100278107585, guid: a504bdbee5433dc4d9ca294e97ca7ec1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Mountains
+      objectReference: {fileID: 0}
     - target: {fileID: 3311403843248222162, guid: a504bdbee5433dc4d9ca294e97ca7ec1,
         type: 3}
       propertyPath: m_RootOrder

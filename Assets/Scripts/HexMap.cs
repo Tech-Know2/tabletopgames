@@ -87,12 +87,13 @@ public class HexMap : MonoBehaviour
                         float bushCount = Random.Range(3f,12f);
                         float treeCount = Random.Range(3f,10f);
 
-                        Vector3 rayOrigin = new Vector3(x, 100f, z);
+                        Vector3 rayOrigin = new Vector3(x, 20f, z);
                         RaycastHit hitInfo;
 
                         if (Physics.Raycast(rayOrigin, Vector3.down, out hitInfo))
                         {
                             maxHeight = hitInfo.point.y;
+                            print("Raycast Works");
                         }
 
                         for(int y = 0; y < bushCount; y++)
@@ -109,10 +110,12 @@ public class HexMap : MonoBehaviour
                             Bush.transform.position = new Vector3(Random.Range(x*tileXOffset - tileXOffset/2, x*tileXOffset + tileXOffset/2), maxHeight + maxMeshHeight/2, Random.Range(z*tileZOffset - tileZOffset/2, z*tileZOffset + tileZOffset/2));
                             print("Bush Planted");
 
-                            Collider[] colliders = Physics.OverlapSphere(Bush.transform.position, 5f);
+                            Collider[] colliders = Physics.OverlapSphere(Bush.transform.position, maxMeshHeight);
 
                             foreach (Collider collider in colliders) {
-                                if (collider.CompareTag("Mountains") || collider.CompareTag("Sand") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Deep Sea")) {
+                                if (collider.CompareTag("Plains")) {
+                                    print("Bush Placed Correctly");
+                                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea")){
                                     Destroy(Bush);
                                     print("Bush Destroyed");
                                 }
@@ -136,7 +139,9 @@ public class HexMap : MonoBehaviour
                             Collider[] colliders = Physics.OverlapSphere(Tree.transform.position, 5f);
 
                             foreach (Collider collider in colliders) {
-                                if (collider.CompareTag("Mountains") || collider.CompareTag("Sand") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Deep Sea")) {
+                                if (collider.CompareTag("Plains")) {
+                                    print("Tree Placed Correctly");
+                                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea")){
                                     Destroy(Tree);
                                     print("Tree Destroyed");
                                 }
