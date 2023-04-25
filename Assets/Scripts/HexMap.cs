@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class HexMap : MonoBehaviour
 {
+    //Parent Game Object
+    public GameObject parent;
+
     // Hex Tiles
     public GameObject deepSea;
     public GameObject shallowSea;
@@ -14,6 +17,9 @@ public class HexMap : MonoBehaviour
     //Terrain Game Objects
     public GameObject bush;
     public GameObject tree;
+    public GameObject rock;
+    public GameObject cacti;
+    public GameObject boulder;
 
     //Terrain Game Object Control Variables
 
@@ -62,30 +68,75 @@ public class HexMap : MonoBehaviour
                     {
                         GameObject Hex = Instantiate(deepSea);
                         Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
-                        Hex.tag = "Deep Sea";                  
+                        Hex.tag = "Deep Sea";
+                        Hex.transform.SetParent(parent.transform);               
                     }
                     else if (yNoise < shallowSeaEnd)
                     {
                         GameObject Hex = Instantiate(shallowSea);
                         Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         Hex.tag = "Shallow Sea";
+                        Hex.transform.SetParent(parent.transform);  
                     }
                     else if (yNoise < sandyEnd)
                     {
                         GameObject Hex = Instantiate(sand);
                         Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         Hex.tag = "Sand";
+                        Hex.transform.SetParent(parent.transform);  
+
+                        float maxHeight = 0f;
+
+                        float cactiCount = Random.Range(3f,9f);
+
+                        Vector3 rayOrigin = new Vector3(x, 20f, z);
+                        RaycastHit hitInfo;
+
+                        if (Physics.Raycast(rayOrigin, Vector3.down, out hitInfo))
+                        {
+                            maxHeight = hitInfo.point.y;
+                            print("Raycast Works");
+                        }
+
+                        for(int y = 0; y < cactiCount; y++)
+                        {
+                            MeshFilter meshFilter = GetComponent<MeshFilter>();
+                            float maxMeshHeight = 1f;
+
+                            if(meshFilter != null) {
+                                maxMeshHeight = meshFilter.mesh.bounds.size.y;
+                                print(maxMeshHeight);
+                            }
+                            
+                            GameObject Cacti = Instantiate(cacti);
+                            Cacti.transform.position = new Vector3(Random.Range(x*tileXOffset - tileXOffset/2, x*tileXOffset + tileXOffset/2), maxHeight + maxMeshHeight/2, Random.Range(z*tileZOffset - tileZOffset/2, z*tileZOffset + tileZOffset/2));
+                            print("Cacti Planted");
+                            Cacti.transform.SetParent(parent.transform);  
+
+                            Collider[] colliders = Physics.OverlapSphere(Cacti.transform.position, maxMeshHeight);
+
+                            foreach (Collider collider in colliders) {
+                                if (collider.CompareTag("Sand")) {
+                                    print("Cacti Placed Correctly");
+                                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Plains") || collider.CompareTag("Mountains")){
+                                    Destroy(Cacti);
+                                    print("Cacti Destroyed");
+                                }
+                            }
+                        }
                     }
                     else if (yNoise < plainsEnd)
                     {
                         GameObject Hex = Instantiate(plains);
                         Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         Hex.tag = "Plains";
+                        Hex.transform.SetParent(parent.transform);  
 
                         float maxHeight = 0f;
 
                         float bushCount = Random.Range(3f,12f);
                         float treeCount = Random.Range(3f,10f);
+                        float rockCount = Random.Range(3f,10f);
 
                         Vector3 rayOrigin = new Vector3(x, 20f, z);
                         RaycastHit hitInfo;
@@ -109,13 +160,14 @@ public class HexMap : MonoBehaviour
                             GameObject Bush = Instantiate(bush);
                             Bush.transform.position = new Vector3(Random.Range(x*tileXOffset - tileXOffset/2, x*tileXOffset + tileXOffset/2), maxHeight + maxMeshHeight/2, Random.Range(z*tileZOffset - tileZOffset/2, z*tileZOffset + tileZOffset/2));
                             print("Bush Planted");
+                            Bush.transform.SetParent(parent.transform);  
 
                             Collider[] colliders = Physics.OverlapSphere(Bush.transform.position, maxMeshHeight);
 
                             foreach (Collider collider in colliders) {
                                 if (collider.CompareTag("Plains")) {
                                     print("Bush Placed Correctly");
-                                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea")){
+                                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand")){
                                     Destroy(Bush);
                                     print("Bush Destroyed");
                                 }
@@ -135,15 +187,43 @@ public class HexMap : MonoBehaviour
                             GameObject Tree = Instantiate(tree);
                             Tree.transform.position = new Vector3(Random.Range(x*tileXOffset - tileXOffset/2, x*tileXOffset + tileXOffset/2), maxHeight + maxMeshHeight/2, Random.Range(z*tileZOffset - tileZOffset/2, z*tileZOffset + tileZOffset/2));
                             print("Tree Planted");
+                            Tree.transform.SetParent(parent.transform);  
 
                             Collider[] colliders = Physics.OverlapSphere(Tree.transform.position, 5f);
 
                             foreach (Collider collider in colliders) {
                                 if (collider.CompareTag("Plains")) {
                                     print("Tree Placed Correctly");
-                                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea")){
+                                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand")){
                                     Destroy(Tree);
                                     print("Tree Destroyed");
+                                }
+                            }
+                        }
+
+                        for(int y = 0; y < rockCount; y++)
+                        {
+                            MeshFilter meshFilter = GetComponent<MeshFilter>();
+                            float maxMeshHeight = 1f;
+
+                            if(meshFilter != null) {
+                                maxMeshHeight = meshFilter.mesh.bounds.size.y;
+                                print(maxMeshHeight);
+                            }
+                            
+                            GameObject Rock = Instantiate(rock);
+                            Rock.transform.position = new Vector3(Random.Range(x*tileXOffset - tileXOffset/2, x*tileXOffset + tileXOffset/2), maxHeight + maxMeshHeight/2, Random.Range(z*tileZOffset - tileZOffset/2, z*tileZOffset + tileZOffset/2));
+                            print("Rock Placed");
+                            Rock.transform.SetParent(parent.transform);  
+
+                            Collider[] colliders = Physics.OverlapSphere(Rock.transform.position, 5f);
+
+                            foreach (Collider collider in colliders) {
+                                if (collider.CompareTag("Plains")) {
+                                    print("Rock Placed Correctly");
+                                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand")){
+                                    Destroy(Rock);
+                                    print("Rock Destroyed");
                                 }
                             }
                         }
@@ -153,6 +233,75 @@ public class HexMap : MonoBehaviour
                         GameObject Hex = Instantiate(mountains);
                         Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         Hex.tag = "Mountains";
+                        Hex.transform.SetParent(parent.transform);  
+
+                        float maxHeight = 0f;
+
+                        float boulderCount = Random.Range(3f,4f);
+                        float rockCount = Random.Range(3f,8f);
+
+                        Vector3 rayOrigin = new Vector3(x, 20f, z);
+                        RaycastHit hitInfo;
+
+                        if (Physics.Raycast(rayOrigin, Vector3.down, out hitInfo))
+                        {
+                            maxHeight = hitInfo.point.y;
+                            print("Raycast Works");
+                        }
+
+                        for(int y = 0; y < boulderCount; y++)
+                        {
+                            MeshFilter meshFilter = GetComponent<MeshFilter>();
+                            float maxMeshHeight = 1f;
+
+                            if(meshFilter != null) {
+                                maxMeshHeight = meshFilter.mesh.bounds.size.y;
+                                print(maxMeshHeight);
+                            }
+                            
+                            GameObject Boulder = Instantiate(boulder);
+                            Boulder.transform.position = new Vector3(Random.Range(x*tileXOffset - tileXOffset/2, x*tileXOffset + tileXOffset/2), maxHeight + maxMeshHeight/2, Random.Range(z*tileZOffset - tileZOffset/2, z*tileZOffset + tileZOffset/2));
+                            print("Boulder Placed");
+                            Boulder.transform.SetParent(parent.transform);  
+
+                            Collider[] colliders = Physics.OverlapSphere(Boulder.transform.position, maxMeshHeight);
+
+                            foreach (Collider collider in colliders) {
+                                if (collider.CompareTag("Mountains")) {
+                                    print("Boulder Placed Correctly");
+                                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand")){
+                                    Destroy(Boulder);
+                                    print("Boulder Destroyed");
+                                }
+                            }
+                        }
+
+                        for(int y = 0; y < rockCount; y++)
+                        {
+                            MeshFilter meshFilter = GetComponent<MeshFilter>();
+                            float maxMeshHeight = 1f;
+
+                            if(meshFilter != null) {
+                                maxMeshHeight = meshFilter.mesh.bounds.size.y;
+                                print(maxMeshHeight);
+                            }
+                            
+                            GameObject Rock = Instantiate(rock);
+                            Rock.transform.position = new Vector3(Random.Range(x*tileXOffset - tileXOffset/2, x*tileXOffset + tileXOffset/2), maxHeight + maxMeshHeight/2, Random.Range(z*tileZOffset - tileZOffset/2, z*tileZOffset + tileZOffset/2));
+                            print("Rock Placed");
+                            Rock.transform.SetParent(parent.transform);  
+
+                            Collider[] colliders = Physics.OverlapSphere(Rock.transform.position, 5f);
+
+                            foreach (Collider collider in colliders) {
+                                if (collider.CompareTag("Mountains")) {
+                                    print("Rock Placed Correctly");
+                                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand")){
+                                    Destroy(Rock);
+                                    print("Rock Destroyed");
+                                }
+                            }
+                        }
                     }
                 }
             }

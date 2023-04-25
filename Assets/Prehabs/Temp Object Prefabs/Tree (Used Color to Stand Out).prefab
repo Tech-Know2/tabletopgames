@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4438551389160268873}
   - component: {fileID: 9125614539013597239}
   - component: {fileID: 2440452407137244758}
+  - component: {fileID: -1048482794883224654}
   m_Layer: 0
   m_Name: Tree (Used Color to Stand Out)
   m_TagString: Tree
@@ -98,3 +99,16 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-1048482794883224654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5749836953928422096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c3f1334f23acc54a94459a5dd54bb50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceThreshold: 250

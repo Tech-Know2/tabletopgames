@@ -16,7 +16,7 @@ public class CameraController : MonoBehaviour
     public Vector3 zoomAmount;
 
     public int maxZoomDistance = 150;
-    public int minZoomDistance = -60;
+    public int minZoomDistance = 15;
 
     public Vector3 newPosition;
     public Quaternion newRotation;
@@ -64,11 +64,28 @@ public class CameraController : MonoBehaviour
     void HandelMouseInput()
     {
         //Scroll With The Mouse
-        if (newZoom.y >= minZoomDistance && newZoom.y <= maxZoomDistance)
+        /*if (newZoom.y >= minZoomDistance && newZoom.y <= maxZoomDistance)
         {
             if(Input.mouseScrollDelta.y != 0)
             {
                 newZoom += Input.mouseScrollDelta.y * zoomAmount;
+            }
+        }*/
+        if(Input.mouseScrollDelta.y != 0)
+        {
+            if(newZoom.y >= maxZoomDistance && Input.mouseScrollDelta.y > 0) {
+                // Zooming in when already at maximum zoom distance is not allowed.
+                return;
+            } else if(newZoom.y <= minZoomDistance && Input.mouseScrollDelta.y < 0) {
+                // Zooming out when already at minimum zoom distance is not allowed.
+                return;
+            } else {
+                newZoom += Input.mouseScrollDelta.y * zoomAmount;
+                if(newZoom.y >= maxZoomDistance) {
+                    newZoom.y = maxZoomDistance - 10f;
+                } else if(newZoom.y <= minZoomDistance) {
+                    newZoom.y = minZoomDistance + 10f;
+                }
             }
         }
 
@@ -157,7 +174,7 @@ public class CameraController : MonoBehaviour
             newRotation *= Quaternion.Euler(Vector3.up * -rotationAmount);
         }
 
-        /*
+        
         //Zooming in and Out
         if(Input.GetKey(KeyCode.R))
         {
@@ -167,7 +184,6 @@ public class CameraController : MonoBehaviour
         {
             newZoom -= zoomAmount;
         }
-        */
 
         //Smoothing Out All Movement and Input
         transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * moveTime);

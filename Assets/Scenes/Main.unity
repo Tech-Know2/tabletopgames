@@ -295,7 +295,7 @@ PrefabInstance:
     - target: {fileID: 1994850100278107585, guid: a504bdbee5433dc4d9ca294e97ca7ec1,
         type: 3}
       propertyPath: m_Name
-      value: Game Board Barrier
+      value: Game Board
       objectReference: {fileID: 0}
     - target: {fileID: 1994850100278107585, guid: a504bdbee5433dc4d9ca294e97ca7ec1,
         type: 3}
@@ -408,6 +408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cd55c94f5e2863419644bc07361ef22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parent: {fileID: 527404888}
   deepSea: {fileID: 1287783578228961940, guid: e315c0d804c1490419424801cc93d060, type: 3}
   shallowSea: {fileID: 2134901623199710270, guid: 90072bae72ea8dd4ea81e6e1b2fef3f1,
     type: 3}
@@ -417,6 +418,9 @@ MonoBehaviour:
     type: 3}
   bush: {fileID: 6196946088157550288, guid: 05086bfbc2648c247bcb37d4add2487c, type: 3}
   tree: {fileID: 5749836953928422096, guid: 7c5951d7526807540a47927e61680896, type: 3}
+  rock: {fileID: 5528113861964220842, guid: b7426f963fd922d48802ca6e4d5405a1, type: 3}
+  cacti: {fileID: 153279585046605221, guid: 321856e6db3db3d4c8018111fc0f75a8, type: 3}
+  boulder: {fileID: 1379770243432906494, guid: f6bf5b498f144ed4bb42adbc28ab616e, type: 3}
   deepSeaEnd: 0.3
   shallowSeaEnd: 0.4
   sandyEnd: 0.45
@@ -1515,7 +1519,7 @@ MonoBehaviour:
   rotationAmount: 0.5
   zoomAmount: {x: 0, y: -2, z: 2}
   maxZoomDistance: 150
-  minZoomDistance: -60
+  minZoomDistance: 15
   newPosition: {x: 0, y: 0, z: 0}
   newRotation: {x: 0, y: 0, z: 0, w: 0}
   newZoom: {x: 0, y: 0, z: 0}

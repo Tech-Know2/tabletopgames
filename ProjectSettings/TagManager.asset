@@ -14,6 +14,9 @@ TagManager:
   - Mountains
   - Bush
   - Tree
+  - Cacti
+  - Rock
+  - Boulder
   layers:
   - Default
   - TransparentFX
