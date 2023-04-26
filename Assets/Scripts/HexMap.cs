@@ -43,11 +43,10 @@ public class HexMap : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        createHexTileMap();
+        StartCoroutine(createHexTileMap());
     }
 
-    // Update is called once per frame
-    public void createHexTileMap()
+    IEnumerator createHexTileMap()
     {
         float xPos = Random.Range(-10000f, 10000f);
         float zPos = Random.Range(-10000f, 10000f);
@@ -69,7 +68,8 @@ public class HexMap : MonoBehaviour
                         GameObject Hex = Instantiate(deepSea);
                         Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         Hex.tag = "Deep Sea";
-                        Hex.transform.SetParent(parent.transform);               
+                        Hex.transform.SetParent(parent.transform); 
+                        yield return null;              
                     }
                     else if (yNoise < shallowSeaEnd)
                     {
@@ -77,6 +77,7 @@ public class HexMap : MonoBehaviour
                         Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         Hex.tag = "Shallow Sea";
                         Hex.transform.SetParent(parent.transform);  
+                        yield return null;
                     }
                     else if (yNoise < sandyEnd)
                     {
@@ -86,6 +87,7 @@ public class HexMap : MonoBehaviour
                         Hex.transform.SetParent(parent.transform);  
 
                         float maxHeight = 0f;
+                        int size = 0;
 
                         float cactiCount = Random.Range(3f,9f);
 
@@ -113,7 +115,8 @@ public class HexMap : MonoBehaviour
                             print("Cacti Planted");
                             Cacti.transform.SetParent(parent.transform);  
 
-                            Collider[] colliders = Physics.OverlapSphere(Cacti.transform.position, maxMeshHeight);
+                            Collider[] colliders = Physics.OverlapSphere(Cacti.transform.position, 2f);
+                            size = colliders.Length;
 
                             foreach (Collider collider in colliders) {
                                 if (collider.CompareTag("Sand")) {
@@ -121,9 +124,14 @@ public class HexMap : MonoBehaviour
                                 } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Plains") || collider.CompareTag("Mountains")){
                                     Destroy(Cacti);
                                     print("Cacti Destroyed");
+                                } else if (size == 0)
+                                {
+                                    Destroy(Cacti);
+                                    print("Void Cacti Destroyed");
                                 }
                             }
                         }
+                        yield return null;
                     }
                     else if (yNoise < plainsEnd)
                     {
@@ -133,6 +141,7 @@ public class HexMap : MonoBehaviour
                         Hex.transform.SetParent(parent.transform);  
 
                         float maxHeight = 0f;
+                        int size = 0;
 
                         float bushCount = Random.Range(3f,12f);
                         float treeCount = Random.Range(3f,10f);
@@ -162,7 +171,8 @@ public class HexMap : MonoBehaviour
                             print("Bush Planted");
                             Bush.transform.SetParent(parent.transform);  
 
-                            Collider[] colliders = Physics.OverlapSphere(Bush.transform.position, maxMeshHeight);
+                            Collider[] colliders = Physics.OverlapSphere(Bush.transform.position, 2f);
+                            size = colliders.Length;
 
                             foreach (Collider collider in colliders) {
                                 if (collider.CompareTag("Plains")) {
@@ -170,6 +180,10 @@ public class HexMap : MonoBehaviour
                                 } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand")){
                                     Destroy(Bush);
                                     print("Bush Destroyed");
+                                } else if (size == 0)
+                                {
+                                    Destroy(Bush);
+                                    print("Void Bush Destroyed");
                                 }
                             }
                         }
@@ -189,7 +203,8 @@ public class HexMap : MonoBehaviour
                             print("Tree Planted");
                             Tree.transform.SetParent(parent.transform);  
 
-                            Collider[] colliders = Physics.OverlapSphere(Tree.transform.position, 5f);
+                            Collider[] colliders = Physics.OverlapSphere(Tree.transform.position, 2f);
+                            size = colliders.Length;
 
                             foreach (Collider collider in colliders) {
                                 if (collider.CompareTag("Plains")) {
@@ -197,6 +212,10 @@ public class HexMap : MonoBehaviour
                                 } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand")){
                                     Destroy(Tree);
                                     print("Tree Destroyed");
+                                } else if (size == 0)
+                                {
+                                    Destroy(Tree);
+                                    print("Void Tree Destroyed");
                                 }
                             }
                         }
@@ -216,7 +235,8 @@ public class HexMap : MonoBehaviour
                             print("Rock Placed");
                             Rock.transform.SetParent(parent.transform);  
 
-                            Collider[] colliders = Physics.OverlapSphere(Rock.transform.position, 5f);
+                            Collider[] colliders = Physics.OverlapSphere(Rock.transform.position, 2f);
+                            size = colliders.Length;
 
                             foreach (Collider collider in colliders) {
                                 if (collider.CompareTag("Plains")) {
@@ -224,9 +244,14 @@ public class HexMap : MonoBehaviour
                                 } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand")){
                                     Destroy(Rock);
                                     print("Rock Destroyed");
+                                } else if (size == 0)
+                                {
+                                    Destroy(Rock);
+                                    print("Void Rock Destroyed");
                                 }
                             }
                         }
+                        yield return null;
                     }
                     else if (yNoise < mountainsEnd)
                     {
@@ -236,6 +261,7 @@ public class HexMap : MonoBehaviour
                         Hex.transform.SetParent(parent.transform);  
 
                         float maxHeight = 0f;
+                        int size = 0;
 
                         float boulderCount = Random.Range(3f,4f);
                         float rockCount = Random.Range(3f,8f);
@@ -265,6 +291,7 @@ public class HexMap : MonoBehaviour
                             Boulder.transform.SetParent(parent.transform);  
 
                             Collider[] colliders = Physics.OverlapSphere(Boulder.transform.position, maxMeshHeight);
+                            size = colliders.Length;
 
                             foreach (Collider collider in colliders) {
                                 if (collider.CompareTag("Mountains")) {
@@ -272,6 +299,10 @@ public class HexMap : MonoBehaviour
                                 } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand")){
                                     Destroy(Boulder);
                                     print("Boulder Destroyed");
+                                } else if (size == 0)
+                                {
+                                    Destroy(Boulder);
+                                    print("Void Boulder Destroyed");
                                 }
                             }
                         }
@@ -291,7 +322,8 @@ public class HexMap : MonoBehaviour
                             print("Rock Placed");
                             Rock.transform.SetParent(parent.transform);  
 
-                            Collider[] colliders = Physics.OverlapSphere(Rock.transform.position, 5f);
+                            Collider[] colliders = Physics.OverlapSphere(Rock.transform.position, 2f);
+                            size = colliders.Length;
 
                             foreach (Collider collider in colliders) {
                                 if (collider.CompareTag("Mountains")) {
@@ -299,9 +331,14 @@ public class HexMap : MonoBehaviour
                                 } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand")){
                                     Destroy(Rock);
                                     print("Rock Destroyed");
+                                } else if (size == 0)
+                                {
+                                    Destroy(Rock);
+                                    print("Void Rock Destroyed");
                                 }
                             }
                         }
+                        yield return null;
                     }
                 }
             }

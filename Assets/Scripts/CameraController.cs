@@ -64,13 +64,6 @@ public class CameraController : MonoBehaviour
     void HandelMouseInput()
     {
         //Scroll With The Mouse
-        /*if (newZoom.y >= minZoomDistance && newZoom.y <= maxZoomDistance)
-        {
-            if(Input.mouseScrollDelta.y != 0)
-            {
-                newZoom += Input.mouseScrollDelta.y * zoomAmount;
-            }
-        }*/
         if(Input.mouseScrollDelta.y != 0)
         {
             if(newZoom.y >= maxZoomDistance && Input.mouseScrollDelta.y > 0) {
@@ -172,17 +165,6 @@ public class CameraController : MonoBehaviour
         if(Input.GetKey(KeyCode.E))
         {
             newRotation *= Quaternion.Euler(Vector3.up * -rotationAmount);
-        }
-
-        
-        //Zooming in and Out
-        if(Input.GetKey(KeyCode.R))
-        {
-            newZoom += zoomAmount;
-        }
-        if(Input.GetKey(KeyCode.F))
-        {
-            newZoom -= zoomAmount;
         }
 
         //Smoothing Out All Movement and Input
