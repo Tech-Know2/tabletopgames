@@ -86,52 +86,7 @@ public class HexMap : MonoBehaviour
                         Hex.tag = "Sand";
                         Hex.transform.SetParent(parent.transform);  
 
-                        float maxHeight = 0f;
-                        int size = 0;
-
-                        float cactiCount = Random.Range(3f,9f);
-
-                        Vector3 rayOrigin = new Vector3(x, 20f, z);
-                        RaycastHit hitInfo;
-
-                        if (Physics.Raycast(rayOrigin, Vector3.down, out hitInfo))
-                        {
-                            maxHeight = hitInfo.point.y;
-                            print("Raycast Works");
-                        }
-
-                        for(int y = 0; y < cactiCount; y++)
-                        {
-                            MeshFilter meshFilter = GetComponent<MeshFilter>();
-                            float maxMeshHeight = 1f;
-
-                            if(meshFilter != null) {
-                                maxMeshHeight = meshFilter.mesh.bounds.size.y;
-                                print(maxMeshHeight);
-                            }
-                            
-                            GameObject Cacti = Instantiate(cacti);
-                            Cacti.transform.position = new Vector3(Random.Range(x*tileXOffset - tileXOffset/2, x*tileXOffset + tileXOffset/2), maxHeight + maxMeshHeight/2, Random.Range(z*tileZOffset - tileZOffset/2, z*tileZOffset + tileZOffset/2));
-                            print("Cacti Planted");
-                            Cacti.transform.SetParent(parent.transform);  
-
-                            Collider[] colliders = Physics.OverlapSphere(Cacti.transform.position, 2f);
-                            size = colliders.Length;
-
-                            foreach (Collider collider in colliders) {
-                                if (collider.CompareTag("Sand")) {
-                                    print("Cacti Placed Correctly");
-                                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Plains") || collider.CompareTag("Mountains")){
-                                    Destroy(Cacti);
-                                    print("Cacti Destroyed");
-                                } else if (size == 0)
-                                {
-                                    Destroy(Cacti);
-                                    print("Void Cacti Destroyed");
-                                }
-                            }
-                        }
-                        yield return null;
+                        placeCacti(tileXOffset,tileZOffset);
                     }
                     else if (yNoise < plainsEnd)
                     {
@@ -341,6 +296,62 @@ public class HexMap : MonoBehaviour
                         yield return null;
                     }
                 }
+            }
+        }
+    }
+
+    void placeCacti(tileXOffset, tileZOffset)
+    {
+        float maxHeight = 0f;
+        float maxHeight = 0f;
+        int size = 0;
+
+        float cactiCount = Random.Range(3f,9f);
+
+        Vector3 rayOrigin = new Vector3(x, 20f, z);
+        RaycastHit hitInfo;
+
+        if (Physics.Raycast(rayOrigin, Vector3.down, out hitInfo))
+        {
+            maxHeight = hitInfo.point.y;
+            print("Raycast Works");
+        }
+
+        for(int y = 0; y < cactiCount; y++)
+        {
+            MeshFilter meshFilter = GetComponent<MeshFilter>();
+            float maxMeshHeight = 1f;
+
+           if(meshFilter != null) 
+            {
+                maxMeshHeight = meshFilter.mesh.bounds.size.y;
+                print(maxMeshHeight);
+            }
+                            
+            GameObject Cacti = Instantiate(cacti);
+            Cacti.transform.position = new Vector3(Random.Range(x*tileXOffset - tileXOffset/2, x*tileXOffset + tileXOffset/2), maxHeight + maxMeshHeight/2, Random.Range(z*tileZOffset - tileZOffset/2, z*tileZOffset + tileZOffset/2));
+            print("Cacti Planted");
+            Cacti.transform.SetParent(parent.transform);  
+
+            Collider[] colliders = Physics.OverlapSphere(Cacti.transform.position, 2f);
+            size = colliders.Length;
+
+            foreach (Collider collider in colliders) 
+            {
+                if (collider.CompareTag("Sand")) {
+                    print("Cacti Placed Correctly");
+                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Plains") || collider.CompareTag("Mountains"))
+                {
+                    Destroy(Cacti);
+                    print("Cacti Destroyed");
+                    } else if (size == 0)
+                        {
+                            Destroy(Cacti);
+                            print("Void Cacti Destroyed");
+                        }
+                    }
+                }
+                yield return null;
             }
         }
     }
