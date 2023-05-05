@@ -28,7 +28,7 @@ public class HexMap : MonoBehaviour
     public int mapWidth = 25;
     public int mapHeight = 12;
     // Noise Adjustment Variables
-    public float scale = 1f;
+    public float scale = 1.4f;
     public float tileXOffset = 34.5f;
     public float tileZOffset = 30f;
     // Start is called before the first frame update
@@ -46,8 +46,8 @@ public class HexMap : MonoBehaviour
             {
                 float sampleX = (x + xPos);
                 float sampleZ = (z + zPos);
-                float yNoise = Mathf.PerlinNoise(sampleX * 0.05f, sampleZ * 0.05f);
-                if (yNoise >= -1)
+                float yNoise = Mathf.PerlinNoise(sampleX * 0.05f, sampleZ * 0.05f / scale);
+                if (yNoise >= -5)
                 {
                     if (yNoise < deepSeaEnd)
                     {
@@ -55,6 +55,20 @@ public class HexMap : MonoBehaviour
                         Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         Hex.tag = "Deep Sea";
                         Hex.transform.SetParent(parent.transform); 
+                        
+                        Collider[] colliders = Physics.OverlapBox(Hex.transform.position, Hex.transform.localScale / 2);
+
+                        foreach (Collider collider in colliders) 
+                        {
+                            if (collider.CompareTag("Barrier")) 
+                            {
+                                
+                            } else {
+                                Destroy(Hex);
+                                print("Deep Sea Destroyed");
+                            }
+                        }
+
                         yield return null;              
                     }
                     else if (yNoise < shallowSeaEnd)
@@ -63,6 +77,20 @@ public class HexMap : MonoBehaviour
                         Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         Hex.tag = "Shallow Sea";
                         Hex.transform.SetParent(parent.transform);  
+
+                        Collider[] colliders = Physics.OverlapBox(Hex.transform.position, Hex.transform.localScale / 2);
+
+                        foreach (Collider collider in colliders) 
+                        {
+                            if (collider.CompareTag("Barrier")) 
+                            {
+                                
+                            } else {
+                                Destroy(Hex);
+                                print("Shallow Sea Destroyed");
+                            }
+                        }
+
                         yield return null;
                     }
                     else if (yNoise < sandyEnd)
@@ -70,7 +98,20 @@ public class HexMap : MonoBehaviour
                         GameObject Hex = Instantiate(sand);
                         Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         Hex.tag = "Sand";
-                        Hex.transform.SetParent(parent.transform);  
+                        Hex.transform.SetParent(parent.transform); 
+
+                        Collider[] colliders = Physics.OverlapBox(Hex.transform.position, Hex.transform.localScale / 2);
+
+                        foreach (Collider collider in colliders) 
+                        {
+                            if (collider.CompareTag("Barrier")) 
+                            {
+                                
+                            } else {
+                                Destroy(Hex);
+                                print("Sand Destroyed");
+                            }
+                        } 
 
                         placeCacti(tileXOffset, tileZOffset, x, z);
 
@@ -82,6 +123,19 @@ public class HexMap : MonoBehaviour
                         Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         Hex.tag = "Plains";
                         Hex.transform.SetParent(parent.transform);  
+
+                        Collider[] colliders = Physics.OverlapBox(Hex.transform.position, Hex.transform.localScale / 2);
+
+                        foreach (Collider collider in colliders) 
+                        {
+                            if (collider.CompareTag("Barrier")) 
+                            {
+                                
+                            } else {
+                                Destroy(Hex);
+                                print("Plains Destroyed");
+                            }
+                        }
                         
                         placeBush(tileXOffset, tileZOffset, x, z);
                         placeTree(tileXOffset, tileZOffset, x, z);
@@ -95,6 +149,19 @@ public class HexMap : MonoBehaviour
                         Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         Hex.tag = "Mountains";
                         Hex.transform.SetParent(parent.transform);  
+
+                        Collider[] colliders = Physics.OverlapBox(Hex.transform.position, Hex.transform.localScale / 2);
+
+                        foreach (Collider collider in colliders) 
+                        {
+                            if (collider.CompareTag("Barrier")) 
+                            {
+                                
+                            } else {
+                                Destroy(Hex);
+                                print("Mountains Destroyed");
+                            }
+                        }
 
                         placeBoulder(tileXOffset, tileZOffset, x, z);
                         placeRock(tileXOffset, tileZOffset, x, z);
