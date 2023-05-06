@@ -5,20 +5,24 @@ public class HexMap : MonoBehaviour
 {
     //Parent Game Object
     public GameObject parent;
+
     // Hex Tiles
     public GameObject deepSea;
     public GameObject shallowSea;
     public GameObject sand;
     public GameObject plains;
     public GameObject mountains;
+
     //Terrain Game Objects
     public GameObject bush;
     public GameObject tree;
     public GameObject rock;
     public GameObject cacti;
     public GameObject boulder;
+
     //Terrain Game Object Control Variables
     // Terrain Starter and Ender Variables (Lowest Terrain to Highest Terrain)
+    public bool generateTerrainObjects = true;
     public float deepSeaEnd;
     public float shallowSeaEnd;
     public float sandyEnd;
@@ -27,26 +31,38 @@ public class HexMap : MonoBehaviour
     // Map Vars
     public int mapWidth = 25;
     public int mapHeight = 12;
+
     // Noise Adjustment Variables
     public float scale = 1.4f;
     public float tileXOffset = 34.5f;
     public float tileZOffset = 30f;
+
+    //Script References
+    //public NoiseManager noiseManager;
+
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(createHexTileMap());
     }
+    
     IEnumerator createHexTileMap()
     {
         float xPos = Random.Range(-10000f, 10000f);
         float zPos = Random.Range(-10000f, 10000f);
+
         for (int x = 0; x <= mapWidth; x++)
         {
             for (int z = 0; z <= mapHeight; z++)
             {
+                //float yNoise = noiseManager.GetNoiseValue(x, z);
+                
                 float sampleX = (x + xPos);
                 float sampleZ = (z + zPos);
-                float yNoise = Mathf.PerlinNoise(sampleX * 0.05f, sampleZ * 0.05f / scale);
+
+                //Soft Terrain uses a value of 0.06f
+                float yNoise = Mathf.PerlinNoise(sampleX * 0.07f, sampleZ * 0.07f);
+                
                 if (yNoise >= -5)
                 {
                     if (yNoise < deepSeaEnd)
@@ -113,7 +129,10 @@ public class HexMap : MonoBehaviour
                             }
                         } 
 
-                        placeCacti(tileXOffset, tileZOffset, x, z);
+                        if (generateTerrainObjects == true)
+                        {
+                            placeCacti(tileXOffset, tileZOffset, x, z);
+                        }
 
                         yield return null;
                     }
@@ -137,9 +156,12 @@ public class HexMap : MonoBehaviour
                             }
                         }
                         
-                        placeBush(tileXOffset, tileZOffset, x, z);
-                        placeTree(tileXOffset, tileZOffset, x, z);
-                        placeRock(tileXOffset, tileZOffset, x, z);
+                        if (generateTerrainObjects == true)
+                        {
+                            placeBush(tileXOffset, tileZOffset, x, z);
+                            placeTree(tileXOffset, tileZOffset, x, z);
+                            placeRock(tileXOffset, tileZOffset, x, z);
+                        }
                         
                         yield return null;
                     }
@@ -163,8 +185,11 @@ public class HexMap : MonoBehaviour
                             }
                         }
 
-                        placeBoulder(tileXOffset, tileZOffset, x, z);
-                        placeRock(tileXOffset, tileZOffset, x, z);
+                        if (generateTerrainObjects == true)
+                        {
+                            placeBoulder(tileXOffset, tileZOffset, x, z);
+                            placeRock(tileXOffset, tileZOffset, x, z);
+                        }
 
                         yield return null;
                     }
