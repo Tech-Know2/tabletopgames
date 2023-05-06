@@ -1,82 +1,112 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class HexMap : MonoBehaviour
 {
     //Parent Game Object
-     private GameObject parent;
+    public GameObject parent;
 
     // Hex Tiles
-    private GameObject deepSea;
-    private GameObject shallowSea;
-    private GameObject sand;
-    private GameObject plains;
-    private GameObject mountains;
+    public GameObject deepSea;
+    public GameObject shallowSea;
+    public GameObject sand;
+    public GameObject plains;
+    public GameObject mountains;
 
     //Terrain Game Objects
-    private GameObject bush;
-    private GameObject tree;
-    private GameObject rock;
-    private GameObject cacti;
-    private GameObject boulder;
+    public GameObject bush;
+    public GameObject tree;
+    public GameObject rock;
+    public GameObject cacti;
+    public GameObject boulder;
 
     //Terrain Game Object Control Variables
-
     // Terrain Starter and Ender Variables (Lowest Terrain to Highest Terrain)
-    private float deepSeaEnd;
-    private float shallowSeaEnd;
-    private float sandyEnd;
-    private float plainsEnd;
-    private float mountainsEnd;
-
+    public bool generateTerrainObjects = true;
+    public float deepSeaEnd;
+    public float shallowSeaEnd;
+    public float sandyEnd;
+    public float plainsEnd;
+    public float mountainsEnd;
     // Map Vars
-    private int mapWidth = 25;
-    private int mapHeight = 12;
+    public int mapWidth = 25;
+    public int mapHeight = 12;
 
     // Noise Adjustment Variables
-    private float scale = 1f;
-    private float tileXOffset = 34.5f;
-    private float tileZOffset = 30f;
+    public float scale = 1.4f;
+    public float tileXOffset = 34.5f;
+    public float tileZOffset = 30f;
+
+    //Script References
+    //public NoiseManager noiseManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        parent = new GameObject("HexMap");
         StartCoroutine(createHexTileMap());
     }
-
+    
     IEnumerator createHexTileMap()
     {
         float xPos = Random.Range(-10000f, 10000f);
         float zPos = Random.Range(-10000f, 10000f);
 
-
         for (int x = 0; x <= mapWidth; x++)
         {
             for (int z = 0; z <= mapHeight; z++)
             {
+                //float yNoise = noiseManager.GetNoiseValue(x, z);
+                
                 float sampleX = (x + xPos);
                 float sampleZ = (z + zPos);
 
-                float yNoise = Mathf.PerlinNoise(sampleX * 0.05f, sampleZ * 0.05f);
-
-                if (yNoise >= -1)
+                //Soft Terrain uses a value of 0.06f
+                float yNoise = Mathf.PerlinNoise(sampleX * 0.07f, sampleZ * 0.07f);
+                
+                if (yNoise >= -5)
                 {
                     if (yNoise < deepSeaEnd)
                     {
                         GameObject Hex = Instantiate(deepSea);
                         Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         Hex.tag = "Deep Sea";
-                        Hex.transform.SetParent(parent.transform);
-                        yield return null;
+                        Hex.transform.SetParent(parent.transform); 
+                        
+                        Collider[] colliders = Physics.OverlapBox(Hex.transform.position, Hex.transform.localScale / 2);
+
+                        foreach (Collider collider in colliders) 
+                        {
+                            if (collider.CompareTag("Barrier")) 
+                            {
+                                
+                            } else {
+                                Destroy(Hex);
+                                print("Deep Sea Destroyed");
+                            }
+                        }
+
+                        yield return null;              
                     }
                     else if (yNoise < shallowSeaEnd)
                     {
                         GameObject Hex = Instantiate(shallowSea);
                         Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         Hex.tag = "Shallow Sea";
-                        Hex.transform.SetParent(parent.transform);
+                        Hex.transform.SetParent(parent.transform);  
+
+                        Collider[] colliders = Physics.OverlapBox(Hex.transform.position, Hex.transform.localScale / 2);
+
+                        foreach (Collider collider in colliders) 
+                        {
+                            if (collider.CompareTag("Barrier")) 
+                            {
+                                
+                            } else {
+                                Destroy(Hex);
+                                print("Shallow Sea Destroyed");
+                            }
+                        }
+
                         yield return null;
                     }
                     else if (yNoise < sandyEnd)
@@ -84,30 +114,82 @@ public class HexMap : MonoBehaviour
                         GameObject Hex = Instantiate(sand);
                         Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         Hex.tag = "Sand";
-                        Hex.transform.SetParent(parent.transform);
+                        Hex.transform.SetParent(parent.transform); 
 
-                        placeCacti(tileXOffset, tileZOffset, cacti, parent.transform, x, z);
+                        Collider[] colliders = Physics.OverlapBox(Hex.transform.position, Hex.transform.localScale / 2);
+
+                        foreach (Collider collider in colliders) 
+                        {
+                            if (collider.CompareTag("Barrier")) 
+                            {
+                                
+                            } else {
+                                Destroy(Hex);
+                                print("Sand Destroyed");
+                            }
+                        } 
+
+                        if (generateTerrainObjects == true)
+                        {
+                            placeCacti(tileXOffset, tileZOffset, x, z);
+                        }
+
+                        yield return null;
                     }
                     else if (yNoise < plainsEnd)
                     {
                         GameObject Hex = Instantiate(plains);
                         Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         Hex.tag = "Plains";
-                        Hex.transform.SetParent(parent.transform);
+                        Hex.transform.SetParent(parent.transform);  
+
+                        Collider[] colliders = Physics.OverlapBox(Hex.transform.position, Hex.transform.localScale / 2);
+
+                        foreach (Collider collider in colliders) 
+                        {
+                            if (collider.CompareTag("Barrier")) 
+                            {
+                                
+                            } else {
+                                Destroy(Hex);
+                                print("Plains Destroyed");
+                            }
+                        }
                         
-                        placeBushes(tileXOffset, tileZOffset, bush, parent.transform, x, z);
-                        placeTrees(tileXOffset, tileZOffset, tree, parent.transform, x, z);
-                        placeRocks(tileXOffset, tileZOffset, rock, parent.transform, x, z);
+                        if (generateTerrainObjects == true)
+                        {
+                            placeBush(tileXOffset, tileZOffset, x, z);
+                            placeTree(tileXOffset, tileZOffset, x, z);
+                            placeRock(tileXOffset, tileZOffset, x, z);
+                        }
+                        
+                        yield return null;
                     }
                     else if (yNoise < mountainsEnd)
                     {
                         GameObject Hex = Instantiate(mountains);
                         Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         Hex.tag = "Mountains";
-                        Hex.transform.SetParent(parent.transform);
+                        Hex.transform.SetParent(parent.transform);  
 
-                        placeBoulders(tileXOffset, tileZOffset, rock, parent.transform, x, z);
-                        placeRocks(tileXOffset, tileZOffset, rock, parent.transform, x, z);
+                        Collider[] colliders = Physics.OverlapBox(Hex.transform.position, Hex.transform.localScale / 2);
+
+                        foreach (Collider collider in colliders) 
+                        {
+                            if (collider.CompareTag("Barrier")) 
+                            {
+                                
+                            } else {
+                                Destroy(Hex);
+                                print("Mountains Destroyed");
+                            }
+                        }
+
+                        if (generateTerrainObjects == true)
+                        {
+                            placeBoulder(tileXOffset, tileZOffset, x, z);
+                            placeRock(tileXOffset, tileZOffset, x, z);
+                        }
 
                         yield return null;
                     }
@@ -116,284 +198,251 @@ public class HexMap : MonoBehaviour
         }
     }
 
-    IEnumerator placeCacti(float tileXOffset, float tileZOffset, GameObject cacti, Transform parentTransform, int x, int z)
+    void placeCacti(float tileXOffset, float tileZOffset, int x, int z)
     {
-        float cactiCount = Random.Range(3f, 9f);
-        Vector3 rayOrigin = new Vector3(x * tileXOffset, 100f, z * tileZOffset); // raise the raycast origin to a high altitude
+        float maxHeight = 0f;
+        int size = 0;
 
-        if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hitInfo, Mathf.Infinity, LayerMask.GetMask("Ground")))
+        float cactiCount = Random.Range(3f,9f);
+
+        Vector3 rayOrigin = new Vector3(x, 20f, z);
+        RaycastHit hitInfo;
+
+        if (Physics.Raycast(rayOrigin, Vector3.down, out hitInfo))
         {
-            float maxHeight = hitInfo.point.y;
-            Debug.Log("Raycast Works");
-
-            for (int i = 0; i < cactiCount; i++)
-            {
-                float maxMeshHeight = 1f;
-                MeshFilter meshFilter = cacti.GetComponent<MeshFilter>();
-                if (meshFilter != null)
-                {
-                    maxMeshHeight = meshFilter.mesh.bounds.size.y;
-                    Debug.Log(maxMeshHeight);
-                }
-
-                Vector3 cactiPosition = new Vector3(Random.Range(x * tileXOffset - tileXOffset / 2f, x * tileXOffset + tileXOffset / 2f),
-                                                    maxHeight,
-                                                    Random.Range(z * tileZOffset - tileZOffset / 2f, z * tileZOffset + tileZOffset / 2f));
-                Collider[] colliders = Physics.OverlapSphere(cactiPosition, 2f, LayerMask.GetMask("Ground", "Sand", "Deep Sea"));
-
-                if (colliders.Length == 0)
-                {
-                    GameObject cactiInstance = Instantiate(cacti, cactiPosition, Quaternion.identity, parentTransform);
-                    Debug.Log("Cacti Planted");
-                }
-                else
-                {
-                    bool canPlaceCacti = false;
-                    foreach (Collider collider in colliders)
-                    {
-                        if (collider.CompareTag("Sand") || collider.CompareTag("Ground"))
-                        {
-                            canPlaceCacti = true;
-                            break;
-                        }
-                        else if (collider.CompareTag("Deep Sea"))
-                        {
-                            Debug.Log("Cacti Destroyed");
-                            break;
-                        }
-                    }
-
-                    if (canPlaceCacti)
-                    {
-                        GameObject cactiInstance = Instantiate(cacti, cactiPosition, Quaternion.identity, parentTransform);
-                        Debug.Log("Cacti Planted");
-                    }
-                    else
-                    {
-                        Debug.Log("Void Cacti Destroyed");
-                    }
-                }
-            }
+            maxHeight = hitInfo.point.y;
+            print("Raycast Works");
         }
 
-        yield return null;
-    }
-
-    IEnumerator placeRocks(float tileXOffset, float tileZOffset, GameObject rock, Transform parentTransform, int x, int z)
-    {
-        Vector3 tileCenter = new Vector3(x * tileXOffset, 100f, z * tileZOffset);
-
-        if (Physics.Raycast(tileCenter + Vector3.up * 100f, Vector3.down, out RaycastHit hitInfo, 1000f))
+        for(int y = 0; y < cactiCount; y++)
         {
-            float maxHeight = hitInfo.point.y;
-
-            float rocksCount = Random.Range(3f, 9f);
-            for (int i = 0; i < rocksCount; i++)
-            {
-
-                float maxMeshHeight = 1f;
-                MeshFilter meshFilter = rock.GetComponent<MeshFilter>();
-                if (meshFilter != null)
-                {
-                    maxMeshHeight = meshFilter.mesh.bounds.size.y;
-                }
-
-                Vector3 rockPosition = new Vector3(Random.Range(tileCenter.x - tileXOffset / 2f, tileCenter.x + tileXOffset / 2f),
-                                                   maxHeight + maxMeshHeight / 2f,
-                                                   Random.Range(tileCenter.z - tileZOffset / 2f, tileCenter.z + tileZOffset / 2f));
-
-                Collider[] colliders = Physics.OverlapSphere(rockPosition, 2f);
-                bool canPlaceRock = true;
-
-                foreach (Collider collider in colliders)
-                {
-                    if (collider.CompareTag("Water"))
-                    {
-                        canPlaceRock = false;
-                        break;
-                    }
-                }
-
-                if (canPlaceRock)
-                {
-                    GameObject rockInstance = Instantiate(rock, rockPosition, Quaternion.identity, parentTransform);
-                    Debug.Log("Rocks Planted");
-                }
-                else
-                {
-                    Debug.Log("Rocks Destroyed");
-                }
-            }
-        }
-
-        yield return null;
-    }
-
-
-    IEnumerator placeBushes(float tileXOffset, float tileZOffset, GameObject bush, Transform parentTransform, int x, int z)
-    {
-        Vector3 rayOrigin = new Vector3(x, 100f, z);
-        if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hitInfo))
-        {
-            float maxHeight = hitInfo.point.y;
-            float bushCount = Random.Range(3f, 12f);
-
-            for (int y = 0; y < bushCount; y++)
-            {
-                MeshFilter meshFilter = bush.GetComponent<MeshFilter>();
-                float maxMeshHeight = 1f;
-
-                if (meshFilter != null)
-                {
-                    maxMeshHeight = meshFilter.mesh.bounds.size.y;
-                }
-
-                Vector3 bushPosition = new Vector3(Random.Range(x * tileXOffset - tileXOffset / 2, x * tileXOffset + tileXOffset / 2),
-                                                   maxHeight + maxMeshHeight / 2,
-                                                   Random.Range(z * tileZOffset - tileZOffset / 2, z * tileZOffset + tileZOffset / 2));
-
-                Collider[] colliders = Physics.OverlapSphere(bushPosition, 2f);
-
-                bool canPlaceBush = true;
-                foreach (Collider collider in colliders)
-                {
-                    if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand"))
-                    {
-                        canPlaceBush = false;
-                        break;
-                    }
-                }
-
-                if (canPlaceBush)
-                {
-                    GameObject bushInstance = Instantiate(bush, bushPosition, Quaternion.identity, parentTransform);
-
-                    if (colliders.Length == 0 || colliders[0].CompareTag("Plains"))
-                    {
-                        Debug.Log("Bush placed correctly");
-                    }
-                    else
-                    {
-                        Destroy(bushInstance);
-                        Debug.Log("Bush removed due to incorrect placement");
-                    }
-                }
-                else
-                {
-                    Debug.Log("Bush removed due to incorrect placement");
-                }
-            }
-        }
-
-        yield return null;
-    }
-
-    IEnumerator placeTrees(float tileXOffset, float tileZOffset, GameObject tree, Transform parentTransform, int x, int z)
-    {
-        float treeCount = Random.Range(3f, 10f);
-
-        for (int y = 0; y < treeCount; y++)
-        {
-            MeshFilter meshFilter = tree.GetComponent<MeshFilter>();
+            MeshFilter meshFilter = GetComponent<MeshFilter>();
             float maxMeshHeight = 1f;
 
-            if (meshFilter != null)
+            if(meshFilter != null) {
+                maxMeshHeight = meshFilter.mesh.bounds.size.y;
+                print(maxMeshHeight);
+            }
+
+            GameObject Cacti = Instantiate(cacti);
+            Cacti.transform.position = new Vector3(Random.Range(x*tileXOffset - tileXOffset/2, x*tileXOffset + tileXOffset/2), maxHeight + maxMeshHeight/2, Random.Range(z*tileZOffset - tileZOffset/2, z*tileZOffset + tileZOffset/2));
+            print("Cacti Planted");
+            Cacti.transform.SetParent(parent.transform);  
+
+            Collider[] colliders = Physics.OverlapSphere(Cacti.transform.position, 2f);
+            size = colliders.Length;
+
+            foreach (Collider collider in colliders) 
+            {
+                if (collider.CompareTag("Sand")) {
+                    print("Cacti Placed Correctly");
+                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Plains") || collider.CompareTag("Mountains")){
+                    Destroy(Cacti);
+                    print("Cacti Destroyed");
+                } else if (size == 0)
+                {
+                    Destroy(Cacti);
+                    print("Void Cacti Destroyed");
+                }
+            }
+        }
+    }
+
+    void placeBush (float tileXOffset, float tileZOffset, int x, int z)
+    {
+        float maxHeight = 1f;
+        int size = 0;
+        float bushCount = Random.Range(3f,12f);
+
+        Vector3 rayOrigin = new Vector3(x, 20f, z);
+        RaycastHit hitInfo;
+
+        if (Physics.Raycast(rayOrigin, Vector3.down, out hitInfo))
+        {
+            maxHeight = hitInfo.point.y;
+            print("Raycast Works");
+        }
+        for(int y = 0; y < bushCount; y++)
+        {
+            MeshFilter meshFilter = GetComponent<MeshFilter>();
+            float maxMeshHeight = 1f;
+            if(meshFilter != null) 
             {
                 maxMeshHeight = meshFilter.mesh.bounds.size.y;
+                print(maxMeshHeight);
             }
-
-            Vector3 treePosition = new Vector3(Random.Range(x * tileXOffset - tileXOffset / 2, x * tileXOffset + tileXOffset / 2),
-                                               0,
-                                               Random.Range(z * tileZOffset - tileZOffset / 2, z * tileZOffset + tileZOffset / 2));
-            treePosition += new Vector3(0, maxMeshHeight / 2, 0);
-
-            Collider[] colliders = Physics.OverlapSphere(treePosition, 2f);
-            int size = colliders.Length;
-
-            bool canPlaceTree = true;
-            foreach (Collider collider in colliders)
+                            
+            GameObject Bush = Instantiate(bush);
+            Bush.transform.position = new Vector3(Random.Range(x*tileXOffset - tileXOffset/2, x*tileXOffset + tileXOffset/2), maxHeight + maxMeshHeight/2, Random.Range(z*tileZOffset - tileZOffset/2, z*tileZOffset + tileZOffset/2));
+            print("Bush Planted");
+            Bush.transform.SetParent(parent.transform); 
+             
+            Collider[] colliders = Physics.OverlapSphere(Bush.transform.position, 2f);
+            size = colliders.Length;
+            foreach (Collider collider in colliders) 
             {
-                if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand"))
+                if (collider.CompareTag("Plains")) 
                 {
-                    canPlaceTree = false;
-                    break;
+                    print("Bush Placed Correctly");
+                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand"))
+                {
+                    Destroy(Bush);
+                    print("Bush Destroyed");
+                } else if (size == 0)
+                {
+                    Destroy(Bush);
+                    print("Void Bush Destroyed");
                 }
             }
-
-            if (canPlaceTree)
-            {
-                GameObject treeInstance = Instantiate(tree, treePosition, Quaternion.identity, parentTransform);
-                print("Tree Planted");
-            }
-            else
-            {
-                print("Tree Destroyed");
-            }
         }
-        yield return null;
     }
 
-    IEnumerator placeBoulders(float tileXOffset, float tileZOffset, GameObject boulder, Transform parentTransform, int x, int z)
+    void placeTree (float tileXOffset, float tileZOffset, int x, int z)
     {
-        float boulderCount = Random.Range(3f, 4f);
-        Vector3 rayOrigin = new Vector3(x * tileXOffset, 100f, z * tileZOffset); // raise the raycast origin to a high altitude
+        float maxHeight = 1f;
+        int size = 0;
+                
+        float treeCount = Random.Range(3f,10f);
 
-        if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hitInfo, Mathf.Infinity, LayerMask.GetMask("Ground")))
+        Vector3 rayOrigin = new Vector3(x, 20f, z);
+        RaycastHit hitInfo;
+
+        if (Physics.Raycast(rayOrigin, Vector3.down, out hitInfo))
         {
-            float maxHeight = hitInfo.point.y;
-            Debug.Log("Raycast Works");
-
-            for (int i = 0; i < boulderCount; i++)
+            maxHeight = hitInfo.point.y;
+            print("Raycast Works");
+        }
+        for(int y = 0; y < treeCount; y++)
+        {
+            MeshFilter meshFilter = GetComponent<MeshFilter>();
+            float maxMeshHeight = 1f;
+            if(meshFilter != null) 
             {
-                float maxMeshHeight = 1f;
-                MeshFilter meshFilter = boulder.GetComponent<MeshFilter>();
-                if (meshFilter != null)
-                {
-                    maxMeshHeight = meshFilter.mesh.bounds.size.y;
-                    Debug.Log(maxMeshHeight);
-                }
+                maxMeshHeight = meshFilter.mesh.bounds.size.y;
+                print(maxMeshHeight);
+            }
+                            
+            GameObject Tree = Instantiate(tree);
+            Tree.transform.position = new Vector3(Random.Range(x*tileXOffset - tileXOffset/2, x*tileXOffset + tileXOffset/2), maxHeight + maxMeshHeight/2, Random.Range(z*tileZOffset - tileZOffset/2, z*tileZOffset + tileZOffset/2));
+            print("Tree Planted");
+            Tree.transform.SetParent(parent.transform);  
 
-                Vector3 boulderPosition = new Vector3(Random.Range(x * tileXOffset - tileXOffset / 2f, x * tileXOffset + tileXOffset / 2f),
-                                                    maxHeight + maxMeshHeight / 2f,
-                                                    Random.Range(z * tileZOffset - tileZOffset / 2f, z * tileZOffset + tileZOffset / 2f));
-                Collider[] colliders = Physics.OverlapSphere(boulderPosition, maxMeshHeight, LayerMask.GetMask("Mountains", "Deep Sea", "Shallow Sea", "Sand"));
-
-                if (colliders.Length == 0)
+            Collider[] colliders = Physics.OverlapSphere(Tree.transform.position, 2f);
+            size = colliders.Length;
+            foreach (Collider collider in colliders) 
+            {
+                if (collider.CompareTag("Plains")) 
                 {
-                    GameObject boulderInstance = Instantiate(boulder, boulderPosition, Quaternion.identity, parentTransform);
-                    Debug.Log("Boulder Placed");
-                }
-                else
+                    print("Tree Placed Correctly");
+                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand"))
                 {
-                    bool canPlaceBoulder = false;
-                    foreach (Collider collider in colliders)
-                    {
-                        if (collider.CompareTag("Mountains"))
-                        {
-                            canPlaceBoulder = true;
-                            break;
-                        }
-                        else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand"))
-                        {
-                            Debug.Log("Boulder Destroyed");
-                            break;
-                        }
-                    }
-
-                    if (canPlaceBoulder)
-                    {
-                        GameObject boulderInstance = Instantiate(boulder, boulderPosition, Quaternion.identity, parentTransform);
-                        Debug.Log("Boulder Placed");
-                    }
-                    else
-                    {
-                        Debug.Log("Void Boulder Destroyed");
-                    }
+                    Destroy(Tree);
+                    print("Tree Destroyed");
+                } else if (size == 0)
+                {
+                    Destroy(Tree);
+                    print("Void Tree Destroyed");
                 }
             }
         }
-
-        yield return null;
     }
 
+    void placeRock (float tileXOffset, float tileZOffset, int x, int z)
+    {
+        float maxHeight = 1f;
+        int size = 0;
+                
+        float rockCount = Random.Range(3f,10f);
+
+        Vector3 rayOrigin = new Vector3(x, 20f, z);
+        RaycastHit hitInfo;
+
+        if (Physics.Raycast(rayOrigin, Vector3.down, out hitInfo))
+        {
+            maxHeight = hitInfo.point.y;
+            print("Raycast Works");
+        }
+        for(int y = 0; y < rockCount; y++)
+        {
+            MeshFilter meshFilter = GetComponent<MeshFilter>();
+            float maxMeshHeight = 1f;
+            if(meshFilter != null) 
+            {
+                maxMeshHeight = meshFilter.mesh.bounds.size.y;
+                print(maxMeshHeight);
+            }
+                            
+            GameObject Rock = Instantiate(rock);
+            Rock.transform.position = new Vector3(Random.Range(x*tileXOffset - tileXOffset/2, x*tileXOffset + tileXOffset/2), maxHeight + maxMeshHeight/2, Random.Range(z*tileZOffset - tileZOffset/2, z*tileZOffset + tileZOffset/2));
+            print("Tree Planted");
+            Rock.transform.SetParent(parent.transform);  
+
+            Collider[] colliders = Physics.OverlapSphere(Rock.transform.position, 2f);
+            size = colliders.Length;
+            foreach (Collider collider in colliders) 
+            {
+                if (collider.CompareTag("Plains")) 
+                {
+                    print("Rock Placed Correctly");
+                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand"))
+                {
+                    Destroy(Rock);
+                    print("Rock Destroyed");
+                } else if (size == 0)
+                {
+                    Destroy(Rock);
+                    print("Void Rock Destroyed");
+                }
+            }
+        }
+    }
+
+    void placeBoulder(float tileXOffset, float tileZOffset, int x, int z)
+    {
+        float maxHeight = 0f;
+        int size = 0;
+
+        float boulderCount = Random.Range(3f,4f);
+
+        Vector3 rayOrigin = new Vector3(x, 20f, z);
+        RaycastHit hitInfo;
+        if (Physics.Raycast(rayOrigin, Vector3.down, out hitInfo))
+        {
+            maxHeight = hitInfo.point.y;
+            print("Raycast Works");
+        }
+        for(int y = 0; y < boulderCount; y++)
+        {
+            MeshFilter meshFilter = GetComponent<MeshFilter>();
+            float maxMeshHeight = 1f;
+            if(meshFilter != null) 
+            {
+                maxMeshHeight = meshFilter.mesh.bounds.size.y;
+                print(maxMeshHeight);
+            }
+                            
+            GameObject Boulder = Instantiate(boulder);
+            Boulder.transform.position = new Vector3(Random.Range(x*tileXOffset - tileXOffset/2, x*tileXOffset + tileXOffset/2), maxHeight + maxMeshHeight/2, Random.Range(z*tileZOffset - tileZOffset/2, z*tileZOffset + tileZOffset/2));
+            print("Boulder Placed");
+            Boulder.transform.SetParent(parent.transform); 
+
+            Collider[] colliders = Physics.OverlapSphere(Boulder.transform.position, maxMeshHeight);
+            size = colliders.Length;
+            foreach (Collider collider in colliders) 
+            {
+                if (collider.CompareTag("Mountains")) 
+                {
+                    print("Boulder Placed Correctly");
+                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand"))
+                {
+                    Destroy(Boulder);
+                    print("Boulder Destroyed");
+                } else if (size == 0)
+                {
+                    Destroy(Boulder);
+                    print("Void Boulder Destroyed");
+                }
+            }
+        }
+    }
 }
