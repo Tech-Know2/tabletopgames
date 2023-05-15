@@ -8,6 +8,8 @@ public class Tech : ScriptableObject
     public string techName;
     public string description;
     public string techType;
+    public string techColor;
+    public int techEra;
     
     public int cost;
     public GameObject previousTech;

@@ -16,6 +16,8 @@ MonoBehaviour:
   description: Provides the user with the ability to create and establish cities
     and settlements.
   techType: Settlement
+  techColor: '#808080'
+  techEra: 1
   cost: 1
   previousTech: {fileID: 0}
   techCards: []
