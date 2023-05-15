@@ -10,29 +10,22 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b214d7cb84762544eba4738d12acc8e9, type: 3}
-  m_Name: Humble Abode
+  m_Name: Democracy
   m_EditorClassIdentifier: 
-  cardName: Humble Abode
-  description: Convert one of your starter basic soldier units into a city.
-  cardCategory: Settlement
-  cardColor: '#808080'
-  cardEra: 1
+  cardName: Democracy
+  description: Creates a government following this structure.
+  cardCategory: Academic and Religious
+  cardColor: '#FAC710'
+  cardEra: 2
   art: {fileID: 0}
-  cardNameHolder: {fileID: 0}
-  cardDescriptionHolder: {fileID: 0}
-  cardCategoryHolder: {fileID: 0}
-  cardBackingHolder: {fileID: 0}
-  cardEraHolder: {fileID: 0}
-  cardImageHolder: {fileID: 0}
-  isGovernmentCard: 0
+  isGovernmentCard: 1
   isAllianceCard: 0
   isDeclareWarCard: 0
   isPeaceTreatyCard: 0
-  isPurchasable: 1
-  createsBuildings: 1
+  createsBuildings: 0
   createdUnits: 0
-  governmentType: 
-  government: {fileID: 0}
+  governmentType: Democracy
+  government: {fileID: 11400000, guid: b0a7421c93c53e7469aea41655aecaef, type: 2}
   governmentAlliance: 
   governmentWarDecleration: 
   goldEffect: 0
