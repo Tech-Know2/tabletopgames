@@ -17,19 +17,41 @@ public class Unit : ScriptableObject
     public int silverCostPerTurn;
     public int goldCostPerTurn;
     public int foodCostPerTurn;
+    public int populationCost;
+
+    //Where They Are Produced (Locations)
+    public bool requiresTrainingHall;
+    public bool requiresBarracks;
+    public bool requiresPort;
+    public bool requiresChurch;
+    public bool requiresDiplomatTrainingFacility;
+    public bool requiresNavalAcademy;
+    public bool requiresSiegeWorkshop;
 
     //Unit Stats
     public int stamina;
     public int attack;
     public int defense;
+    public bool isNaval;
     public bool isRanged;
     public int range;
     public bool isSiege;
+    public bool isPedestalMountable;
+    public bool isADiplomat;
+    public bool isReligious;
+    public int religiousStrength;
 
     //Unit Backend Information and Requierments
     public GameObject unitTech;
+    public bool requiresArmor;
+    public bool requiresSword;
+    public bool requiresBow;
+
+    //Variables to Manage Unit Upgrades
     public GameObject primaryUnitForm;
-    public List<GameObject> secondaryUnitForm = new List<GameObject>();
-    public List<GameObject> finalUnitForm = new List<GameObject>();
-    public List<GameObject> mergeableUnitCombos = new List<GameObject>();
+    public GameObject upgradedForm;
+
+    //Variables to Manage Unit Merges
+    public GameObject mergeUnitRequierment;
+    public GameObject mergedunit;
 }

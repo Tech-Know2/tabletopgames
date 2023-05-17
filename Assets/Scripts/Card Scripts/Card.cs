@@ -12,8 +12,12 @@ public class Card : ScriptableObject
     public string description;
     public string cardCategory;
     public string cardColor;
+    public string cardTech;
     public int cardEra;
     public Sprite art;
+
+    //Multiplayer and Auction House Vars
+    public string originalPlayer;
 
     //Variables to Control and Set the Card Displays With
     public TextMeshProUGUI cardNameHolder; 
@@ -25,6 +29,7 @@ public class Card : ScriptableObject
 
     //Bools for card related logic
     public bool isGovernmentCard;
+    public bool isGovernmentWarSupportBoostCard;
     public bool isAllianceCard;
     public bool isDeclareWarCard;
     public bool isPeaceTreatyCard;
@@ -34,7 +39,7 @@ public class Card : ScriptableObject
     public bool createsBuildings;
     public bool createdUnits;
 
-    //Choose the Government if it is a Government Card
+    //Choose the Government if it is a Government Card or Government Related Card
     public string governmentType;
     public Government government;
 
@@ -47,7 +52,7 @@ public class Card : ScriptableObject
     //Card Effects / Costs
     public int goldEffect;
     public int silverEffect;
-    public int empireEffect;
+    public int warSupportAgainstGovernmentEffect;
     public int wearinessEffect;
     public int loyaltySabotageEffect;
     public int religionEffect;
