@@ -4,201 +4,227 @@ using UnityEngine;
 public class HexMap : MonoBehaviour
 {
     //Parent Game Object
-    public GameObject parent;
+    [SerializeField] private GameObject parent;
 
     // Hex Tiles
-    public GameObject deepSea;
-    public GameObject shallowSea;
-    public GameObject sand;
-    public GameObject plains;
-    public GameObject mountains;
+    [SerializeField] private GameObject deepSea;
+    [SerializeField] private GameObject shallowSea;
+    [SerializeField] private GameObject sand;
+    [SerializeField] private GameObject plains;
+    [SerializeField] private GameObject mountains;
 
-    //Terrain Game Objects
-    public GameObject bush;
-    public GameObject tree;
-    public GameObject rock;
-    public GameObject cacti;
-    public GameObject boulder;
+    // Terrain Game Objects
+    [SerializeField] private GameObject bush;
+    [SerializeField] private GameObject tree;
+    [SerializeField] private GameObject rock;
+    [SerializeField] private GameObject cacti;
+    [SerializeField] private GameObject boulder;
 
-    //Terrain Game Object Control Variables
+    // Terrain Game Object Control Variables
     // Terrain Starter and Ender Variables (Lowest Terrain to Highest Terrain)
-    public bool generateTerrainObjects = true;
-    public float deepSeaEnd;
-    public float shallowSeaEnd;
-    public float sandyEnd;
-    public float plainsEnd;
-    public float mountainsEnd;
+    [SerializeField] private bool generateTerrainObjects = true;
+    [SerializeField] private float deepSeaEnd;
+    [SerializeField] private float shallowSeaEnd;
+    [SerializeField] private float sandyEnd;
+    [SerializeField] private float plainsEnd;
+    [SerializeField] private float mountainsEnd;
+
     // Map Vars
-    public int mapWidth = 25;
-    public int mapHeight = 12;
+    [SerializeField] private int mapWidth = 25;
+    [SerializeField] private int mapHeight = 12;
+    [SerializeField] private int mapRadius = 5;
 
     // Noise Adjustment Variables
-    public float scale = 1.4f;
-    public float tileXOffset = 34.5f;
-    public float tileZOffset = 30f;
+    [SerializeField] private float scale = 1.4f;
+    [SerializeField] private float tileXOffset = 34.5f;
+    [SerializeField] private float tileZOffset = 30f;
+
+    private Vector3[] hexDirections = {
+        new Vector3(1, 0, 0),
+        new Vector3(0.5f, 0, Mathf.Sqrt(3) / 2),
+        new Vector3(-0.5f, 0, Mathf.Sqrt(3) / 2),
+        new Vector3(-1, 0, 0),
+        new Vector3(-0.5f, 0, -Mathf.Sqrt(3) / 2),
+        new Vector3(0.5f, 0, -Mathf.Sqrt(3) / 2)
+    };
 
     //Script References
     //public NoiseManager noiseManager;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        StartCoroutine(createHexTileMap());
+        StartCoroutine(CreateHexTileMap());
     }
-    
-    IEnumerator createHexTileMap()
+
+    private IEnumerator CreateHexTileMap()
     {
-        float xPos = Random.Range(-10000f, 10000f);
-        float zPos = Random.Range(-10000f, 10000f);
+        float xOffset = Random.Range(-10000f, 10000f);
+        float zOffset = Random.Range(-10000f, 10000f);
 
-        for (int x = 0; x <= mapWidth; x++)
+        for (int q = -mapRadius; q <= mapRadius; q++)
         {
-            for (int z = 0; z <= mapHeight; z++)
+            int r1 = Mathf.Max(-mapRadius, -q - mapRadius);
+            int r2 = Mathf.Min(mapRadius, -q + mapRadius);
+            for (int r = r1; r <= r2; r++)
             {
-                //float yNoise = noiseManager.GetNoiseValue(x, z);
-                
-                float sampleX = (x + xPos);
-                float sampleZ = (z + zPos);
+                float x = q * tileXOffset * 1.5f;
+                float z = (r + q * 0.5f) * tileZOffset * Mathf.Sqrt(3);
 
-                //Soft Terrain uses a value of 0.06f
-                float yNoise = Mathf.PerlinNoise(sampleX * 0.07f, sampleZ * 0.07f);
-                
+                float sampleX = (x + xOffset) * scale;
+                float sampleZ = (z + zOffset) * scale;
+
+                float yNoise = Mathf.PerlinNoise(sampleX, sampleZ);
+
                 if (yNoise >= -5)
                 {
-                    if (yNoise < deepSeaEnd)
+                    TerrainType terrainType = DetermineTerrainType(yNoise);
+                    GameObject hexTile = InstantiateTerrain(terrainType, x, z);
+
+                    if (!CheckCollision(hexTile))
                     {
-                        GameObject Hex = Instantiate(deepSea);
-                        Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
-                        Hex.tag = "Deep Sea";
-                        Hex.transform.SetParent(parent.transform); 
-                        
-                        Collider[] colliders = Physics.OverlapBox(Hex.transform.position, Hex.transform.localScale / 2);
-
-                        foreach (Collider collider in colliders) 
+                        if (terrainType != TerrainType.DeepSea && generateTerrainObjects)
                         {
-                            if (collider.CompareTag("Barrier")) 
-                            {
-                                
-                            } else {
-                                Destroy(Hex);
-                                print("Deep Sea Destroyed");
-                            }
+                            PlaceTerrainObjects(tileXOffset, tileZOffset, x, z, terrainType);
                         }
-
-                        yield return null;              
                     }
-                    else if (yNoise < shallowSeaEnd)
+                    else
                     {
-                        GameObject Hex = Instantiate(shallowSea);
-                        Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
-                        Hex.tag = "Shallow Sea";
-                        Hex.transform.SetParent(parent.transform);  
-
-                        Collider[] colliders = Physics.OverlapBox(Hex.transform.position, Hex.transform.localScale / 2);
-
-                        foreach (Collider collider in colliders) 
-                        {
-                            if (collider.CompareTag("Barrier")) 
-                            {
-                                
-                            } else {
-                                Destroy(Hex);
-                                print("Shallow Sea Destroyed");
-                            }
-                        }
-
-                        yield return null;
-                    }
-                    else if (yNoise < sandyEnd)
-                    {
-                        GameObject Hex = Instantiate(sand);
-                        Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
-                        Hex.tag = "Sand";
-                        Hex.transform.SetParent(parent.transform); 
-
-                        Collider[] colliders = Physics.OverlapBox(Hex.transform.position, Hex.transform.localScale / 2);
-
-                        foreach (Collider collider in colliders) 
-                        {
-                            if (collider.CompareTag("Barrier")) 
-                            {
-                                
-                            } else {
-                                Destroy(Hex);
-                                print("Sand Destroyed");
-                            }
-                        } 
-
-                        if (generateTerrainObjects == true)
-                        {
-                            placeCacti(tileXOffset, tileZOffset, x, z);
-                        }
-
-                        yield return null;
-                    }
-                    else if (yNoise < plainsEnd)
-                    {
-                        GameObject Hex = Instantiate(plains);
-                        Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
-                        Hex.tag = "Plains";
-                        Hex.transform.SetParent(parent.transform);  
-
-                        Collider[] colliders = Physics.OverlapBox(Hex.transform.position, Hex.transform.localScale / 2);
-
-                        foreach (Collider collider in colliders) 
-                        {
-                            if (collider.CompareTag("Barrier")) 
-                            {
-                                
-                            } else {
-                                Destroy(Hex);
-                                print("Plains Destroyed");
-                            }
-                        }
-                        
-                        if (generateTerrainObjects == true)
-                        {
-                            placeBush(tileXOffset, tileZOffset, x, z);
-                            placeTree(tileXOffset, tileZOffset, x, z);
-                            placeRock(tileXOffset, tileZOffset, x, z);
-                        }
-                        
-                        yield return null;
-                    }
-                    else if (yNoise < mountainsEnd)
-                    {
-                        GameObject Hex = Instantiate(mountains);
-                        Hex.transform.position = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
-                        Hex.tag = "Mountains";
-                        Hex.transform.SetParent(parent.transform);  
-
-                        Collider[] colliders = Physics.OverlapBox(Hex.transform.position, Hex.transform.localScale / 2);
-
-                        foreach (Collider collider in colliders) 
-                        {
-                            if (collider.CompareTag("Barrier")) 
-                            {
-                                
-                            } else {
-                                Destroy(Hex);
-                                print("Mountains Destroyed");
-                            }
-                        }
-
-                        if (generateTerrainObjects == true)
-                        {
-                            placeBoulder(tileXOffset, tileZOffset, x, z);
-                            placeRock(tileXOffset, tileZOffset, x, z);
-                        }
-
-                        yield return null;
+                        Destroy(hexTile);
+                        PrintTerrainDestroyed(terrainType);
                     }
                 }
+
+                yield return null;
             }
         }
     }
 
-    void placeCacti(float tileXOffset, float tileZOffset, int x, int z)
+    private bool CheckCollision(GameObject hexTile)
+    {
+        Collider[] colliders = Physics.OverlapBox(hexTile.transform.position, hexTile.transform.localScale / 2);
+
+        foreach (Collider collider in colliders)
+        {
+            if (!collider.CompareTag("Barrier"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private TerrainType DetermineTerrainType(float yNoise)
+    {
+        if (yNoise < deepSeaEnd)
+        {
+            return TerrainType.DeepSea;
+        }
+        else if (yNoise < shallowSeaEnd)
+        {
+            return TerrainType.ShallowSea;
+        }
+        else if (yNoise < sandyEnd)
+        {
+            return TerrainType.Sand;
+        }
+        else if (yNoise < plainsEnd)
+        {
+            return TerrainType.Plains;
+        }
+        else if (yNoise < mountainsEnd)
+        {
+            return TerrainType.Mountains;
+        }
+
+        return TerrainType.Default;
+    }
+
+    private GameObject InstantiateTerrain(TerrainType terrainType, float x, float z)
+    {
+        GameObject hexTile = null;
+        switch (terrainType)
+        {
+            case TerrainType.DeepSea:
+                hexTile = Instantiate(deepSea);
+                hexTile.tag = "Deep Sea";
+                break;
+            case TerrainType.ShallowSea:
+                hexTile = Instantiate(shallowSea);
+                hexTile.tag = "Shallow Sea";
+                break;
+            case TerrainType.Sand:
+                hexTile = Instantiate(sand);
+                hexTile.tag = "Sand";
+                break;
+            case TerrainType.Plains:
+                hexTile = Instantiate(plains);
+                hexTile.tag = "Plains";
+                break;
+            case TerrainType.Mountains:
+                hexTile = Instantiate(mountains);
+                hexTile.tag = "Mountains";
+                break;
+            default:
+                break;
+        }
+
+        if (hexTile != null)
+        {
+            hexTile.transform.position = new Vector3(x, 0, z);
+            hexTile.transform.SetParent(parent.transform);
+        }
+
+        return hexTile;
+    }
+
+    private void PlaceTerrainObjects(float tileXOffset, float tileZOffset, float x, float z, TerrainType terrainType)
+    {
+        switch (terrainType)
+        {
+            case TerrainType.Sand:
+                placeCacti(tileXOffset, tileZOffset, x, z);
+                break;
+            case TerrainType.Plains:
+                placeBush(tileXOffset, tileZOffset, x, z);
+                placeTree(tileXOffset, tileZOffset, x, z);
+                placeRock(tileXOffset, tileZOffset, x, z);
+                break;
+            case TerrainType.Mountains:
+                placeBoulder(tileXOffset, tileZOffset, x, z);
+                placeRock(tileXOffset, tileZOffset, x, z);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void PrintTerrainDestroyed(TerrainType terrainType)
+    {
+        switch (terrainType)
+        {
+            case TerrainType.DeepSea:
+                print("Deep Sea Destroyed");
+                break;
+            case TerrainType.ShallowSea:
+                print("Shallow Sea Destroyed");
+                break;
+            case TerrainType.Sand:
+                print("Sand Destroyed");
+                break;
+            case TerrainType.Plains:
+                print("Plains Destroyed");
+                break;
+            case TerrainType.Mountains:
+                print("Mountains Destroyed");
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    private void placeCacti(float tileXOffset, float tileZOffset, float x, float z)
     {
         float maxHeight = 0f;
         int size = 0;
@@ -248,7 +274,7 @@ public class HexMap : MonoBehaviour
         }
     }
 
-    void placeBush (float tileXOffset, float tileZOffset, int x, int z)
+    private void placeBush (float tileXOffset, float tileZOffset, float x, float z)
     {
         float maxHeight = 1f;
         int size = 0;
@@ -297,7 +323,7 @@ public class HexMap : MonoBehaviour
         }
     }
 
-    void placeTree (float tileXOffset, float tileZOffset, int x, int z)
+    private void placeTree (float tileXOffset, float tileZOffset, float x, float z)
     {
         float maxHeight = 1f;
         int size = 0;
@@ -347,7 +373,7 @@ public class HexMap : MonoBehaviour
         }
     }
 
-    void placeRock (float tileXOffset, float tileZOffset, int x, int z)
+    private void placeRock (float tileXOffset, float tileZOffset, float x, float z)
     {
         float maxHeight = 1f;
         int size = 0;
@@ -397,7 +423,7 @@ public class HexMap : MonoBehaviour
         }
     }
 
-    void placeBoulder(float tileXOffset, float tileZOffset, int x, int z)
+    private void placeBoulder(float tileXOffset, float tileZOffset, float x, float z)
     {
         float maxHeight = 0f;
         int size = 0;
@@ -444,5 +470,15 @@ public class HexMap : MonoBehaviour
                 }
             }
         }
+    }
+
+    public enum TerrainType
+    {
+        Default,
+        DeepSea,
+        ShallowSea,
+        Sand,
+        Plains,
+        Mountains
     }
 }
