@@ -11,11 +11,11 @@ public class PlayerScript : MonoBehaviour
     //Era Turn Deciding Variables
     public int eraOneLength;
     public int eraTwoLength;
-    public int eraThreeLength;
 
     // Associate the script with our code so it can be called
     public Dealer dealer;
     public PlacementScript placementScript;
+    public EconomyManager economyManager;
 
     // Selected Card Game Object
     private GameObject selectedCard;
@@ -51,6 +51,9 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         checkEra();
+
+        economyManager.passedTurnCount = currentTurn;
+        economyManager.passedEraCount = currentEra;
 
         if (Input.GetMouseButtonDown(0)) // 0 represents the left mouse button
         {

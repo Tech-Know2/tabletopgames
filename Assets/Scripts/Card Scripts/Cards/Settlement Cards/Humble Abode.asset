@@ -16,8 +16,10 @@ MonoBehaviour:
   description: Convert one of your starter basic soldier units into a city.
   cardCategory: Settlement
   cardColor: '#808080'
+  cardTech: Settlements
   cardEra: 1
   art: {fileID: 0}
+  originalPlayer: 
   cardNameHolder: {fileID: 0}
   cardDescriptionHolder: {fileID: 0}
   cardCategoryHolder: {fileID: 0}
@@ -25,6 +27,7 @@ MonoBehaviour:
   cardEraHolder: {fileID: 0}
   cardImageHolder: {fileID: 0}
   isGovernmentCard: 0
+  isGovernmentWarSupportBoostCard: 0
   isAllianceCard: 0
   isDeclareWarCard: 0
   isPeaceTreatyCard: 0
@@ -35,9 +38,9 @@ MonoBehaviour:
   government: {fileID: 0}
   governmentAlliance: 
   governmentWarDecleration: 
-  goldEffect: 0
-  silverEffect: 0
-  empireEffect: 0
+  goldPerTurnEffect: 0
+  silverPerTurnEffect: 0
+  warSupportAgainstGovernmentEffect: 0
   wearinessEffect: 0
   loyaltySabotageEffect: 0
   religionEffect: 0

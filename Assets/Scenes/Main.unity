@@ -10476,7 +10476,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 902779765}
-  - component: {fileID: 902779766}
   m_Layer: 0
   m_Name: Economy and Society Variable Displays
   m_TagString: Untagged
@@ -10503,34 +10502,6 @@ Transform:
   m_Father: {fileID: 1363837391}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &902779766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 902779764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d815916c2ced3ae468569802b6288711, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentGold: 0
-  currentSilver: 0
-  currentWarWeariness: 0
-  currentLoyalty: 100
-  currentDemocraticWarSupport: 0
-  currentRepublicWarSupport: 0
-  currentTheocracyWarSupport: 0
-  currentFascistWarSupport: 0
-  currentCommunistWarSupport: 0
-  currentMonarchyWarSupport: 0
-  currentOligarchyWarSupport: 0
-  goldDisplay: {fileID: 774106163}
-  silverDisplay: {fileID: 1669654357}
-  warWearinessDisplay: {fileID: 0}
-  warSupportDisplay: {fileID: 0}
-  loyaltyDisplay: {fileID: 0}
 --- !u!1 &905922963
 GameObject:
   m_ObjectHideFlags: 0
@@ -12193,8 +12164,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: f30d9cc6328daa7428d57ac4bbb76246, type: 2}
-        m_TargetAssemblyTypeName: Tech, Assembly-CSharp
+      - m_Target: {fileID: 1066660282}
+        m_TargetAssemblyTypeName: TechDisplay, Assembly-CSharp
         m_MethodName: techResearch
         m_Mode: 1
         m_Arguments:
@@ -13787,7 +13758,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1150891622
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23686,6 +23657,7 @@ GameObject:
   - component: {fileID: 1972966342}
   - component: {fileID: 1972966344}
   - component: {fileID: 1972966345}
+  - component: {fileID: 1972966346}
   m_Layer: 0
   m_Name: Player and Camera Rig
   m_TagString: Untagged
@@ -23752,11 +23724,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentEra: 0
   currentTurn: 0
-  eraOneLength: 0
-  eraTwoLength: 0
-  eraThreeLength: 0
+  eraOneLength: 20
+  eraTwoLength: 40
   dealer: {fileID: 282579778}
   placementScript: {fileID: 1972966345}
+  economyManager: {fileID: 1972966346}
 --- !u!114 &1972966345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23770,6 +23742,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardBuildings: []
+--- !u!114 &1972966346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972966341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d815916c2ced3ae468569802b6288711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  passedTurnCount: 0
+  passedEraCount: 0
+  goldDisplay: {fileID: 774106163}
+  silverDisplay: {fileID: 1669654357}
+  warWearinessDisplay: {fileID: 0}
+  warSupportDisplay: {fileID: 0}
+  loyaltyDisplay: {fileID: 0}
+  turnCounterDisplay: {fileID: 768206820}
+  eraCounterDisplay: {fileID: 0}
 --- !u!1 &1973439577
 GameObject:
   m_ObjectHideFlags: 0

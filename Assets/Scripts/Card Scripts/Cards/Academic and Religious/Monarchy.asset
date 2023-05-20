@@ -16,21 +16,31 @@ MonoBehaviour:
   description: Creates a government following this structure.
   cardCategory: Academic and Religious
   cardColor: '#FAC710'
+  cardTech: Government
   cardEra: 2
   art: {fileID: 0}
+  originalPlayer: 
+  cardNameHolder: {fileID: 0}
+  cardDescriptionHolder: {fileID: 0}
+  cardCategoryHolder: {fileID: 0}
+  cardBackingHolder: {fileID: 0}
+  cardEraHolder: {fileID: 0}
+  cardImageHolder: {fileID: 0}
   isGovernmentCard: 1
+  isGovernmentWarSupportBoostCard: 0
   isAllianceCard: 0
   isDeclareWarCard: 0
   isPeaceTreatyCard: 0
+  isPurchasable: 0
   createsBuildings: 0
   createdUnits: 0
   governmentType: Monarchy
   government: {fileID: 11400000, guid: 736b1473b08226546a3fd9f99157e55d, type: 2}
   governmentAlliance: 
   governmentWarDecleration: 
-  goldEffect: 0
-  silverEffect: 0
-  empireEffect: 0
+  goldPerTurnEffect: 0
+  silverPerTurnEffect: 0
+  warSupportAgainstGovernmentEffect: 0
   wearinessEffect: 0
   loyaltySabotageEffect: 0
   religionEffect: 0

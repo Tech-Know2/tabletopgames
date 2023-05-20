@@ -50,8 +50,8 @@ public class Card : ScriptableObject
     public string governmentWarDecleration;
 
     //Card Effects / Costs
-    public int goldEffect;
-    public int silverEffect;
+    public int goldPerTurnEffect;
+    public int silverPerTurnEffect;
     public int warSupportAgainstGovernmentEffect;
     public int wearinessEffect;
     public int loyaltySabotageEffect;

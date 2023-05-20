@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b214d7cb84762544eba4738d12acc8e9, type: 3}
-  m_Name: Fascist
+  m_Name: Technocratic
   m_EditorClassIdentifier: 
-  cardName: Fascist
-  description: Creates a government following this structure.
-  cardCategory: Academic and Religious
+  cardName: Technocratic
+  description: Create a government around a society of learners and thinkers. However,
+    will this help you survive this coming conflict?
+  cardCategory: '#FAC710'
   cardColor: '#FAC710'
   cardTech: Government
   cardEra: 2
@@ -34,8 +35,8 @@ MonoBehaviour:
   isPurchasable: 0
   createsBuildings: 0
   createdUnits: 0
-  governmentType: Fascist
-  government: {fileID: 11400000, guid: ba08d4e874a7364449ce6b3a36327fc1, type: 2}
+  governmentType: Technocratic
+  government: {fileID: 11400000, guid: a14853f3e72eb9346a8c8c9a304ec66d, type: 2}
   governmentAlliance: 
   governmentWarDecleration: 
   goldPerTurnEffect: 0
