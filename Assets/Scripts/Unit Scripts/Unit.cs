@@ -42,16 +42,16 @@ public class Unit : ScriptableObject
     public int religiousStrength;
 
     //Unit Backend Information and Requierments
-    public GameObject unitTech;
+    public GameObject[] unitTech;
     public bool requiresArmor;
     public bool requiresSword;
     public bool requiresBow;
 
     //Variables to Manage Unit Upgrades
-    public GameObject primaryUnitForm;
-    public GameObject upgradedForm;
+    public GameObject[] primaryUnitForm;
+    public GameObject[] upgradedForm;
 
     //Variables to Manage Unit Merges
-    public GameObject mergeUnitRequierment;
-    public GameObject mergedunit;
+    public GameObject[] mergeUnitRequierment;
+    public GameObject[] mergedunit;
 }

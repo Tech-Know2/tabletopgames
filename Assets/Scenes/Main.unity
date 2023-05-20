@@ -2889,6 +2889,7 @@ GameObject:
   - component: {fileID: 242596284}
   - component: {fileID: 242596283}
   - component: {fileID: 242596282}
+  - component: {fileID: 242596285}
   m_Layer: 5
   m_Name: Farming Estates
   m_TagString: Untagged
@@ -2960,7 +2961,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 242596283}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 242596285}
+        m_TargetAssemblyTypeName: TechDisplay, Assembly-CSharp
+        m_MethodName: techResearch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &242596283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2999,6 +3012,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 242596280}
   m_CullTransparentMesh: 1
+--- !u!114 &242596285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242596280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd6a6b896d267314fb1a6642b49a952d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tech: {fileID: 11400000, guid: 3905df23d952439408f32c87d3ad8ace, type: 2}
+  dealer: {fileID: 767240079}
+  playerScript: {fileID: 1972966344}
+  previousTechButton: {fileID: 0}
 --- !u!1 &282579776
 GameObject:
   m_ObjectHideFlags: 0
@@ -3033,13 +3062,12 @@ RectTransform:
   - {fileID: 401567115}
   - {fileID: 1035061716}
   - {fileID: 1013394021}
-  - {fileID: 1056039078}
   m_Father: {fileID: 1363837391}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -49, y: 47}
+  m_AnchoredPosition: {x: 33, y: 47}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &282579778
@@ -3054,7 +3082,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce686adc057c4b4aac4c06aa5d134fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  government: {fileID: 0}
   player: {fileID: 1972966341}
   actionCardArray: []
   eventCardArray: []
@@ -6564,6 +6591,7 @@ GameObject:
   - component: {fileID: 649085372}
   - component: {fileID: 649085371}
   - component: {fileID: 649085370}
+  - component: {fileID: 649085373}
   m_Layer: 5
   m_Name: Farming
   m_TagString: Untagged
@@ -6635,7 +6663,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 649085371}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 649085373}
+        m_TargetAssemblyTypeName: TechDisplay, Assembly-CSharp
+        m_MethodName: techResearch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &649085371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6674,6 +6714,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 649085368}
   m_CullTransparentMesh: 1
+--- !u!114 &649085373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649085368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd6a6b896d267314fb1a6642b49a952d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tech: {fileID: 11400000, guid: bd46ce3bd14fd7f48af77e913d37bb21, type: 2}
+  dealer: {fileID: 767240079}
+  playerScript: {fileID: 1972966344}
+  previousTechButton: {fileID: 1897956164}
 --- !u!1 &656245997
 GameObject:
   m_ObjectHideFlags: 0
@@ -8380,6 +8436,7 @@ GameObject:
   - component: {fileID: 767240078}
   - component: {fileID: 767240077}
   - component: {fileID: 767240076}
+  - component: {fileID: 767240079}
   m_Layer: 0
   m_Name: Turn Button
   m_TagString: Untagged
@@ -8451,7 +8508,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 767240077}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 767240079}
+        m_TargetAssemblyTypeName: Dealer, Assembly-CSharp
+        m_MethodName: nextTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &767240077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8490,6 +8559,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 767240074}
   m_CullTransparentMesh: 1
+--- !u!114 &767240079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767240074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce686adc057c4b4aac4c06aa5d134fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1972966341}
+  actionCardArray: []
+  eventCardArray: []
+  actionCardHolder:
+  - {fileID: 401567114}
+  - {fileID: 1035061715}
+  - {fileID: 1013394020}
+  eventCardHolder:
+  - {fileID: 589003169}
+  - {fileID: 648696602}
+  currentEra: 0
 --- !u!1 &768206818
 GameObject:
   m_ObjectHideFlags: 0
@@ -10856,6 +10948,7 @@ GameObject:
   - component: {fileID: 943938028}
   - component: {fileID: 943938027}
   - component: {fileID: 943938026}
+  - component: {fileID: 943938029}
   m_Layer: 5
   m_Name: Ranching
   m_TagString: Untagged
@@ -10927,7 +11020,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 943938027}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 943938029}
+        m_TargetAssemblyTypeName: TechDisplay, Assembly-CSharp
+        m_MethodName: techResearch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &943938027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10966,6 +11071,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943938024}
   m_CullTransparentMesh: 1
+--- !u!114 &943938029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943938024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd6a6b896d267314fb1a6642b49a952d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tech: {fileID: 11400000, guid: 1a7086df3c2b61d458fd7f5f50aeec26, type: 2}
+  dealer: {fileID: 767240079}
+  playerScript: {fileID: 1972966344}
+  previousTechButton: {fileID: 1897956164}
 --- !u!1 &954950226
 GameObject:
   m_ObjectHideFlags: 0
@@ -11773,6 +11894,7 @@ GameObject:
   - component: {fileID: 1042517316}
   - component: {fileID: 1042517315}
   - component: {fileID: 1042517314}
+  - component: {fileID: 1042517317}
   m_Layer: 5
   m_Name: Cash Crops
   m_TagString: Untagged
@@ -11844,7 +11966,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1042517315}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1042517317}
+        m_TargetAssemblyTypeName: TechDisplay, Assembly-CSharp
+        m_MethodName: techResearch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1042517315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11883,6 +12017,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1042517312}
   m_CullTransparentMesh: 1
+--- !u!114 &1042517317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042517312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd6a6b896d267314fb1a6642b49a952d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tech: {fileID: 11400000, guid: 94c97ff5710a43d4f82cd9e929213df5, type: 2}
+  dealer: {fileID: 767240079}
+  playerScript: {fileID: 1972966344}
+  previousTechButton: {fileID: 0}
 --- !u!1 &1044241973
 GameObject:
   m_ObjectHideFlags: 0
@@ -11921,128 +12071,6 @@ RectTransform:
   m_AnchoredPosition: {x: 725, y: -1164.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1056039077
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1056039078}
-  - component: {fileID: 1056039081}
-  - component: {fileID: 1056039080}
-  - component: {fileID: 1056039079}
-  m_Layer: 5
-  m_Name: Draw Card
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1056039078
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1056039077}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1657341865}
-  m_Father: {fileID: 282579777}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 270, y: -213.9}
-  m_SizeDelta: {x: 70, y: 70}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1056039079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1056039077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1056039080}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &1056039080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1056039077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1056039081
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1056039077}
-  m_CullTransparentMesh: 1
 --- !u!1 &1062281411
 GameObject:
   m_ObjectHideFlags: 0
@@ -12092,6 +12120,7 @@ GameObject:
   - component: {fileID: 1066660281}
   - component: {fileID: 1066660280}
   - component: {fileID: 1066660279}
+  - component: {fileID: 1066660282}
   m_Layer: 5
   m_Name: Settlement
   m_TagString: Untagged
@@ -12163,7 +12192,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1066660280}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: f30d9cc6328daa7428d57ac4bbb76246, type: 2}
+        m_TargetAssemblyTypeName: Tech, Assembly-CSharp
+        m_MethodName: techResearch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1066660280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12202,6 +12243,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1066660277}
   m_CullTransparentMesh: 1
+--- !u!114 &1066660282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066660277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd6a6b896d267314fb1a6642b49a952d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tech: {fileID: 11400000, guid: f30d9cc6328daa7428d57ac4bbb76246, type: 2}
+  dealer: {fileID: 767240079}
+  playerScript: {fileID: 1972966344}
+  previousTechButton: {fileID: 0}
 --- !u!1 &1073581475
 GameObject:
   m_ObjectHideFlags: 0
@@ -13730,7 +13787,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1150891622
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14100,6 +14157,7 @@ GameObject:
   - component: {fileID: 1231403527}
   - component: {fileID: 1231403526}
   - component: {fileID: 1231403525}
+  - component: {fileID: 1231403528}
   m_Layer: 5
   m_Name: Forestry
   m_TagString: Untagged
@@ -14171,7 +14229,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1231403526}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1231403528}
+        m_TargetAssemblyTypeName: TechDisplay, Assembly-CSharp
+        m_MethodName: techResearch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1231403526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14210,6 +14280,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1231403523}
   m_CullTransparentMesh: 1
+--- !u!114 &1231403528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231403523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd6a6b896d267314fb1a6642b49a952d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tech: {fileID: 11400000, guid: eeba7635d9c13d3409b7c8d96ca28ef7, type: 2}
+  dealer: {fileID: 767240079}
+  playerScript: {fileID: 1972966344}
+  previousTechButton: {fileID: 1897956164}
 --- !u!1 &1264867951
 GameObject:
   m_ObjectHideFlags: 0
@@ -15190,7 +15276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1343349062
 Transform:
   m_ObjectHideFlags: 0
@@ -18464,141 +18550,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1644138699}
   m_CullTransparentMesh: 1
---- !u!1 &1657341864
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1657341865}
-  - component: {fileID: 1657341867}
-  - component: {fileID: 1657341866}
-  m_Layer: 5
-  m_Name: Text (TMP)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1657341865
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1657341864}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1056039078}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1657341866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1657341864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: Draw Card
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &1657341867
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1657341864}
-  m_CullTransparentMesh: 1
 --- !u!1 &1664877876
 GameObject:
   m_ObjectHideFlags: 0
@@ -20563,7 +20514,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1779433943
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22661,6 +22612,7 @@ GameObject:
   - component: {fileID: 1897956166}
   - component: {fileID: 1897956165}
   - component: {fileID: 1897956164}
+  - component: {fileID: 1897956167}
   m_Layer: 5
   m_Name: Hunter Gather Tech
   m_TagString: Untagged
@@ -22732,7 +22684,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1897956165}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1897956167}
+        m_TargetAssemblyTypeName: TechDisplay, Assembly-CSharp
+        m_MethodName: techResearch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1897956165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22771,6 +22735,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1897956162}
   m_CullTransparentMesh: 1
+--- !u!114 &1897956167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897956162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd6a6b896d267314fb1a6642b49a952d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tech: {fileID: 11400000, guid: bd83cdc593b64764a88d6a1858648058, type: 2}
+  dealer: {fileID: 767240079}
+  playerScript: {fileID: 1972966344}
+  previousTechButton: {fileID: 0}
 --- !u!1 &1898979851
 GameObject:
   m_ObjectHideFlags: 0
@@ -23439,7 +23419,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1961914397
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23772,8 +23752,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentEra: 0
   currentTurn: 0
+  eraOneLength: 0
+  eraTwoLength: 0
+  eraThreeLength: 0
   dealer: {fileID: 282579778}
-  placementScript: {fileID: 0}
+  placementScript: {fileID: 1972966345}
 --- !u!114 &1972966345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25343,7 +25326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 527404891, guid: 2b43bf656e2033b4e9ef8d92872c2c28, type: 3}
       propertyPath: generateTerrainObjects
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 163177091498841845, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
         type: 3}

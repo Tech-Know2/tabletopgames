@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3dbddcb05295233479d4e763081d248a, type: 3}
-  m_Name: Settlement
+  m_Name: Farming Estates
   m_EditorClassIdentifier: 
-  techName: Settlements
-  description: Provides the user with the ability to create and establish cities
-    and settlements.
-  techType: Settlement
-  techColor: '#808080'
-  techEra: 1
+  techName: Farming Estates
+  description: Make owning and producing food a family operation.
+  techType: Agrarian
+  techColor: '#0CA789'
+  techEra: 2
   isResearched: 0
   goldCost: 100
   techButtons: []

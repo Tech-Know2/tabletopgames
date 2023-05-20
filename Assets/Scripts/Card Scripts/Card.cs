@@ -58,7 +58,7 @@ public class Card : ScriptableObject
     public int religionEffect;
 
     //Card Impacts (Buildings, Units, etc)
-    public List<GameObject> buildings = new List<GameObject>();
-    public List<GameObject> units = new List<GameObject>();
-    public List<GameObject> governmentTypeWarSupportEffect = new List<GameObject>();
+    public GameObject[] buildings;
+    public GameObject[] units;
+    public GameObject[] governmentTypeWarSupportEffect;
 }
