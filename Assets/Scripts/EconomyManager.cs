@@ -7,19 +7,23 @@ using TMPro;
 public class EconomyManager : MonoBehaviour
 {
     //Effectable Values
-    public string currentGold;
-    public string currentSilver;
-    public string currentWarWeariness;
-    public string currentLoyalty; // Default Value is 100
+    public int currentGold;
+    public int currentSilver;
+    public int currentWarWeariness;
+    public int currentLoyalty; // Default Value is 100
+
+    //Passed Display Values
+    public int passedTurnCount;
+    public int passedEraCount;
 
     //War Support Against Nations
-    public string currentDemocraticWarSupport;
-    public string currentRepublicWarSupport;
-    public string currentTheocracyWarSupport;
-    public string currentFascistWarSupport;
-    public string currentCommunistWarSupport;
-    public string currentMonarchyWarSupport;
-    public string currentOligarchyWarSupport;
+    private int currentDemocraticWarSupport;
+    private int currentRepublicWarSupport;
+    private int currentTheocracyWarSupport;
+    private int currentFascistWarSupport;
+    private int currentCommunistWarSupport;
+    private int currentMonarchyWarSupport;
+    private int currentOligarchyWarSupport;
 
     //UI Display Elements
     public TextMeshProUGUI goldDisplay;
@@ -27,17 +31,22 @@ public class EconomyManager : MonoBehaviour
     public TextMeshProUGUI warWearinessDisplay;
     public TextMeshProUGUI warSupportDisplay;
     public TextMeshProUGUI loyaltyDisplay;
+    public TextMeshProUGUI turnCounterDisplay;
+    public TextMeshProUGUI eraCounterDisplay;
 
     // Start is called before the first frame update
     void Start()
     {
-        goldDisplay.text = currentGold;
-        silverDisplay.text = currentSilver;
+        goldDisplay.text = currentGold.ToString();
+        silverDisplay.text = currentSilver.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        goldDisplay.text = currentGold.ToString();
+        silverDisplay.text = currentSilver.ToString();
+        turnCounterDisplay.text = passedTurnCount.ToString();
+        eraCounterDisplay.text = passedEraCount.ToString();
     }
 }

@@ -18,6 +18,7 @@ MonoBehaviour:
   techType: Settlement
   techColor: '#808080'
   techEra: 1
-  cost: 1
-  previousTech: {fileID: 0}
+  isResearched: 0
+  goldCost: 100
+  techButtons: []
   techCards: []

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Dealer : MonoBehaviour
 {
     //Access The Scriptable Objects Necessary
-    public Government government;
+    private Government government;
     public GameObject player;
     private string govType;
 
@@ -72,6 +72,24 @@ public class Dealer : MonoBehaviour
     {
         
     }
+
+    public void nextTurn()
+    {
+        PlayerScript playerScript = player.GetComponent<PlayerScript>();
+        currentEra = playerScript.currentEra;
+        
+        if (playerScript != null)
+        {
+            playerScript.currentTurn += 1;
+        }
+
+        // Call the cards to be drawn by the dealer script
+        dealActionCards();
+        dealEventCards();
+        playActionCards();
+        playEventCards();
+    }
+
 
     public void filterCards()
     {
@@ -382,7 +400,7 @@ public class Dealer : MonoBehaviour
 
             } else if (currentEra == 3)
             {
-
+                
             }
         }
     }

@@ -8,9 +8,14 @@ public class PlayerScript : MonoBehaviour
     public int currentEra;
     public int currentTurn;
 
+    //Era Turn Deciding Variables
+    public int eraOneLength;
+    public int eraTwoLength;
+
     // Associate the script with our code so it can be called
     public Dealer dealer;
     public PlacementScript placementScript;
+    public EconomyManager economyManager;
 
     // Selected Card Game Object
     private GameObject selectedCard;
@@ -22,26 +27,34 @@ public class PlayerScript : MonoBehaviour
         dealer = GetComponent<Dealer>();
         placementScript = GetComponent<PlacementScript>();
 
-        currentEra = 0;
-        currentTurn = 0;
+        currentEra = 1;
+        currentTurn = 1;
 
         dealer.filterCards();
     }
 
-    public void nextTurn()
+    void checkEra()
     {
-        currentEra = currentEra + 1;
-
-        // Call the cards to be drawn by the dealer script
-        dealer.dealActionCards();
-        dealer.dealEventCards();
-        dealer.playActionCards();
-        dealer.playEventCards();
+        if(currentTurn < eraOneLength)
+        {
+            currentEra = 1;
+        } else if (currentTurn < eraTwoLength && currentTurn >= eraTwoLength)
+        {
+            currentEra = 2;
+        } else 
+        {
+            currentEra = 3;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        checkEra();
+
+        economyManager.passedTurnCount = currentTurn;
+        economyManager.passedEraCount = currentEra;
+
         if (Input.GetMouseButtonDown(0)) // 0 represents the left mouse button
         {
             // Convert the mouse position from screen space to world space
@@ -58,12 +71,13 @@ public class PlayerScript : MonoBehaviour
                 selectedCard = hit.collider.gameObject;
 
                 Card card = selectedCard.GetComponent<Card>();
-                tempBuildingStorage = card.buildings;
+                tempBuildingStorage = new List<GameObject>(card.buildings);
 
                 placementScript.cardBuildings = tempBuildingStorage;
             }
         }
     }
+
 
     public void InitiateBuildingPlacement()
     {

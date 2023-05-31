@@ -50,15 +50,15 @@ public class Card : ScriptableObject
     public string governmentWarDecleration;
 
     //Card Effects / Costs
-    public int goldEffect;
-    public int silverEffect;
+    public int goldPerTurnEffect;
+    public int silverPerTurnEffect;
     public int warSupportAgainstGovernmentEffect;
     public int wearinessEffect;
     public int loyaltySabotageEffect;
     public int religionEffect;
 
     //Card Impacts (Buildings, Units, etc)
-    public List<GameObject> buildings = new List<GameObject>();
-    public List<GameObject> units = new List<GameObject>();
-    public List<GameObject> governmentTypeWarSupportEffect = new List<GameObject>();
+    public GameObject[] buildings;
+    public GameObject[] units;
+    public GameObject[] governmentTypeWarSupportEffect;
 }

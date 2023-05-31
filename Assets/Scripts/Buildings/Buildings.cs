@@ -8,7 +8,7 @@ public class Buildings : ScriptableObject
     //Display Attributes
     public string buildingName;
     public string buildingDescription;
-    public GameObject requiredTech;
+    public GameObject[] requiredTech;
 
     //Game Modifier Attribute Variables for Consumption
     public int goldUpKeep;
@@ -33,10 +33,10 @@ public class Buildings : ScriptableObject
 
     //Variables to Keep Track of Building Constraints and Requierments
     public bool requiresAnotherBuilding;
-    public List<GameObject> localBuildingRequirements = new List<GameObject>();
+    public GameObject[] localBuildingRequirements;
 
     //Producible Objects from Building
-    public List<GameObject> produceableObjects = new List<GameObject>();
+    public GameObject[] produceableObjects;
 
     //Bools to check Building Identity
     public bool isLandTrainingRelated;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "New Tech", menuName = "Tech")]
 public class Tech : ScriptableObject
@@ -10,9 +11,10 @@ public class Tech : ScriptableObject
     public string techType;
     public string techColor;
     public int techEra;
-    
-    public int cost;
-    public GameObject previousTech;
 
+    public bool isResearched = false;
+
+    public int goldCost;
+    public List<Button> techButtons = new List<Button>();
     public List<GameObject> techCards = new List<GameObject>();
 }
