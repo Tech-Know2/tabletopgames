@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3dbddcb05295233479d4e763081d248a, type: 3}
-  m_Name: Farming
+  m_Name: Fences
   m_EditorClassIdentifier: 
-  techName: Farming
-  description: Allows you to establish a permanent food production system.
-  techType: Agrarian
-  techColor: '#0CA789'
+  techName: Fences
+  description: Defend your empire from the hoards of enemies that are trying to stall
+    your progress.
+  techType: Defense
+  techColor: '#DA0063'
   techEra: 1
-  isResearched: 1
+  isResearched: 0
   goldCost: 100
   techButtons: []
   techCards: []

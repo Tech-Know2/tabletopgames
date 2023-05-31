@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3dbddcb05295233479d4e763081d248a, type: 3}
-  m_Name: Farming
+  m_Name: Scouts
   m_EditorClassIdentifier: 
-  techName: Farming
-  description: Allows you to establish a permanent food production system.
-  techType: Agrarian
-  techColor: '#0CA789'
+  techName: Scouts
+  description: Train units to go off an explore the world for all that it is. Go
+    forth and conquer!
+  techType: Scouting
+  techColor: '#F24726'
   techEra: 1
-  isResearched: 1
+  isResearched: 0
   goldCost: 100
   techButtons: []
   techCards: []

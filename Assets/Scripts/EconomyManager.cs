@@ -7,10 +7,10 @@ using TMPro;
 public class EconomyManager : MonoBehaviour
 {
     //Effectable Values
-    private int currentGold;
-    private int currentSilver;
-    private int currentWarWeariness;
-    private int currentLoyalty; // Default Value is 100
+    public int currentGold;
+    public int currentSilver;
+    public int currentWarWeariness;
+    public int currentLoyalty; // Default Value is 100
 
     //Passed Display Values
     public int passedTurnCount;
@@ -44,6 +44,8 @@ public class EconomyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        goldDisplay.text = currentGold.ToString();
+        silverDisplay.text = currentSilver.ToString();
         turnCounterDisplay.text = passedTurnCount.ToString();
         eraCounterDisplay.text = passedEraCount.ToString();
     }
