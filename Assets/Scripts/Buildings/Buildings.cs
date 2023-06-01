@@ -48,4 +48,7 @@ public class Buildings : ScriptableObject
     public bool isGate;
     public bool isBridge;
     public bool isMountable;
+    public bool isSightCapable;
+
+    public int sightRange;
 }
