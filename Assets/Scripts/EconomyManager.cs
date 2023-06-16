@@ -9,6 +9,7 @@ public class EconomyManager : MonoBehaviour
     //Effectable Values
     public int currentGold;
     public int currentSilver;
+    public int currentTechPoints;
     public int currentWarWeariness;
     public int currentLoyalty; // Default Value is 100
 
@@ -33,12 +34,14 @@ public class EconomyManager : MonoBehaviour
     public TextMeshProUGUI loyaltyDisplay;
     public TextMeshProUGUI turnCounterDisplay;
     public TextMeshProUGUI eraCounterDisplay;
+    public TextMeshProUGUI techPointsCounterDisplay;
 
     // Start is called before the first frame update
     void Start()
     {
         goldDisplay.text = currentGold.ToString();
         silverDisplay.text = currentSilver.ToString();
+        techPointsCounterDisplay.text = currentTechPoints.ToString();
     }
 
     // Update is called once per frame
@@ -48,5 +51,6 @@ public class EconomyManager : MonoBehaviour
         silverDisplay.text = currentSilver.ToString();
         turnCounterDisplay.text = passedTurnCount.ToString();
         eraCounterDisplay.text = passedEraCount.ToString();
+        techPointsCounterDisplay.text = currentTechPoints.ToString();
     }
 }

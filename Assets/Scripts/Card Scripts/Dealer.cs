@@ -1,60 +1,75 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Dealer : MonoBehaviour
 {
     //Access The Scriptable Objects Necessary
     private Government government;
     public GameObject player;
+    public AuctionHouse auctionHouse;
     private string govType;
 
+    //Card Slot Related Information
+    public GameObject cardPrefab;
+    private TextMeshProUGUI nameSlot;
+    private TextMeshProUGUI cardDescriptionSlot;
+    private TextMeshProUGUI cardEraSlot;
+    private TextMeshProUGUI cardCategorySlot;
+
     //Store Total/All of the Action and Event Cards
-    public List<GameObject> actionCardArray = new List<GameObject>();
-    public List<GameObject> eventCardArray = new List<GameObject>();
+    public List<Card> actionCardArray = new List<Card>();
+    public List<Card> eventCardArray = new List<Card>();
 
     //Dealer Related Event Card Arrays
-    private List<GameObject> eraOneEventCards = new List<GameObject>();
-    private List<GameObject> eraTwoEventCards = new List<GameObject>();
-    private List<GameObject> eraThreeEventCards = new List<GameObject>();
+    private List<Card> eraOneEventCards = new List<Card>();
+    private List<Card> eraTwoEventCards = new List<Card>();
+    private List<Card> eraThreeEventCards = new List<Card>();
 
     //Dealer Related Action Based Arrays Sorted By Category
+    //Settlement Action Card Array
+    private List<Card> settlementArray = new List<Card>();
+    
     //Agrarian Action Card Array
-    private List<GameObject> agrarianArray = new List<GameObject>();
+    private List<Card> agrarianArray = new List<Card>();
 
     //Military Action Card Array
-    private List<GameObject> militaryArray = new List<GameObject>();
+    private List<Card> militaryArray = new List<Card>();
 
     //Industrial Action Card Array
-    private List<GameObject> industrialArray = new List<GameObject>();
+    private List<Card> industrialArray = new List<Card>();
 
     //Academic and Religious Action Card Array
-    private List<GameObject> academicAndReligiousArray = new List<GameObject>();
+    private List<Card> academicAndReligiousArray = new List<Card>();
 
     //Naval Action Card Array
-    private List<GameObject> navalArray = new List<GameObject>();
+    private List<Card> navalArray = new List<Card>();
 
     //Transportation and Economy Action Card Array
-    private List<GameObject> transportationAndEconomyArray = new List<GameObject>();
+    private List<Card> transportationAndEconomyArray = new List<Card>();
 
     //Defense Action Card Array
-    private List<GameObject> defenseArray = new List<GameObject>();
+    private List<Card> defenseArray = new List<Card>();
 
     //Scouting Action Card Array
-    private List<GameObject> scoutingArray = new List<GameObject>();
+    private List<Card> scoutingArray = new List<Card>();
 
     //Media and Social Action Card Array
-    private List<GameObject> mediaAndSocialArray = new List<GameObject>();
+    private List<Card> mediaAndSocialArray = new List<Card>();
 
     //Dealer Locations and Spot Types
     //First Arrays store the drawn cards
-    private List<GameObject> actionCardSlot = new List<GameObject>();
-    private List<GameObject> eventCardSlot = new List<GameObject>();
+    private List<Card> actionCard = new List<Card>();
+    private List<Card> eventCardSlot = new List<Card>();
+
     //Second Array stores the spots where the cards will be displayed
     public List<GameObject> actionCardHolder = new List<GameObject>();
     public List<GameObject> eventCardHolder = new List<GameObject>();
 
     //Pull the Data from The Government of The Player
+    private int settlementModifier;
     private int agrarianModifier;
     private int militaryModifier;
     private int industrialModifier;
@@ -75,97 +90,161 @@ public class Dealer : MonoBehaviour
 
     public void nextTurn()
     {
+        print("Next Turn Pressed");
+
         PlayerScript playerScript = player.GetComponent<PlayerScript>();
         currentEra = playerScript.currentEra;
+
+        // Access the government scriptable object from the player script
         
-        if (playerScript != null)
+        if (playerScript.government != null)
         {
-            playerScript.currentTurn += 1;
+            Government gov = playerScript.government;
+            govType = gov.governmentName;
+        }
+        else
+        {
+            Debug.LogError("Government scriptable object is not attached to the player.");
         }
 
+        playerScript.currentTurn += 1;
+
         // Call the cards to be drawn by the dealer script
+        // Filter The Cards From the Newly Researched Techs
+        filterCards();
+        arrayCounter();
+        // Discard All Unused Cards to the Auction House
+        discardCards();
+        // Pick the Cards To Be Dealt From the Deck
         dealActionCards();
-        dealEventCards();
+        //dealEventCards();
+        // Display the Cards in the Appropriate Slots
         playActionCards();
-        playEventCards();
+        //playEventCards();
+
+        print("Next Turn Function Ran Through Here");
     }
 
+    public void arrayCounter()
+    {
+        print(agrarianArray.Count + "Agrarian Array Count");
+        print(militaryArray.Count + "Military Array Count");
+        print(settlementArray.Count + "Settlement Array Count");
+        print(industrialArray.Count + "Industrial Array Count");
+        print(transportationAndEconomyArray.Count + "Transport and Economy Array Count");
+        print(academicAndReligiousArray.Count + "Academic and Religious Array Count");
+        print(defenseArray.Count + "Defense Array Count");
+        print(mediaAndSocialArray.Count + "Media and Social Array Count");
+        print(navalArray.Count + "Naval Array Count");
+        print(scoutingArray.Count + "Scouting Array Count");
+    }
+
+    public void discardCards()
+    {
+        //auctionHouse.auctionHouseCards.AddRange(actionCard);
+
+        //Temp Way to Clear the lists of the cards, will be changed later, and have the cards sent to the auction house
+        actionCard.Clear();
+        eventCardSlot.Clear();
+
+        //Remove the Game Object Cards that where just created
+        for (int x = 0; x < actionCardHolder.Count; x++)
+        {
+            int childCount = actionCardHolder[x].transform.childCount;
+            for (int i = 0; i < childCount; i++)
+            {
+                GameObject childObject = actionCardHolder[x].transform.GetChild(i).gameObject;
+                Destroy(childObject);
+            }
+        }
+    }
 
     public void filterCards()
     {
-        //Sort The Cards By Category
+        List<Card> cardsToRemove = new List<Card>();
+
         for (int a = 0; a < actionCardArray.Count; a++)
         {
-            //Create a Game Object Variable
-            //Assign the Variable to the Current Card that Is Being Filtered
-            GameObject currentFilteringCard = actionCardArray[a];
-
-            //fetch the Data about the Currently Filtered Card
-            Card card = currentFilteringCard.GetComponent<Card>();
+            Card card = actionCardArray[a];
             string currentCardCat = card.cardCategory;
-
-            //Sort the cards into arrays that will store only cards in their category
-            if(currentCardCat == "Agrarian")
+            
+            if (currentCardCat == "Settlement")
             {
-                agrarianArray.Add(currentFilteringCard);
-                actionCardArray.Remove(currentFilteringCard);
-
-            } else if(currentCardCat == "Military")
+                settlementArray.Add(card);
+                cardsToRemove.Add(card);
+            }else if (currentCardCat == "Agrarian")
             {
-                militaryArray.Add(currentFilteringCard);
-                actionCardArray.Remove(currentFilteringCard);
-                
-            } else if(currentCardCat == "Industrial")
-            {
-                industrialArray.Add(currentFilteringCard);
-                actionCardArray.Remove(currentFilteringCard);
-                
-            } else if(currentCardCat == "Academic and Religious")
-            {
-                academicAndReligiousArray.Add(currentFilteringCard);
-                actionCardArray.Remove(currentFilteringCard);
-                
-            } else if(currentCardCat == "Naval")
-            {
-                navalArray.Add(currentFilteringCard);
-            } else if(currentCardCat == "Transportation and Economy")
-            {
-                transportationAndEconomyArray.Add(currentFilteringCard);
-                actionCardArray.Remove(currentFilteringCard);
-                
-            } else if(currentCardCat == "Defense")
-            {
-                defenseArray.Add(currentFilteringCard);
-                actionCardArray.Remove(currentFilteringCard);
-                
-            } else if(currentCardCat == "Scouting")
-            {
-                scoutingArray.Add(currentFilteringCard);
-            } else if(currentCardCat == "Media and Social")
-            {
-                mediaAndSocialArray.Add(currentFilteringCard);
-                actionCardArray.Remove(currentFilteringCard);
-                
-            } else
-            {
-                print("Card with wrong identifier" + currentFilteringCard);
-                
+                agrarianArray.Add(card);
+                cardsToRemove.Add(card);
             }
+            else if (currentCardCat == "Military")
+            {
+                militaryArray.Add(card);
+                cardsToRemove.Add(card);
+            }
+            else if (currentCardCat == "Industrial")
+            {
+                industrialArray.Add(card);
+                cardsToRemove.Add(card);
+            }
+            else if (currentCardCat == "Academic and Religious")
+            {
+                academicAndReligiousArray.Add(card);
+                cardsToRemove.Add(card);
+            }
+            else if (currentCardCat == "Naval")
+            {
+                navalArray.Add(card);
+            }
+            else if (currentCardCat == "Transportation and Economy")
+            {
+                transportationAndEconomyArray.Add(card);
+                cardsToRemove.Add(card);
+            }
+            else if (currentCardCat == "Defense")
+            {
+                defenseArray.Add(card);
+                cardsToRemove.Add(card);
+            }
+            else if (currentCardCat == "Scouting")
+            {
+                scoutingArray.Add(card);
+            }
+            else if (currentCardCat == "Media and Social")
+            {
+                mediaAndSocialArray.Add(card);
+                cardsToRemove.Add(card);
+            }
+            else
+            {
+                Debug.LogError("Card with wrong identifier: " + card.name);
+            }
+
+            print(card.name + " has been sorted");
+        }
+
+        // Remove the cards after the iteration
+        foreach (Card cardToRemove in cardsToRemove)
+        {
+            actionCardArray.Remove(cardToRemove);
         }
     }
 
     public void dealActionCards()
     {
-        for (int x = 0; x < actionCardHolder.Count + 1; x++)
+        for (int x = 0; x < actionCardHolder.Count;)
         {
             //Stores the Current Card
-            GameObject currentCard = null;
+            Card currentCard = null;
             
-            Government gov = player.GetComponent<Government>();
-            govType = gov.governmentName;  
+            PlayerScript playerScript = player.GetComponent<PlayerScript>();
 
-            if (govType != null)
+            if (playerScript.government != null)
             {
+                //Get the name of the government
+                Government gov = playerScript.government;
+                govType = gov.governmentName;
+
                 //Set the Data About The Government to Variables
                 agrarianModifier = gov.agrarian;
                 militaryModifier = gov.military;
@@ -178,209 +257,365 @@ public class Dealer : MonoBehaviour
                 mediaAndSocialModifier = gov.mediaAndSocial;
 
                 //Random Number To Decide the Category
-                int cardCat = Random.Range(0, 901);
+                int cardCat = Random.Range(0, 951);
+
+                //Console Messages to Help Me Debug the Path and the Errors
+                print("The Cards dealt have a Governemnt");
 
                 if (cardCat >= 0 && cardCat <= 100 + agrarianModifier) //Agrarian
                 {
-                    //Pick a Card From Inside One of the Categorys
                     int cardCount = agrarianArray.Count;
+                    
+                    //Pick a Card From Inside One of the Categorys
                     int cardSelect = Random.Range(0, cardCount);
 
-                    currentCard = agrarianArray[cardSelect];
-                    actionCardSlot.Add(currentCard);
+                    if (cardSelect >= 0 && cardSelect < cardCount)
+                    {
+                        currentCard = agrarianArray[cardSelect];
+                        actionCard.Add(currentCard);
+
+                        print("Agrarian Array");
+
+                        x++;
+                    }
 
                 }else if (cardCat > 100 + agrarianModifier && cardCat <= 200 + militaryModifier + agrarianModifier) //Military
                 {
-                    //Pick a Card From Inside One of the Categorys
                     int cardCount = militaryArray.Count;
+
+                    //Pick a Card From Inside One of the Categorys
                     int cardSelect = Random.Range(0, cardCount);
 
-                    currentCard = militaryArray[cardSelect];
-                    actionCardSlot.Add(currentCard);
-
+                    if (cardSelect >= 0 && cardSelect < cardCount)
+                    {
+                        currentCard = militaryArray[cardSelect];
+                        actionCard.Add(currentCard);
+                    
+                        print("Military Array");
+                        
+                        x++;
+                    }
                 }
                 else if (cardCat > 200 + militaryModifier + agrarianModifier && cardCat <= 300 + militaryModifier + agrarianModifier + industrialModifier) //Industrial
                 {
-                    //Pick a Card From Inside One of the Categorys
                     int cardCount = industrialArray.Count;
+                        
+                    //Pick a Card From Inside One of the Categorys
                     int cardSelect = Random.Range(0, cardCount);
 
-                    currentCard = industrialArray[cardSelect];
-                    actionCardSlot.Add(currentCard);
+                    
+                    if (cardSelect >= 0 && cardSelect < cardCount)
+                    {
+                        currentCard = industrialArray[cardSelect];
+                        actionCard.Add(currentCard);
 
+                        print("industrial Array");  
+                        
+                        x++;
+                    }
                 }
                 else if (cardCat > 300 + agrarianModifier + militaryModifier + industrialModifier && cardCat <= 400 + militaryModifier + agrarianModifier + industrialModifier + academicAndReligiousModifier) //Academic and Religious
                 {
-                    //Pick a Card From Inside One of the Categorys
                     int cardCount = academicAndReligiousArray.Count;
+                        
+                    //Pick a Card From Inside One of the Categorys
                     int cardSelect = Random.Range(0, cardCount);
 
-                    currentCard = academicAndReligiousArray[cardSelect];
-                    actionCardSlot.Add(currentCard);
-
+                    if (cardSelect >= 0 && cardSelect < cardCount)
+                    {
+                        currentCard = academicAndReligiousArray[cardSelect];
+                        actionCard.Add(currentCard);
+                        
+                        print("Academic and Religious Array");  
+                        
+                        x++;
+                    }
+                    
                 } 
                 else if (cardCat > 400 + militaryModifier + agrarianModifier + industrialModifier + academicAndReligiousModifier && cardCat <= 500 + militaryModifier + agrarianModifier + industrialModifier + academicAndReligiousModifier + navalModifier) //Naval
                 {
-                    //Pick a Card From Inside One of the Categorys
                     int cardCount = navalArray.Count;
+                        
+                    //Pick a Card From Inside One of the Categorys
                     int cardSelect = Random.Range(0, cardCount);
 
-                    currentCard = navalArray[cardSelect];
-                    actionCardSlot.Add(currentCard);
+                    if (cardSelect >= 0 && cardSelect < cardCount)
+                    {
+                        currentCard = navalArray[cardSelect];
+                        actionCard.Add(currentCard);
 
+                        print("Naval Array");  
+                        
+                        x++;
+                    }
+                    
                 } 
                 else if (cardCat > 500 + militaryModifier + agrarianModifier + industrialModifier + academicAndReligiousModifier  + navalModifier && cardCat <= 600 + militaryModifier + agrarianModifier + industrialModifier + academicAndReligiousModifier + navalModifier + transportationAndEconomyModifier) //Transportation and Economy
                 {
-                    //Pick a Card From Inside One of the Categorys
                     int cardCount = transportationAndEconomyArray.Count;
+                        
+                    //Pick a Card From Inside One of the Categorys
                     int cardSelect = Random.Range(0, cardCount);
 
-                    currentCard = transportationAndEconomyArray[cardSelect];
-                    actionCardSlot.Add(currentCard);
+                    if (cardSelect >= 0 && cardSelect < cardCount)
+                    {
+                        currentCard = transportationAndEconomyArray[cardSelect];
+                        actionCard.Add(currentCard);
 
+                        print("Transport and Economy Array");  
+                        
+                        x++;
+                    }
+                    
                 } 
                 else if (cardCat > 600 + militaryModifier + agrarianModifier + industrialModifier + academicAndReligiousModifier  + navalModifier + transportationAndEconomyModifier && cardCat <= 700 + militaryModifier + agrarianModifier + industrialModifier + academicAndReligiousModifier + navalModifier + transportationAndEconomyModifier + defenseModifier) //Defense
                 {
-                    //Pick a Card From Inside One of the Categorys
                     int cardCount = defenseArray.Count;
+                        
+                    //Pick a Card From Inside One of the Categorys
                     int cardSelect = Random.Range(0, cardCount);
 
-                    currentCard = defenseArray[cardSelect];
-                    actionCardSlot.Add(currentCard);
+                    if (cardSelect >= 0 && cardSelect < cardCount)
+                    {
+                        currentCard = defenseArray[cardSelect];
+                        actionCard.Add(currentCard);
 
+                        print("Defense Array");  
+                        
+                        x++;
+                    }
+                    
                 } 
                 else if (cardCat > 700 + militaryModifier + agrarianModifier + industrialModifier + academicAndReligiousModifier  + navalModifier + transportationAndEconomyModifier + defenseModifier && cardCat <= 800 + militaryModifier + agrarianModifier + industrialModifier + academicAndReligiousModifier + navalModifier + transportationAndEconomyModifier + defenseModifier + scoutingModifier) //Scouting
                 {
-                    //Pick a Card From Inside One of the Categorys
                     int cardCount = scoutingArray.Count;
+                        
+                    //Pick a Card From Inside One of the Categorys
                     int cardSelect = Random.Range(0, cardCount);
 
-                    currentCard = scoutingArray[cardSelect];
-                    actionCardSlot.Add(currentCard);
-
+                    if (cardSelect >= 0 && cardSelect < cardCount)
+                    {
+                        currentCard = scoutingArray[cardSelect];
+                        actionCard.Add(currentCard);
+                        
+                        print("scouting Array");  
+                        
+                        x++;
+                    }
+                    
                 } 
                 else if (cardCat > 800 + militaryModifier + agrarianModifier + industrialModifier + academicAndReligiousModifier  + navalModifier + transportationAndEconomyModifier + defenseModifier + scoutingModifier && cardCat <= 900 + militaryModifier + agrarianModifier + industrialModifier + academicAndReligiousModifier + navalModifier + transportationAndEconomyModifier + defenseModifier + scoutingModifier + mediaAndSocialModifier) //Media And Social
                 {
-                    //Pick a Card From Inside One of the Categorys
                     int cardCount = mediaAndSocialArray.Count;
-                    int cardSelect = Random.Range(0, cardCount);
-
-                    currentCard = mediaAndSocialArray[cardSelect];
-                    actionCardSlot.Add(currentCard);
-
-                } 
-                else {
-                    //Means that the number chosen did not result in a tech being chosen so throw in code to just pull from a random card category
+                        
                     //Pick a Card From Inside One of the Categorys
-                    int cardCount = militaryArray.Count;
                     int cardSelect = Random.Range(0, cardCount);
 
-                    currentCard = militaryArray[cardSelect];
-                    actionCardSlot.Add(currentCard);
+                    if (cardSelect >= 0 && cardSelect < cardCount)
+                    {
+                        currentCard = mediaAndSocialArray[cardSelect];
+                        actionCard.Add(currentCard);
+                        
+                        print("Media Array");  
+                        
+                        x++;
+                    }
+                    
+                } else if (cardCat > 900 + militaryModifier + agrarianModifier + industrialModifier + academicAndReligiousModifier  + navalModifier + transportationAndEconomyModifier + defenseModifier + scoutingModifier + mediaAndSocialModifier && cardCat <= 950 + militaryModifier + agrarianModifier + industrialModifier + academicAndReligiousModifier + navalModifier + transportationAndEconomyModifier + defenseModifier + scoutingModifier + mediaAndSocialModifier + settlementModifier) // Settlement
+                {
+                    int cardCount = settlementArray.Count;
+
+                    // Pick a Card From Inside the Category
+                    int cardSelect = Random.Range(0, cardCount);
+
+                    if (cardSelect >= 0 && cardSelect < cardCount)
+                    {
+                        currentCard = settlementArray[cardSelect];
+                        actionCard.Add(currentCard);
+
+                        print("Settlement Array");  
+                        
+                        x++;
+                    }
                 }
 
             } else {
-                int cardCat = Random.Range(0, 901);
-                
+                int cardCat = Random.Range(0, 951);
+
+                //Console Messages to Help Me Debug the Path and the Errors
+                print("The Cards dealt has no Government");
+                print("Action card Holder Count: " + actionCardHolder.Count);
+
                 if (cardCat >= 0 && cardCat <= 100) //Agrarian
                 {
-                    //Pick a Card From Inside One of the Categorys
                     int cardCount = agrarianArray.Count;
+
+                    //Pick a Card From Inside One of the Categories
                     int cardSelect = Random.Range(0, cardCount);
 
-                    currentCard = agrarianArray[cardSelect];
-                    actionCardSlot.Add(currentCard);
+                    if (cardSelect >= 0 && cardSelect < cardCount)
+                    {
+                        currentCard = agrarianArray[cardSelect];
+                        actionCard.Add(currentCard);
 
+                        print("Agrarian Array");  
+                        
+                        x++;
+                    }
+                    
                 } 
                 else if (cardCat > 100 && cardCat <= 200) //Military
                 {
-                    //Pick a Card From Inside One of the Categorys
                     int cardCount = militaryArray.Count;
+
+                    //Pick a Card From Inside One of the Categories
                     int cardSelect = Random.Range(0, cardCount);
 
-                    currentCard = militaryArray[cardSelect];
-                    actionCardSlot.Add(currentCard);
+                    if (cardSelect >= 0 && cardSelect < cardCount)
+                    {
+                        currentCard = militaryArray[cardSelect];
+                        actionCard.Add(currentCard);
 
+                        print("Military Array");  
+                        
+                        x++;
+                    }
                 } 
                 else if (cardCat > 200 && cardCat <= 300) //Industrial
                 {
-                    //Pick a Card From Inside One of the Categorys
                     int cardCount = industrialArray.Count;
+
+                    //Pick a Card From Inside One of the Categories
                     int cardSelect = Random.Range(0, cardCount);
 
-                    currentCard = industrialArray[cardSelect];
-                    actionCardSlot.Add(currentCard);
+                    if (cardSelect >= 0 && cardSelect < cardCount)
+                    {
+                        currentCard = industrialArray[cardSelect];
+                        actionCard.Add(currentCard);
 
+                        print("Industrial Array");  
+                        
+                        x++;
+                    }
                 } 
                 else if (cardCat > 300 && cardCat <= 400) //Academic and Religious
                 {
-                    //Pick a Card From Inside One of the Categorys
                     int cardCount = academicAndReligiousArray.Count;
+
+                    //Pick a Card From Inside One of the Categories
                     int cardSelect = Random.Range(0, cardCount);
 
-                    currentCard = academicAndReligiousArray[cardSelect];
-                    actionCardSlot.Add(currentCard);
+                    if (cardSelect >= 0 && cardSelect < cardCount)
+                    {
+                        currentCard = academicAndReligiousArray[cardSelect];
+                        actionCard.Add(currentCard);
 
+                        print("Academic and Religious Array");  
+                        
+                        x++;
+                    }
                 } 
                 else if (cardCat > 400 && cardCat <= 500) //Naval
                 {
-                    //Pick a Card From Inside One of the Categorys
                     int cardCount = navalArray.Count;
+
+                    //Pick a Card From Inside One of the Categories
                     int cardSelect = Random.Range(0, cardCount);
 
-                    currentCard = navalArray[cardSelect];
-                    actionCardSlot.Add(currentCard);
+                    if (cardSelect >= 0 && cardSelect < cardCount)
+                    {
+                        currentCard = navalArray[cardSelect];
+                        actionCard.Add(currentCard);
 
+                        print("Naval Array");  
+                        
+                        x++;
+                    }
                 } 
                 else if (cardCat > 500 && cardCat <= 600) //Transportation and Economy
                 {
-                    //Pick a Card From Inside One of the Categorys
                     int cardCount = transportationAndEconomyArray.Count;
+
+                    //Pick a Card From Inside One of the Categories
                     int cardSelect = Random.Range(0, cardCount);
 
-                    currentCard = transportationAndEconomyArray[cardSelect];
-                    actionCardSlot.Add(currentCard);
+                    if (cardSelect >= 0 && cardSelect < cardCount)
+                    {
+                        currentCard = transportationAndEconomyArray[cardSelect];
+                        actionCard.Add(currentCard);
 
+                        print("Transport and Economy Array");  
+                        
+                        x++;
+                    }
                 } 
                 else if (cardCat > 600 && cardCat <= 700) //Defense
                 {
-                    //Pick a Card From Inside One of the Categorys
                     int cardCount = defenseArray.Count;
+                        
+                    //Pick a Card From Inside One of the Categorys
                     int cardSelect = Random.Range(0, cardCount);
 
-                    currentCard = defenseArray[cardSelect];
-                    actionCardSlot.Add(currentCard);
+                    if (cardSelect >= 0 && cardSelect < cardCount)
+                    {
+                        currentCard = defenseArray[cardSelect];
+                        actionCard.Add(currentCard);
 
+                        print("Defense Array");  
+                        
+                        x++;
+                    }
                 } 
                 else if (cardCat > 700 && cardCat <= 800) //Scouting
                 {
-                    //Pick a Card From Inside One of the Categorys
                     int cardCount = scoutingArray.Count;
+                        
+                    //Pick a Card From Inside One of the Categorys
                     int cardSelect = Random.Range(0, cardCount);
 
-                    currentCard = scoutingArray[cardSelect];
-                    actionCardSlot.Add(currentCard);
+                    if (cardSelect >= 0 && cardSelect < cardCount)
+                    {
+                        currentCard = scoutingArray[cardSelect];
+                        actionCard.Add(currentCard);
 
+                        print("Scouting Array");  
+                        
+                        x++;
+                    }
                 } 
                 else if (cardCat > 800 && cardCat <= 900) //Media and Social
                 {
-                    //Pick a Card From Inside One of the Categorys
                     int cardCount = mediaAndSocialArray.Count;
-                    int cardSelect = Random.Range(0, cardCount);
-
-                    currentCard = mediaAndSocialArray[cardSelect];
-                    actionCardSlot.Add(currentCard);
-
-                } 
-                else 
-                {
-                    //Means that the number chosen did not result in a tech being chosen so throw in code to just pull from a random card category
+                        
                     //Pick a Card From Inside One of the Categorys
-                    int cardCount = militaryArray.Count;
                     int cardSelect = Random.Range(0, cardCount);
 
-                    currentCard = militaryArray[cardSelect];
-                    actionCardSlot.Add(currentCard);
+                    if (cardSelect >= 0 && cardSelect < cardCount)
+                    {
+                        currentCard = mediaAndSocialArray[cardSelect];
+                        actionCard.Add(currentCard);
+
+                        print("Media and Social Array"); 
+                        
+                        x++;
+                    }
+
+                } else if (cardCat > 900 && cardCat <= 950) //Settlement
+                {
+                    int cardCount = settlementArray.Count;
+                        
+                    //Pick a Card From Inside One of the Categorys
+                    int cardSelect = Random.Range(0, cardCount);
+
+                    if (cardSelect >= 0 && cardSelect < cardCount)
+                    {
+                        currentCard = settlementArray[cardSelect];
+                        actionCard.Add(currentCard);
+
+                        print("Settlement Array");
+
+                        x++;
+                    }
                 }
             }
         }
@@ -388,7 +623,7 @@ public class Dealer : MonoBehaviour
 
     public void dealEventCards()
     {
-        for (int e = 0; e < eventCardHolder.Count + 1; e++)
+        for (int e = 0; e < eventCardHolder.Count; e++)
         {
             int eventEra = Random.Range(0, 31);
 
@@ -407,23 +642,69 @@ public class Dealer : MonoBehaviour
 
     public void playActionCards()
     {
-        //Assign the cards that where selectd to be placed into the slots for them
-        for (int a = 0; a < actionCardHolder.Count + 1; a++)
-        {
-            Vector3 objectPosition = actionCardHolder[a].transform.position;
+        print("Play Action Cards Function Has Been Called");
 
-            actionCardSlot[a].transform.position = objectPosition;
+        for (int a = 0; a < actionCardHolder.Count; a++)
+        {
+            Card card = actionCard[a];
+
+            GameObject physicalCard = Instantiate(cardPrefab, actionCardHolder[a].transform);
+            physicalCard.transform.position = actionCardHolder[a].transform.position;
+            physicalCard.transform.rotation = actionCardHolder[a].transform.rotation;
+            physicalCard.transform.localScale = new Vector3(1f, 1f, 1.2f);
+
+            //Change the color of the card to coincide with the tech category that the card belongs to
+            MeshRenderer cardBackingRenderer = physicalCard.transform.Find("CardBacking")?.GetComponent<MeshRenderer>();
+            string cardColor = card.cardColor;
+
+            if (cardBackingRenderer != null)
+            {
+                Color newColor;
+                if (ColorUtility.TryParseHtmlString(cardColor, out newColor))
+                {
+                    // Get a copy of the material
+                    Material newMaterial = new Material(cardBackingRenderer.sharedMaterial);
+                    // Assign the new color to the material
+                    newMaterial.color = newColor;
+                    // Assign the updated material to the MeshRenderer
+                    cardBackingRenderer.material = newMaterial;
+                }
+                else
+                {
+                    Debug.LogError("Invalid color code: " + cardColor);
+                }
+            }
+
+            // Find the "Card UI Canvas" GameObject within the instantiated prefab, the parent of all of the UI elements for the card.
+            //Make sure that the UI element name for all of the things are without spaces, and are properly capsized with the first letter of both words being upper case and everyhting else lowercase, and with no spaces
+            Transform cardUICanvas = physicalCard.transform.Find("Card UI Canvas");
+            if (cardUICanvas != null)
+            {
+                TextMeshProUGUI nameSlot = cardUICanvas.GetComponentInChildren<TextMeshProUGUI>();
+                if (nameSlot != null)
+                    nameSlot.text = card.name;
+
+                TextMeshProUGUI cardDescriptionSlot = cardUICanvas.transform.Find("CardDescription").GetComponent<TextMeshProUGUI>();
+                if (cardDescriptionSlot != null)
+                    cardDescriptionSlot.text = card.description;
+
+                TextMeshProUGUI cardEraSlot = cardUICanvas.transform.Find("CardEra").GetComponent<TextMeshProUGUI>();
+                if (cardEraSlot != null)
+                    cardEraSlot.text = card.cardEra;
+
+                TextMeshProUGUI cardCategorySlot = cardUICanvas.transform.Find("CardCategory").GetComponent<TextMeshProUGUI>();
+                if (cardCategorySlot != null)
+                    cardCategorySlot.text = card.cardCategory;
+            }
         }
     }
 
     public void playEventCards()
     {
         //Assign the cards that where selectd to be placed into the slots for them
-        for (int e = 0; e < eventCardHolder.Count + 1; e++)
+        for (int e = 0; e < eventCardHolder.Count; e++)
         {
-            Vector3 objectPosition = eventCardHolder[e].transform.position;
-
-            eventCardSlot[e].transform.position = objectPosition;
+            //event card sorting and placements
         }
     }
 }

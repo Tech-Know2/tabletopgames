@@ -10,13 +10,14 @@ public class TechTreeController : MonoBehaviour
     public RawImage nonagon;
 
     public Tech requiredTech;
-    private bool isRequieredTechResearched;
-    private bool scrollEnabled = true;
+    private bool isRequiredTechResearched;
+    private bool scrollEnabled;
 
     public List<GameObject> techBranches = new List<GameObject>();
+    public GameObject techBranchHolder;
     private int currentBranchNumber = 0;
 
-    public float rotationValue = 40f;
+    private float rotationValue;
     private float currentRotation = 0f;
     
     public bool treeEnabled;
@@ -27,9 +28,31 @@ public class TechTreeController : MonoBehaviour
         techTree.SetActive(false);
         treeEnabled = false;
 
+        rotationValue = 360f / techBranches.Count;
+
+        techBranchHolder.SetActive(true);
+
         for (int x = 0; x < techBranches.Count; x++)
         {
-            techBranches[x].SetActive(true);
+            if (x == 0)
+            {
+                techBranches[x].SetActive(true);
+            }
+            else
+            {
+                techBranches[x].SetActive(false);
+            }
+        }
+    }
+
+    public void checkRequiredResearch()
+    {
+        if(requiredTech.isResearched == true)
+        {
+            scrollEnabled = true;
+        } else 
+        {
+            scrollEnabled = false;
         }
     }
 
@@ -45,8 +68,16 @@ public class TechTreeController : MonoBehaviour
             {
                 scrollEnabled = true;
             }
+            else
+            {
+                scrollEnabled = false;
+            }
+
+            currentRotation = currentBranchNumber * rotationValue; // Calculate the initial rotation based on the current branch number
+            nonagon.rectTransform.rotation = Quaternion.Euler(0f, 0f, currentRotation);
 
             displayCurrentBranch();
+
         }
         else
         {
@@ -55,13 +86,13 @@ public class TechTreeController : MonoBehaviour
         }
     }
 
+
     public void rightSpin()
     {
+        checkRequiredResearch();
+        
         if (scrollEnabled == true)
         {
-            currentRotation -= rotationValue;
-            nonagon.rectTransform.rotation = Quaternion.Euler(0f, 0f, currentRotation);
-
             if (currentBranchNumber >= techBranches.Count - 1)
             {
                 currentBranchNumber = 0;
@@ -71,17 +102,19 @@ public class TechTreeController : MonoBehaviour
                 currentBranchNumber++;
             }
 
+            currentRotation -= rotationValue;
+            nonagon.rectTransform.rotation = Quaternion.Euler(0f, 0f, currentRotation);
+
             displayCurrentBranch();
         }
     }
 
     public void leftSpin()
     {
+        checkRequiredResearch();
+
         if (scrollEnabled == true)
         {
-            currentRotation += rotationValue;
-            nonagon.rectTransform.rotation = Quaternion.Euler(0f, 0f, currentRotation);
-
             if (currentBranchNumber > 0)
             {
                 currentBranchNumber--;
@@ -91,23 +124,27 @@ public class TechTreeController : MonoBehaviour
                 currentBranchNumber = techBranches.Count - 1;
             }
 
+            currentRotation += rotationValue;
+            nonagon.rectTransform.rotation = Quaternion.Euler(0f, 0f, currentRotation);
+
             displayCurrentBranch();
         }
     }
 
-    public void displayCurrentBranch()
+    public int displayCurrentBranch()
     {
         print(currentBranchNumber);
-
         for (int i = 0; i < techBranches.Count; i++)
         {
             if (i == currentBranchNumber)
             {
                 techBranches[i].SetActive(true);
-            } else 
+            }
+            else
             {
                 techBranches[i].SetActive(false);
             }
         }
+        return currentBranchNumber;
     }
 }

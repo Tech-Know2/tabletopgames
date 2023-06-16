@@ -16,6 +16,7 @@ public class PlayerScript : MonoBehaviour
     public Dealer dealer;
     public PlacementScript placementScript;
     public EconomyManager economyManager;
+    public Government government;
 
     // Selected Card Game Object
     private GameObject selectedCard;
@@ -38,7 +39,7 @@ public class PlayerScript : MonoBehaviour
         if(currentTurn < eraOneLength)
         {
             currentEra = 1;
-        } else if (currentTurn < eraTwoLength && currentTurn >= eraTwoLength)
+        } else if (currentTurn < eraTwoLength)
         {
             currentEra = 2;
         } else 

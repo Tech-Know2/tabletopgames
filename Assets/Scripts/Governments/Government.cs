@@ -10,6 +10,7 @@ public class Government : ScriptableObject
     public string governmentDescription;
 
     //Percentage Buffs and Modifiers
+    public int settlement = 1;
     public int agrarian = 1;
     public int military = 1;
     public int industrial = 1;

@@ -21,4 +21,5 @@ MonoBehaviour:
   isResearched: 0
   goldCost: 100
   techButtons: []
-  techCards: []
+  techCards:
+  - {fileID: 11400000, guid: 7a57942fc1d26d84e8baa33081ca6d47, type: 2}

@@ -7,16 +7,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b214d7cb84762544eba4738d12acc8e9, type: 3}
-  m_Name: Humble Abode
+  m_Name: Hunting Cabin
   m_EditorClassIdentifier: 
-  cardName: Humble Abode
-  description: Convert one of your starter basic soldier units into a city.
-  cardCategory: Settlement
-  cardColor: '#808080'
-  cardTech: Settlement
+  cardName: Hunting Cabin
+  description: Construct a hunting cabin in one of your cities that will produce
+    5 food every turn. Requires 5 constant workers.
+  cardCategory: Agrarian
+  cardColor: '#0CA789'
+  cardTech: Gathering and Hunting
   cardEra: 1
   originalPlayer: 
   isGovernmentCard: 0

@@ -8,6 +8,7 @@ public class TechDisplay : MonoBehaviour
     public Tech tech;
     public Dealer dealer;
     public PlayerScript playerScript;
+    private int updatedtechPointCount;
 
     public Button currentTechButton;
     public Button previousTechButton;
@@ -37,7 +38,9 @@ public class TechDisplay : MonoBehaviour
     public void techResearch()
     {
         int playerGoldCount = economyManager.currentGold;
-        int goldCost = tech.goldCost;
+
+        // Get the Current Amount of Tech Points from Player
+        updatedtechPointCount = economyManager.currentTechPoints;
 
         if (previousTechButton != null)
         {
@@ -50,27 +53,39 @@ public class TechDisplay : MonoBehaviour
             }
         }
 
-        if (previousTech == null && playerScript.currentEra >= tech.techEra && playerGoldCount >= tech.goldCost)
+        if (previousTech == null && playerScript.currentEra >= tech.techEra && updatedtechPointCount >= 1)
         {
             tech.isResearched = true;
-            economyManager.currentGold -= goldCost;
+            updatedtechPointCount = updatedtechPointCount - 1;
 
-            if(tech.techCards.Count != 0)
+            // Set the Economy Manager tech Points to the New Updated Values
+            economyManager.currentTechPoints = updatedtechPointCount;
+
+            if (tech.techCards.Count != 0)
             {
-                dealer.actionCardArray.AddRange(tech.techCards);
+                foreach (Card card in tech.techCards)
+                {
+                    dealer.actionCardArray.Add(card);
+                }
                 dealer.filterCards();
             }
 
             print(tech.techName + " Researched");
         }
-        else if (previousTech != null && tech.isResearched == false && previousTech.isResearched == true && playerScript.currentEra >= tech.techEra  && playerGoldCount >= tech.goldCost)
+        else if (previousTech != null && tech.isResearched == false && previousTech.isResearched == true && playerScript.currentEra >= tech.techEra && updatedtechPointCount >= 1)
         {
             tech.isResearched = true;
-            economyManager.currentGold -= goldCost;
-            
-            if(tech.techCards.Count != 0)
+            updatedtechPointCount = updatedtechPointCount - 1;
+
+            // Set the Economy Manager tech Points to the New Updated Values
+            economyManager.currentTechPoints = updatedtechPointCount;
+
+            if (tech.techCards.Count != 0)
             {
-                dealer.actionCardArray.AddRange(tech.techCards);
+                foreach (Card card in tech.techCards)
+                {
+                    dealer.actionCardArray.Add(card);
+                }
                 dealer.filterCards();
             }
 

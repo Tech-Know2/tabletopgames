@@ -16,5 +16,5 @@ public class Tech : ScriptableObject
 
     public int goldCost;
     public List<Button> techButtons = new List<Button>();
-    public List<GameObject> techCards = new List<GameObject>();
+    public List<Card> techCards = new List<Card>();
 }
