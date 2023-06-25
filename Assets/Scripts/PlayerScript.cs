@@ -72,7 +72,7 @@ public class PlayerScript : MonoBehaviour
                 selectedCard = hit.collider.gameObject;
 
                 Card card = selectedCard.GetComponent<Card>();
-                tempBuildingStorage = new List<GameObject>(card.buildings);
+                tempBuildingStorage = new List<GameObject>(card.buildingObjects);
 
                 placementScript.cardBuildings = tempBuildingStorage;
             }

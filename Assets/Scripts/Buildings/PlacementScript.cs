@@ -19,7 +19,7 @@ public class PlacementScript : MonoBehaviour
         Card card = currentBuildCard.GetComponent<Card>();
 
         // Add all buildings from the card to the list
-        cardBuildings.AddRange(card.buildings);
+        cardBuildings.AddRange(card.buildingObjects);
 
         // Assign the Building component of the current building
         buildings = currentBuilding.GetComponent<Buildings>();
@@ -92,6 +92,8 @@ public class PlacementScript : MonoBehaviour
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         return Physics.Raycast(ray, out hit) && hit.collider.gameObject == gameObject;
+
+        print("Mouse Over");
     }
 
     public void buildingReset()
