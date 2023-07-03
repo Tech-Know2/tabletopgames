@@ -12,6 +12,9 @@ public class TechDisplay : MonoBehaviour
     public TechTreeController techTreeController;
     private int updatedtechPointCount;
 
+    private List<string> researchedTechNames = new List<string>();
+    public List<Tech> clonedResearchedTechs = new List<Tech>();
+
     public Button currentTechButton;
     public Button previousTechButton;
     private Tech originalPreviousTech;
@@ -43,12 +46,23 @@ public class TechDisplay : MonoBehaviour
         {
             Debug.LogError("Invalid color code: " + techColor);
         }
+
+        if (researchedTechNames.Contains(tech.techName))
+        {
+            print(tech.techName + " has already been researched");
+        }
+    }
+
+    public void CheckSettlmentStatus()
+    {
+        if (tech.techName == "Settlements")
+        {
+            techTreeController.isSettlementTechResearched = true;
+        }
     }
 
     public void techResearch()
     {
-        int playerGoldCount = economyManager.currentGold;
-
         // Get the Current Amount of Tech Points from Player
         updatedtechPointCount = economyManager.currentTechPoints;
 
@@ -63,9 +77,31 @@ public class TechDisplay : MonoBehaviour
             }
         }
 
-        if (playerScript.currentEra >= tech.techEra && updatedtechPointCount >= 1)
+        if (playerScript.currentEra >= tech.techEra && updatedtechPointCount >= 1 && !researchedTechNames.Contains(tech.techName))
         {
-            tech.isResearched = true;
+            updatedtechPointCount = updatedtechPointCount - 1;
+
+            // Set the Economy Manager tech Points to the New Updated Values
+            economyManager.currentTechPoints = updatedtechPointCount;
+
+            clonedResearchedTechs.Add(tech);
+
+            if (tech.techCards.Count != 0)
+            {
+                foreach (Card card in tech.techCards)
+                {
+                    dealer.actionCardArray.Add(card);
+                }
+                dealer.filterCards();
+            }
+
+            // Add the name of the researched tech to the list
+            researchedTechNames.Add(tech.techName);
+
+            print(tech.techName + " Researched");
+        }
+        else if (previousTech != null && researchedTechNames.Contains(previousTech.techName) && playerScript.currentEra >= tech.techEra && updatedtechPointCount >= 1)
+        {
             updatedtechPointCount = updatedtechPointCount - 1;
 
             // Set the Economy Manager tech Points to the New Updated Values
@@ -78,33 +114,14 @@ public class TechDisplay : MonoBehaviour
                     dealer.actionCardArray.Add(card);
                 }
                 dealer.filterCards();
-
-                if (tech.techName == "Settlements")
-                {
-                    techTreeController.isSettlementTechResearched = true;
-                }
             }
+
+            // Add the name of the researched tech to the list
+            researchedTechNames.Add(tech.techName);
 
             print(tech.techName + " Researched");
         }
-        else if (previousTech != null && tech.isResearched == false && previousTech.isResearched == true && playerScript.currentEra >= tech.techEra && updatedtechPointCount >= 1)
-        {
-            tech.isResearched = true;
-            updatedtechPointCount = updatedtechPointCount - 1;
 
-            // Set the Economy Manager tech Points to the New Updated Values
-            economyManager.currentTechPoints = updatedtechPointCount;
-
-            if (tech.techCards.Count != 0)
-            {
-                foreach (Card card in tech.techCards)
-                {
-                    dealer.actionCardArray.Add(card);
-                }
-                dealer.filterCards();
-            }
-
-            print(tech.techName + " Researched");
-        }
+        CheckSettlmentStatus();
     }
 }

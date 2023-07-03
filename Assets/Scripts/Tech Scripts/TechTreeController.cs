@@ -64,6 +64,8 @@ public class TechTreeController : MonoBehaviour
             treeEnabled = true;
             techTree.SetActive(true);
 
+            currentBranchNumber = 0;
+
             // Check if settlementTech is not null before accessing its properties
             if (isSettlementTechResearched == true)
             {
