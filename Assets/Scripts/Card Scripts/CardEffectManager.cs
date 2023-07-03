@@ -32,11 +32,12 @@ public class CardEffectManager : MonoBehaviour
     {
         if (firstTime == true)
         {
-           originalCard = playerScript.cardData;
-           card = Instantiate(originalCard);
+            originalCard = playerScript.cardData;
+            card = Instantiate(originalCard);
+            currentHighLevelCard = card;
         } else if (firstTime == false)
         {
-            originalCard = currentHighLevelCard;
+            card = currentHighLevelCard;
         }
 
         effectCostType = card.effectCostType;

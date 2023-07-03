@@ -2142,6 +2142,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 0}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 143550137}
   previousTechButton: {fileID: 194251182}
   economyManager: {fileID: 1972966346}
@@ -2879,6 +2880,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 0}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 194251182}
   previousTechButton: {fileID: 1066660279}
   economyManager: {fileID: 1972966346}
@@ -3290,6 +3292,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 0}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 242596282}
   previousTechButton: {fileID: 649085370}
   economyManager: {fileID: 1972966346}
@@ -6353,6 +6356,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 0}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 609383496}
   previousTechButton: {fileID: 1066660279}
   economyManager: {fileID: 1972966346}
@@ -6886,6 +6890,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 0}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 649085370}
   previousTechButton: {fileID: 1897956164}
   economyManager: {fileID: 1972966346}
@@ -9620,6 +9625,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 0}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 841624305}
   previousTechButton: {fileID: 1066660279}
   economyManager: {fileID: 1972966346}
@@ -11199,6 +11205,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 0}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 943938026}
   previousTechButton: {fileID: 1897956164}
   economyManager: {fileID: 1972966346}
@@ -12002,6 +12009,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 0}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 1042517314}
   previousTechButton: {fileID: 649085370}
   economyManager: {fileID: 1972966346}
@@ -12195,6 +12203,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 1961914402}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 1066660279}
   previousTechButton: {fileID: 0}
   economyManager: {fileID: 1972966346}
@@ -14452,6 +14461,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 0}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 1231403525}
   previousTechButton: {fileID: 1897956164}
   economyManager: {fileID: 1972966346}
@@ -14644,6 +14654,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 0}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 1264867953}
   previousTechButton: {fileID: 1066660279}
   economyManager: {fileID: 1972966346}
@@ -14786,6 +14797,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 0}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 1266292857}
   previousTechButton: {fileID: 1066660279}
   economyManager: {fileID: 1972966346}
@@ -16361,6 +16373,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 0}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 1413085795}
   previousTechButton: {fileID: 1532955896}
   economyManager: {fileID: 1972966346}
@@ -16907,6 +16920,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 0}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 1432347258}
   previousTechButton: {fileID: 1855458917}
   economyManager: {fileID: 1972966346}
@@ -17061,6 +17075,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 0}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 1447447390}
   previousTechButton: {fileID: 1066660279}
   economyManager: {fileID: 1972966346}
@@ -17215,6 +17230,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 0}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 1448826031}
   previousTechButton: {fileID: 1532955896}
   economyManager: {fileID: 1972966346}
@@ -18037,6 +18053,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 0}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 1532955896}
   previousTechButton: {fileID: 1066660279}
   economyManager: {fileID: 1972966346}
@@ -18621,7 +18638,8 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: 174c1d67db328dd499efa8198a1275b5, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
+  techTreeController: {fileID: 1961914402}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 1560586251}
   previousTechButton: {fileID: 1066660279}
   economyManager: {fileID: 1972966346}
@@ -19990,6 +20008,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 0}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 1678545239}
   previousTechButton: {fileID: 1868155949}
   economyManager: {fileID: 1972966346}
@@ -23305,6 +23324,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 0}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 1855458917}
   previousTechButton: {fileID: 143550137}
   economyManager: {fileID: 1972966346}
@@ -23619,6 +23639,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 0}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 1868155949}
   previousTechButton: {fileID: 1066660279}
   economyManager: {fileID: 1972966346}
@@ -23773,6 +23794,7 @@ MonoBehaviour:
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
   techTreeController: {fileID: 0}
+  clonedResearchedTechs: []
   currentTechButton: {fileID: 1897956164}
   previousTechButton: {fileID: 1066660279}
   economyManager: {fileID: 1972966346}

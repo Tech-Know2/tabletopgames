@@ -10,26 +10,30 @@ public class TechDisplay : MonoBehaviour
     public Dealer dealer;
     public PlayerScript playerScript;
     public TechTreeController techTreeController;
+    private ClonedTechData clonedTechData;
     private int updatedtechPointCount;
 
     private List<string> researchedTechNames = new List<string>();
-    public List<Tech> clonedResearchedTechs = new List<Tech>();
 
     public Button currentTechButton;
     public Button previousTechButton;
-    private Tech originalPreviousTech;
+    public Tech originalPreviousTech;
     private Tech previousTech;
     public EconomyManager economyManager;
 
     void Start()
     {
+        //Fine the Cloned Tech Script
+        Transform playerAndCameraRig = GameObject.Find("Player and Camera Rig")?.transform;
+        clonedTechData = playerAndCameraRig.GetComponentInChildren<ClonedTechData>();
+
         originalTech.ResetTechState();
 
         currentTechButton = GetComponent<Button>();
 
         tech = Instantiate(originalTech);
 
-        if (previousTechButton != null)
+        if (originalPreviousTech != null)
         {
             previousTech = Instantiate(originalPreviousTech);
         }
@@ -37,7 +41,10 @@ public class TechDisplay : MonoBehaviour
         Image buttonImage = currentTechButton.image;
         string techColor = tech.techColor;
 
+        print("tech Color Code" + techColor);
+
         Color newColor;
+
         if (ColorUtility.TryParseHtmlString(techColor, out newColor))
         {
             buttonImage.color = newColor;
@@ -45,11 +52,6 @@ public class TechDisplay : MonoBehaviour
         else
         {
             Debug.LogError("Invalid color code: " + techColor);
-        }
-
-        if (researchedTechNames.Contains(tech.techName))
-        {
-            print(tech.techName + " has already been researched");
         }
     }
 
@@ -84,7 +86,7 @@ public class TechDisplay : MonoBehaviour
             // Set the Economy Manager tech Points to the New Updated Values
             economyManager.currentTechPoints = updatedtechPointCount;
 
-            clonedResearchedTechs.Add(tech);
+            clonedTechData.clonedResearchedTechs.Add(tech);
 
             if (tech.techCards.Count != 0)
             {
