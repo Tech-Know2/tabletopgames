@@ -7,6 +7,12 @@ public class CardEffectManager : MonoBehaviour
     //Access and Retrieve the Scriptable Object Data From the Current Card
     public Card card;
     public Government government;
+    public PlayerScript playerScript;
+    public EconomyManager economyManager;
+
+    //Manage Weather or not The Cards Are Being Currently in Use, or First Time Use
+    private bool firstTime = true;
+    private Card currentHighLevelCard;
 
     //Setup The Varibales to Be Accessed and Assigned By The Scriptable Objects
     private string effectCostType;
@@ -17,9 +23,20 @@ public class CardEffectManager : MonoBehaviour
     //Government and Political Based Data Sets
     private string governmentName;
 
+    //Current Active Cards
+    public List<Card> activeCards = new List<Card>();
+
     //Filter What Type Of Effect The Card is Going to Have On The Board
     public void EffectFilter()
     {
+        if (firstTime == true)
+        {
+            card = playerScript.cardData;
+        } else if (firstTime == false)
+        {
+            card = currentHighLevelCard;
+        }
+
         effectCostType = card.effectCostType;
         effectTurnLength = card.turnEffectLength;
         turnEffectCost = card.turnEffectCost;
@@ -35,6 +52,11 @@ public class CardEffectManager : MonoBehaviour
 
                 GovernmentEffectFilter();
             }
+        }
+
+        if (card.requiresMultipleTurns == true && firstTime == true)
+        {
+            activeCards.Add(card);
         }
 
         if(effectCostType == "Gold Cost")
@@ -65,6 +87,13 @@ public class CardEffectManager : MonoBehaviour
         {
             ReligionCost();
         }
+        else if (effectCostType == "Weariness Cost")
+        {
+            WearinessCost();
+        } else
+        {
+            print(card + "Does Not Have An Effect, Probably and Error");
+        }
     }
 
     public void GovernmentEffectFilter()
@@ -90,57 +119,95 @@ public class CardEffectManager : MonoBehaviour
     //Different Types of Economic and Social Effects
     public void GoldCost()
     {
-
+        print("Gold Cost");
+        economyManager.currentGold = economyManager.currentGold + card.turnEffectCost;
     }
 
     public void SilverCost()
     {
-        
+        print("Silver Cost");
+        economyManager.currentSilver = economyManager.currentSilver + card.turnEffectCost;
     }
 
     public void LoyaltyCost()
     {
-        
+        print("Loyalty Cost");
+        economyManager.currentLoyalty = economyManager.currentLoyalty + card.turnEffectCost;
     }
 
     public void FoodCost()
     {
-        
+        print("Food Cost");
     }
 
     public void PeopleCost()
     {
-        
+        print("People Cost");
     }
 
     public void WarSupportCost()
     {
-        
+        print("War Support Cost");
     }
 
     public void ReligionCost()
     {
+        print("Religion Cost");
+    }
 
+    public void WearinessCost()
+    {
+        print("Weariness Cost");
     }
 
     //Different Types of Political Effects    
     public void GovernmentWarSupportBoost()
     {
-
+        print("Government War Support Boost");
     }
 
     public void AllianceCard()
     {
-
+        print("Alliance Card");
     }
 
     public void DeclareWarCard()
     {
-
+        print("Declare War Card");
     }
 
     public void PeaceTreatyCard()
     {
+        print("Peace Treaty Card");
+    }
 
+    public void CurrentlyActiveCards()
+    {
+        List<Card> cardsToRemove = new List<Card>(); // Track cards to remove
+
+        for (int i = activeCards.Count - 1; i >= 0; i--)
+        {
+            Card currentCard = activeCards[i];
+
+            currentCard.turnsActive++;
+
+            if (currentCard.turnsActive <= currentCard.turnEffectLength)
+            {
+                //card = currentCard;
+                currentCard = currentHighLevelCard;
+                EffectFilter();
+            }
+
+            if (currentCard.turnsActive > currentCard.turnEffectLength)
+            {
+                cardsToRemove.Add(currentCard);
+            }
+        }
+
+        // Remove the cards that have completed their effect duration
+        foreach (Card cardToRemove in cardsToRemove)
+        {
+            activeCards.Remove(cardToRemove);
+        }
     }
 }

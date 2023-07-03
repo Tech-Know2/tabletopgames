@@ -9,9 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5317182380889064387}
+  - component: {fileID: 6939509060616882071}
+  - component: {fileID: 1298456252035630391}
   m_Layer: 0
   m_Name: Card Prefab
-  m_TagString: Untagged
+  m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33,6 +35,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &6939509060616882071
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368944600935861469}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
+--- !u!114 &1298456252035630391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368944600935861469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f5c267a8df50f9458986850d1685744, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardTag: Card
+  card: {fileID: 0}
+  cardGameObject: {fileID: 1368944600935861469}
 --- !u!1 &4536914524226414498
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,7 +77,7 @@ GameObject:
   - component: {fileID: 5714686777438654051}
   m_Layer: 0
   m_Name: CardCategory
-  m_TagString: Untagged
+  m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -182,7 +213,7 @@ GameObject:
   - component: {fileID: 4908104999076421620}
   m_Layer: 0
   m_Name: Card UI Canvas
-  m_TagString: Untagged
+  m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -285,7 +316,7 @@ GameObject:
   - component: {fileID: 2787109472657825890}
   m_Layer: 0
   m_Name: CardEra
-  m_TagString: Untagged
+  m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -420,7 +451,7 @@ GameObject:
   - component: {fileID: 3396959422517901169}
   m_Layer: 0
   m_Name: CardName
-  m_TagString: Untagged
+  m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -556,7 +587,7 @@ GameObject:
   - component: {fileID: 1477742639145820074}
   m_Layer: 0
   m_Name: CardBacking
-  m_TagString: Untagged
+  m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -652,7 +683,7 @@ GameObject:
   - component: {fileID: 4762211498251469779}
   m_Layer: 0
   m_Name: CardDescription
-  m_TagString: Untagged
+  m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

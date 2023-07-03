@@ -13,6 +13,7 @@ public class PlayerScript : MonoBehaviour
     public int eraTwoLength;
 
     // Associate the script with our code so it can be called
+    public CardPlayer cardPlayer;
     public Dealer dealer;
     public PlacementScript placementScript;
     public EconomyManager economyManager;
@@ -20,6 +21,14 @@ public class PlayerScript : MonoBehaviour
 
     // Selected Card Game Object
     private GameObject selectedCard;
+    public Card cardData;
+
+    //Amount of Cards that Can Be Played Per Turn
+    public int maxCardsPerTurn = 3;
+    public int cardsPlayed = 0;
+
+    //Controlling the Interactions with the Cards In Game
+    public CardEffectManager cardEffectManager;
 
     // Start is called before the first frame update
     void Start()
@@ -79,6 +88,23 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    public void CardSelected()
+    {
+        if (cardsPlayed < maxCardsPerTurn)
+        {
+            cardsPlayed = cardsPlayed + 1;
+            PlayCard();
+        } else 
+        {
+            print("You Have Reached Max Cards Played Per Turn");
+        }
+    }
+
+    public void PlayCard()
+    {
+        cardEffectManager.card = cardData;
+        cardEffectManager.EffectFilter();
+    }
 
     public void InitiateBuildingPlacement()
     {

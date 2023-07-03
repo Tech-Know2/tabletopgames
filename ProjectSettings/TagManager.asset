@@ -17,6 +17,8 @@ TagManager:
   - Cacti
   - Rock
   - Boulder
+  - Card
+  - Player and Camera Rig
   layers:
   - Default
   - TransparentFX

@@ -22,6 +22,7 @@ public class CameraController : MonoBehaviour
     public Quaternion newRotation;
     public Vector3 newZoom;
 
+    public bool cameraPanningAllowed = true;
     public Vector3 dragStartPosition;
     public Vector3 dragCurrentPosition;
     public Vector3 rotateStartPosiiton;
@@ -82,49 +83,52 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        //Pan With the Mouse
-        if(Input.GetMouseButtonDown(0))
+        if (cameraPanningAllowed == true)
         {
-            Plane plane = new Plane(Vector3.up, Vector3.zero);
-
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            float entry;
-
-            if(plane.Raycast(ray, out entry))
+            //Pan With the Mouse
+            if(Input.GetMouseButtonDown(0))
             {
-                dragStartPosition = ray.GetPoint(entry);
+                Plane plane = new Plane(Vector3.up, Vector3.zero);
+
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                float entry;
+
+                if(plane.Raycast(ray, out entry))
+                {
+                    dragStartPosition = ray.GetPoint(entry);
+                }
             }
-        }
-        if(Input.GetMouseButton(0))
-        {
-            Plane plane = new Plane(Vector3.up, Vector3.zero);
-
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            float entry;
-
-            if(plane.Raycast(ray, out entry))
+            if(Input.GetMouseButton(0))
             {
-                dragCurrentPosition = ray.GetPoint(entry);
+                Plane plane = new Plane(Vector3.up, Vector3.zero);
 
-                newPosition = transform.position + dragStartPosition - dragCurrentPosition;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                float entry;
+
+                if(plane.Raycast(ray, out entry))
+                {
+                    dragCurrentPosition = ray.GetPoint(entry);
+
+                    newPosition = transform.position + dragStartPosition - dragCurrentPosition;
+                }
             }
-        }
 
-        if(Input.GetMouseButtonDown(2))
-        {
-            rotateStartPosiiton = Input.mousePosition;
-        }
-        if(Input.GetMouseButton(2))
-        {
-            rotateCurrentPosition = Input.mousePosition;
+            if(Input.GetMouseButtonDown(2))
+            {
+                rotateStartPosiiton = Input.mousePosition;
+            }
+            if(Input.GetMouseButton(2))
+            {
+                rotateCurrentPosition = Input.mousePosition;
 
-            Vector3 difference = rotateStartPosiiton - rotateCurrentPosition;
+                Vector3 difference = rotateStartPosiiton - rotateCurrentPosition;
 
-            rotateStartPosiiton =  rotateCurrentPosition;
+                rotateStartPosiiton =  rotateCurrentPosition;
 
-            newRotation *= Quaternion.Euler(Vector3.up * (-difference.x / 5f)); 
+                newRotation *= Quaternion.Euler(Vector3.up * (-difference.x / 5f)); 
+            }
         }
     }
 

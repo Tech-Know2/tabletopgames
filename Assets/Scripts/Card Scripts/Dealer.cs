@@ -10,6 +10,7 @@ public class Dealer : MonoBehaviour
     private Government government;
     public GameObject player;
     public AuctionHouse auctionHouse;
+    public CardEffectManager cardEffectManager;
     private string govType;
 
     //Card Slot Related Information
@@ -18,6 +19,9 @@ public class Dealer : MonoBehaviour
     private TextMeshProUGUI cardDescriptionSlot;
     private TextMeshProUGUI cardEraSlot;
     private TextMeshProUGUI cardCategorySlot;
+
+    //Assign The Card Scriptable Object to the Card Prefab Using the Card Data Holder Script. This can then be used to get info from it when it is clicked
+    public CardDataHolder cardDataHolder;
 
     //Store Total/All of the Action and Event Cards
     public List<Card> actionCardArray = new List<Card>();
@@ -94,6 +98,7 @@ public class Dealer : MonoBehaviour
 
         PlayerScript playerScript = player.GetComponent<PlayerScript>();
         currentEra = playerScript.currentEra;
+        playerScript.cardsPlayed = 0;
 
         // Access the government scriptable object from the player script
         
@@ -112,10 +117,11 @@ public class Dealer : MonoBehaviour
         // Call the cards to be drawn by the dealer script
         // Filter The Cards From the Newly Researched Techs
         filterCards();
-        arrayCounter();
         // Discard All Unused Cards to the Auction House
         discardCards();
         // Pick the Cards To Be Dealt From the Deck
+        // Take Into Account the Current Card Effects
+        cardEffectManager.CurrentlyActiveCards();
         dealActionCards();
         //dealEventCards();
         // Display the Cards in the Appropriate Slots
@@ -649,9 +655,14 @@ public class Dealer : MonoBehaviour
             Card card = actionCard[a];
 
             GameObject physicalCard = Instantiate(cardPrefab, actionCardHolder[a].transform);
+            physicalCard.tag = "Card";
             physicalCard.transform.position = actionCardHolder[a].transform.position;
             physicalCard.transform.rotation = actionCardHolder[a].transform.rotation;
             physicalCard.transform.localScale = new Vector3(1f, 1f, 1.2f);
+
+            //Attach the Sctipt, and then the Data
+            CardDataHolder cardDataHolder = physicalCard.AddComponent<CardDataHolder>();
+            cardDataHolder.cardData = card;
 
             //Change the color of the card to coincide with the tech category that the card belongs to
             MeshRenderer cardBackingRenderer = physicalCard.transform.Find("CardBacking")?.GetComponent<MeshRenderer>();
