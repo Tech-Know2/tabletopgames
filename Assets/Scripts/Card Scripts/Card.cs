@@ -81,4 +81,9 @@ public class Card : ScriptableObject
 
     public List<GameObject> buildingObjects = new List <GameObject>();
     public List<Buildings> buildings = new List <Buildings>();
+
+    public void ResetCardState()
+    {
+        turnsActive = 0;
+    }
 }

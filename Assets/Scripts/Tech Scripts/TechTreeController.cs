@@ -9,8 +9,7 @@ public class TechTreeController : MonoBehaviour
     public GameObject techTree;
     public RawImage nonagon;
 
-    public Tech requiredTech;
-    private bool isRequiredTechResearched;
+    public bool isSettlementTechResearched;
     private bool scrollEnabled;
 
     public List<GameObject> techBranches = new List<GameObject>();
@@ -27,6 +26,8 @@ public class TechTreeController : MonoBehaviour
     {
         techTree.SetActive(false);
         treeEnabled = false;
+
+        isSettlementTechResearched = false;
 
         rotationValue = 360f / techBranches.Count;
 
@@ -47,7 +48,7 @@ public class TechTreeController : MonoBehaviour
 
     public void checkRequiredResearch()
     {
-        if(requiredTech.isResearched == true)
+        if(isSettlementTechResearched == true)
         {
             scrollEnabled = true;
         } else 
@@ -63,8 +64,8 @@ public class TechTreeController : MonoBehaviour
             treeEnabled = true;
             techTree.SetActive(true);
 
-            // Check if requiredTech is not null before accessing its properties
-            if (requiredTech != null && requiredTech.isResearched == true)
+            // Check if settlementTech is not null before accessing its properties
+            if (isSettlementTechResearched == true)
             {
                 scrollEnabled = true;
             }
@@ -77,7 +78,6 @@ public class TechTreeController : MonoBehaviour
             nonagon.rectTransform.rotation = Quaternion.Euler(0f, 0f, currentRotation);
 
             displayCurrentBranch();
-
         }
         else
         {
@@ -85,6 +85,7 @@ public class TechTreeController : MonoBehaviour
             techTree.SetActive(false);
         }
     }
+
 
 
     public void rightSpin()

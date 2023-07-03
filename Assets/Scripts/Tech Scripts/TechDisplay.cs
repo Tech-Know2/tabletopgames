@@ -5,21 +5,31 @@ using UnityEngine.UI;
 
 public class TechDisplay : MonoBehaviour
 {
-    public Tech tech;
+    public Tech originalTech;
+    private Tech tech;
     public Dealer dealer;
     public PlayerScript playerScript;
+    public TechTreeController techTreeController;
     private int updatedtechPointCount;
 
     public Button currentTechButton;
     public Button previousTechButton;
+    private Tech originalPreviousTech;
     private Tech previousTech;
     public EconomyManager economyManager;
 
     void Start()
     {
-        tech.isResearched = false;
+        originalTech.ResetTechState();
 
         currentTechButton = GetComponent<Button>();
+
+        tech = Instantiate(originalTech);
+
+        if (previousTechButton != null)
+        {
+            previousTech = Instantiate(originalPreviousTech);
+        }
 
         Image buttonImage = currentTechButton.image;
         string techColor = tech.techColor;
@@ -53,7 +63,7 @@ public class TechDisplay : MonoBehaviour
             }
         }
 
-        if (previousTech == null && playerScript.currentEra >= tech.techEra && updatedtechPointCount >= 1)
+        if (playerScript.currentEra >= tech.techEra && updatedtechPointCount >= 1)
         {
             tech.isResearched = true;
             updatedtechPointCount = updatedtechPointCount - 1;
@@ -68,6 +78,11 @@ public class TechDisplay : MonoBehaviour
                     dealer.actionCardArray.Add(card);
                 }
                 dealer.filterCards();
+
+                if (tech.techName == "Settlements")
+                {
+                    techTreeController.isSettlementTechResearched = true;
+                }
             }
 
             print(tech.techName + " Researched");

@@ -41,6 +41,13 @@ public class PlayerScript : MonoBehaviour
         currentTurn = 1;
 
         dealer.filterCards();
+
+        RestartScriptableObjectStates();
+    }
+
+    public void RestartScriptableObjectStates()
+    {
+        cardEffectManager.RestartGame();
     }
 
     void checkEra()
@@ -102,7 +109,7 @@ public class PlayerScript : MonoBehaviour
 
     public void PlayCard()
     {
-        cardEffectManager.card = cardData;
+        cardEffectManager.originalCard = cardData;
         cardEffectManager.EffectFilter();
     }
 

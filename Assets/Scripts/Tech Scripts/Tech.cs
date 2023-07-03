@@ -17,4 +17,15 @@ public class Tech : ScriptableObject
     public int goldCost;
     public List<Button> techButtons = new List<Button>();
     public List<Card> techCards = new List<Card>();
+
+    public void ResetTechState()
+    {
+        isResearched = false;
+
+        foreach (Card card in techCards)
+        {
+            card.ResetCardState();
+        }
+    }
+
 }

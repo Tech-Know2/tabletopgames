@@ -5,6 +5,7 @@ using UnityEngine;
 public class CardEffectManager : MonoBehaviour
 {
     //Access and Retrieve the Scriptable Object Data From the Current Card
+    public Card originalCard;
     public Card card;
     public Government government;
     public PlayerScript playerScript;
@@ -17,7 +18,7 @@ public class CardEffectManager : MonoBehaviour
     //Setup The Varibales to Be Accessed and Assigned By The Scriptable Objects
     private string effectCostType;
     private string cardEffectRegion;
-    private int effectTurnLength;
+    private int turnEffectLength;
     private int turnEffectCost;
     
     //Government and Political Based Data Sets
@@ -31,14 +32,15 @@ public class CardEffectManager : MonoBehaviour
     {
         if (firstTime == true)
         {
-            card = playerScript.cardData;
+           originalCard = playerScript.cardData;
+           card = Instantiate(originalCard);
         } else if (firstTime == false)
         {
-            card = currentHighLevelCard;
+            originalCard = currentHighLevelCard;
         }
 
         effectCostType = card.effectCostType;
-        effectTurnLength = card.turnEffectLength;
+        turnEffectLength = card.turnEffectLength;
         turnEffectCost = card.turnEffectCost;
         cardEffectRegion = card.cardEffectRegion;
 
@@ -181,33 +183,33 @@ public class CardEffectManager : MonoBehaviour
         print("Peace Treaty Card");
     }
 
+    //Restart the States of the Card Turns in Order to Count Properly
+    public void RestartGame()
+    {
+        // Reset the state of active cards
+        foreach (Card card in activeCards)
+        {
+            card.ResetCardState();
+        }
+    }
+
+    //Manage Active Card Effects
     public void CurrentlyActiveCards()
     {
-        List<Card> cardsToRemove = new List<Card>(); // Track cards to remove
-
         for (int i = activeCards.Count - 1; i >= 0; i--)
         {
             Card currentCard = activeCards[i];
 
             currentCard.turnsActive++;
 
-            if (currentCard.turnsActive <= currentCard.turnEffectLength)
-            {
-                //card = currentCard;
-                currentCard = currentHighLevelCard;
-                EffectFilter();
-            }
+            // Apply the card effect
+            card = currentCard;
+            EffectFilter();
 
             if (currentCard.turnsActive > currentCard.turnEffectLength)
             {
-                cardsToRemove.Add(currentCard);
+                activeCards.Remove(currentCard);
             }
-        }
-
-        // Remove the cards that have completed their effect duration
-        foreach (Card cardToRemove in cardsToRemove)
-        {
-            activeCards.Remove(cardToRemove);
         }
     }
 }
