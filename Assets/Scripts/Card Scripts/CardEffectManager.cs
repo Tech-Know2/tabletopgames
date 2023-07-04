@@ -12,7 +12,7 @@ public class CardEffectManager : MonoBehaviour
     public EconomyManager economyManager;
 
     //Manage Weather or not The Cards Are Being Currently in Use, or First Time Use
-    private bool firstTime = true;
+    public bool firstTime = true;
     private Card currentHighLevelCard;
 
     //Setup The Varibales to Be Accessed and Assigned By The Scriptable Objects
@@ -37,7 +37,6 @@ public class CardEffectManager : MonoBehaviour
         } else if (firstTime == false)
         {
             card = currentHighLevelCard;
-            firstTime = true;
         }
 
         effectCostType = card.effectCostType;
@@ -213,5 +212,4 @@ public class CardEffectManager : MonoBehaviour
             activeCards.Remove(cardToRemove);
         }
     }
-
 }

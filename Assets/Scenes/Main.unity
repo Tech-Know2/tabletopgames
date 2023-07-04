@@ -25046,6 +25046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardTag: Card
+  cardEffectManager: {fileID: 1972966348}
   card: {fileID: 0}
   cardGameObject: {fileID: 0}
 --- !u!114 &1972966348
@@ -25065,6 +25066,7 @@ MonoBehaviour:
   government: {fileID: 0}
   playerScript: {fileID: 1972966344}
   economyManager: {fileID: 1972966346}
+  firstTime: 1
   activeCards: []
 --- !u!114 &1972966349
 MonoBehaviour:

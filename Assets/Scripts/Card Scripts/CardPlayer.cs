@@ -10,6 +10,7 @@ public class CardPlayer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private bool isClicked = false;
     private CameraController cameraController;
     private PlayerScript playerScript;
+    public CardEffectManager cardEffectManager;
 
     public Card card;
     private CardDataHolder cardDataHolder;
@@ -24,6 +25,7 @@ public class CardPlayer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             cameraController = playerAndCameraRig.GetComponentInChildren<CameraController>();
             playerScript = playerAndCameraRig.GetComponentInChildren<PlayerScript>();
+            cardEffectManager = playerAndCameraRig.GetComponentInChildren<CardEffectManager>();
         }
         else
         {
@@ -43,6 +45,7 @@ public class CardPlayer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 isClicked = true;
                 cameraController.cameraPanningAllowed = false;
                 playerScript.cardData = card;
+                cardEffectManager.firstTime = true;
                 playerScript.CardSelected();
             }
         }
