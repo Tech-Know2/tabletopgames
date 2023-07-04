@@ -44,7 +44,6 @@ public class CardPlayer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 cameraController.cameraPanningAllowed = false;
                 playerScript.cardData = card;
                 playerScript.CardSelected();
-                Debug.Log("Clicked on");
             }
         }
     }
@@ -55,7 +54,6 @@ public class CardPlayer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             isClicked = false;
             cameraController.cameraPanningAllowed = true;
-            Debug.Log("Released click");
 
             //Destroy the Game Object After its Use
             Destroy(cardGameObject);

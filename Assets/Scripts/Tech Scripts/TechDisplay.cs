@@ -35,8 +35,6 @@ public class TechDisplay : MonoBehaviour
         Image buttonImage = currentTechButton.image;
         string techColor = tech.techColor;
 
-        print("tech Color Code" + techColor);
-
         Color newColor;
 
         if (ColorUtility.TryParseHtmlString(techColor, out newColor))

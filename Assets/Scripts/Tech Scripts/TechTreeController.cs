@@ -20,11 +20,16 @@ public class TechTreeController : MonoBehaviour
     private float rotationValue;
     private float currentRotation = 0f;
     
-    public bool treeEnabled;
+    public bool treeEnabled = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        //Allow Movement at the start of the game
+        cameraController.cameraPanningAllowed = true;
+        cameraController.cameraScrollAllowed = true;
+        cameraController.cameraMovementAllowed = true;
+
         techTree.SetActive(false);
         treeEnabled = false;
 
@@ -47,7 +52,7 @@ public class TechTreeController : MonoBehaviour
         }
     }
 
-    public void Update()
+    public void Movement()
     {
         if(treeEnabled == true)
         {
@@ -78,6 +83,7 @@ public class TechTreeController : MonoBehaviour
         if (treeEnabled == false)
         {
             treeEnabled = true;
+            Movement();
             techTree.SetActive(true);
 
             currentBranchNumber = 0;
@@ -101,6 +107,7 @@ public class TechTreeController : MonoBehaviour
         {
             treeEnabled = false;
             techTree.SetActive(false);
+            Movement();
         }
     }
 
