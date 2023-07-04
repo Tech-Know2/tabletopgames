@@ -4,40 +4,40 @@ using UnityEngine;
 
 public class CardEffectManager : MonoBehaviour
 {
-    //Access and Retrieve the Scriptable Object Data From the Current Card
+    // Access and Retrieve the Scriptable Object Data From the Current Card
     public Card originalCard;
     public Card card;
     public Government government;
     public PlayerScript playerScript;
     public EconomyManager economyManager;
 
-    //Manage Weather or not The Cards Are Being Currently in Use, or First Time Use
-    private bool firstTime = true;
+    // Manage Whether the Cards Are Currently in Use or First Time Use
+    public bool firstTime = true;
     private Card currentHighLevelCard;
 
-    //Setup The Varibales to Be Accessed and Assigned By The Scriptable Objects
+    // Setup the Variables to be Accessed and Assigned by the Scriptable Objects
     private string effectCostType;
     private string cardEffectRegion;
     private int turnEffectLength;
     private int turnEffectCost;
-    
-    //Government and Political Based Data Sets
+
+    // Government and Political Based Data Sets
     private string governmentName;
 
-    //Current Active Cards
+    // Current Active Cards
     public List<Card> activeCards = new List<Card>();
 
-    //Filter What Type Of Effect The Card is Going to Have On The Board
+    // Filter What Type of Effect the Card is Going to Have on the Board
     public void EffectFilter()
     {
-        if (firstTime == true)
+        if (firstTime)
         {
-            originalCard = playerScript.cardData;
-            card = Instantiate(originalCard);
-        } else if (firstTime == false)
+            //originalCard = playerScript.cardData;
+            card = Instantiate(playerScript.cardData);
+        }
+        else
         {
             card = currentHighLevelCard;
-            firstTime = true;
         }
 
         effectCostType = card.effectCostType;
@@ -45,24 +45,29 @@ public class CardEffectManager : MonoBehaviour
         turnEffectCost = card.turnEffectCost;
         cardEffectRegion = card.cardEffectRegion;
 
-        if(government != null)
+        if (government != null)
         {
             governmentName = government.governmentName;
-            
-            if(card.isGovernmentWarSupportBoostCard == true || card.isAllianceCard == true || card.isDeclareWarCard == true || card.isPeaceTreatyCard == true)
-            {
-                //governmentName = card.governemnt.governmentName;
 
+            if (card.isGovernmentWarSupportBoostCard || card.isAllianceCard || card.isDeclareWarCard || card.isPeaceTreatyCard)
+            {
                 GovernmentEffectFilter();
             }
         }
 
-        if (card.requiresMultipleTurns == true && firstTime == true)
+        if (card.requiresMultipleTurns) // Check if the card requires multiple turns
         {
-            activeCards.Add(card);
+            if (firstTime)
+            {
+                activeCards.Add(card);
+            }
+            else if (card.turnsActive > card.turnEffectLength)
+            {
+                activeCards.Remove(card);
+            }
         }
 
-        if(effectCostType == "Gold Cost")
+        if (effectCostType == "Gold Cost")
         {
             GoldCost();
         }
@@ -93,98 +98,100 @@ public class CardEffectManager : MonoBehaviour
         else if (effectCostType == "Weariness Cost")
         {
             WearinessCost();
-        } else
+        }
+        else
         {
-            print(card + "Does Not Have An Effect, Probably and Error");
+            Debug.Log(card.name + " does not have an effect. Check for errors.");
         }
     }
 
+
     public void GovernmentEffectFilter()
     {
-        if(card.isGovernmentWarSupportBoostCard == true)
+        if (card.isGovernmentWarSupportBoostCard)
         {
             GovernmentWarSupportBoost();
         }
-        else if(card.isAllianceCard == true == true)
+        else if (card.isAllianceCard)
         {
             AllianceCard();
-        } 
-        else if (card.isPeaceTreatyCard == true)
+        }
+        else if (card.isPeaceTreatyCard)
         {
             PeaceTreatyCard();
         }
-        else if (card.isDeclareWarCard == true)
+        else if (card.isDeclareWarCard)
         {
             DeclareWarCard();
         }
-    }    
+    }
 
-    //Different Types of Economic and Social Effects
+    // Different Types of Economic and Social Effects
     public void GoldCost()
     {
-        print("Gold Cost");
-        economyManager.currentGold = economyManager.currentGold + card.turnEffectCost;
+        Debug.Log("Gold Cost");
+        economyManager.currentGold += turnEffectCost;
     }
 
     public void SilverCost()
     {
-        print("Silver Cost");
-        economyManager.currentSilver = economyManager.currentSilver + card.turnEffectCost;
+        Debug.Log("Silver Cost");
+        economyManager.currentSilver += turnEffectCost;
     }
 
     public void LoyaltyCost()
     {
-        print("Loyalty Cost");
-        economyManager.currentLoyalty = economyManager.currentLoyalty + card.turnEffectCost;
+        Debug.Log("Loyalty Cost");
+        economyManager.currentLoyalty += turnEffectCost;
     }
 
     public void FoodCost()
     {
-        print("Food Cost");
+        Debug.Log("Food Cost");
     }
 
     public void PeopleCost()
     {
-        print("People Cost");
+        Debug.Log("People Cost");
     }
 
     public void WarSupportCost()
     {
-        print("War Support Cost");
+        Debug.Log("War Support Cost");
     }
 
     public void ReligionCost()
     {
-        print("Religion Cost");
+        Debug.Log("Religion Cost");
     }
 
     public void WearinessCost()
     {
-        print("Weariness Cost");
+        Debug.Log("Weariness Cost");
     }
 
-    //Different Types of Political Effects    
+    // Different Types of Political Effects
     public void GovernmentWarSupportBoost()
     {
-        print("Government War Support Boost");
+        Debug.Log("Government War Support Boost");
     }
 
     public void AllianceCard()
     {
-        print("Alliance Card");
+        Debug.Log("Alliance Card");
     }
 
     public void DeclareWarCard()
     {
-        print("Declare War Card");
+        Debug.Log("Declare War Card");
     }
 
     public void PeaceTreatyCard()
     {
-        print("Peace Treaty Card");
+        Debug.Log("Peace Treaty Card");
     }
 
-    //Manage the Currently Active Cards and their Effects
+    // Manage the Currently Active Cards and their Effects
     public void CurrentlyActiveCards()
     {
         List<Card> cardsToRemove = new List<Card>();
@@ -213,5 +220,4 @@ public class CardEffectManager : MonoBehaviour
             activeCards.Remove(cardToRemove);
         }
     }
-
 }

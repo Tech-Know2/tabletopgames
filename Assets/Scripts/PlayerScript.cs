@@ -103,6 +103,7 @@ public class PlayerScript : MonoBehaviour
     public void PlayCard()
     {
         cardEffectManager.originalCard = cardData;
+        cardEffectManager.firstTime = true;
         cardEffectManager.EffectFilter();
     }
 
