@@ -184,12 +184,12 @@ public class CardEffectManager : MonoBehaviour
         print("Peace Treaty Card");
     }
 
-    //Manage Active Card Effects
+    //Manage the Currently Active Cards and their Effects
     public void CurrentlyActiveCards()
     {
         List<Card> cardsToRemove = new List<Card>();
 
-        foreach (Card currentCard in activeCards)
+        foreach (Card currentCard in activeCards.ToArray()) // Iterate over a copy of activeCards
         {
             currentCard.turnsActive++;
 
@@ -213,4 +213,5 @@ public class CardEffectManager : MonoBehaviour
             activeCards.Remove(cardToRemove);
         }
     }
+
 }
