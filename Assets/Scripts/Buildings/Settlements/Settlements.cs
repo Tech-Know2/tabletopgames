@@ -8,6 +8,11 @@ public class Settlements : ScriptableObject
     public string cityName;
     public int cityLevel;
     public int cityPopulation;
+    public float calculatedLoyalty;
 
-    private List<GameObject> religiousFollowers = new List<GameObject>();
+    //Create a list for the loyalty of the citizens
+    private List<GameObject> settlementReligiousFollowers = new List<GameObject>();
+    private List<Buildings> settlementBuildings = new List<Buildings>();
+    private List<GameObject> tilesUnderCityControl = new List<GameObject>();
+    private List<Unit> settlementUnits = new List<Unit>();
 }

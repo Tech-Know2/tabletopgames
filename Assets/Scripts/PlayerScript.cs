@@ -105,10 +105,4 @@ public class PlayerScript : MonoBehaviour
         cardEffectManager.originalCard = cardData;
         cardEffectManager.EffectFilter();
     }
-
-    public void InitiateBuildingPlacement()
-    {
-        placementScript.Start();
-        placementScript.Update();
-    }
 }
