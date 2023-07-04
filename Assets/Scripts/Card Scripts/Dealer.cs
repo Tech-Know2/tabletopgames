@@ -110,6 +110,7 @@ public class Dealer : MonoBehaviour
         else
         {
             Debug.LogError("Government scriptable object is not attached to the player.");
+            return; // exiting the function to prevent further execution
         }
 
         playerScript.currentTurn += 1;
