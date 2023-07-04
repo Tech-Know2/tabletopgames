@@ -62,8 +62,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardTag: Card
-  card: {fileID: 0}
-  cardGameObject: {fileID: 1368944600935861469}
+  collisionTagsToDelete:
+  - Deep Sea
+  - Shallow Sea
+  - Sand
+  - Plains
+  - Mountains
+  deletionDelay: 2
+  cardEffectManager: {fileID: 0}
 --- !u!1 &4536914524226414498
 GameObject:
   m_ObjectHideFlags: 0

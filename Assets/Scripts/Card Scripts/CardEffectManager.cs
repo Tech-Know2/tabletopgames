@@ -200,7 +200,7 @@ public class CardEffectManager : MonoBehaviour
             firstTime = false;
             EffectFilter();
 
-            if (currentCard.turnsActive > currentCard.turnEffectLength)
+            if (currentCard.turnsActive + 1 > currentCard.turnEffectLength)
             {
                 cardsToRemove.Add(currentCard);
             }

@@ -11,8 +11,8 @@ public class Settlements : ScriptableObject
     public float calculatedLoyalty;
 
     //Create a list for the loyalty of the citizens
-    private List<GameObject> settlementReligiousFollowers = new List<GameObject>();
-    private List<Buildings> settlementBuildings = new List<Buildings>();
-    private List<GameObject> tilesUnderCityControl = new List<GameObject>();
-    private List<Unit> settlementUnits = new List<Unit>();
+    public List<GameObject> settlementReligiousFollowers = new List<GameObject>();
+    public List<Buildings> settlementBuildings = new List<Buildings>();
+    public List<GameObject> tilesUnderCityControl = new List<GameObject>();
+    public List<Unit> settlementUnits = new List<Unit>();
 }

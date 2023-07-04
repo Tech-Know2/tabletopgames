@@ -15787,7 +15787,7 @@ GameObject:
   - component: {fileID: 1363837389}
   - component: {fileID: 1363837388}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Game Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27247,6 +27247,11 @@ PrefabInstance:
       propertyPath: parent
       value: 
       objectReference: {fileID: 120023003}
+    - target: {fileID: 172923321029051587, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: generateTerrainObjects
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 172923321580607416, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
         type: 3}
       propertyPath: m_RootOrder

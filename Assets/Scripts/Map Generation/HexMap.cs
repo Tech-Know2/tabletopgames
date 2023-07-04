@@ -24,6 +24,7 @@ public class HexMap : MonoBehaviour
     //Terrain Game Object Control Variables
     // Terrain Starter and Ender Variables (Lowest Terrain to Highest Terrain)
     public bool generateTerrainObjects = true;
+    private bool placedProperly = true;
     public float deepSeaEnd;
     public float shallowSeaEnd;
     public float sandyEnd;
@@ -189,14 +190,15 @@ public class HexMap : MonoBehaviour
             foreach (Collider collider in colliders) 
             {
                 if (collider.CompareTag("Sand")) {
+                    placedProperly = true;
                     print("Cacti Placed Correctly");
                 } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Plains") || collider.CompareTag("Mountains")){
-                    Destroy(Cacti);
-                    print("Cacti Destroyed");
+                    placedProperly = false;
+                    CheckPlacement(Cacti);
                 } else if (size == 0)
                 {
-                    Destroy(Cacti);
-                    print("Void Cacti Destroyed");
+                    placedProperly = false;
+                    CheckPlacement(Cacti);
                 }
             }
         }
@@ -237,15 +239,16 @@ public class HexMap : MonoBehaviour
             {
                 if (collider.CompareTag("Plains")) 
                 {
+                    placedProperly = true;
                     print("Bush Placed Correctly");
                 } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand"))
                 {
-                    Destroy(Bush);
-                    print("Bush Destroyed");
+                    placedProperly = false;
+                    CheckPlacement(Bush);
                 } else if (size == 0)
                 {
-                    Destroy(Bush);
-                    print("Void Bush Destroyed");
+                    placedProperly = false;
+                    CheckPlacement(Bush);
                 }
             }
         }
@@ -287,15 +290,16 @@ public class HexMap : MonoBehaviour
             {
                 if (collider.CompareTag("Plains")) 
                 {
+                    placedProperly = true;
                     print("Tree Placed Correctly");
                 } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand"))
                 {
-                    Destroy(Tree);
-                    print("Tree Destroyed");
+                    placedProperly = false;
+                    CheckPlacement(Tree);
                 } else if (size == 0)
                 {
-                    Destroy(Tree);
-                    print("Void Tree Destroyed");
+                    placedProperly = false;
+                    CheckPlacement(Tree);
                 }
             }
         }
@@ -337,15 +341,16 @@ public class HexMap : MonoBehaviour
             {
                 if (collider.CompareTag("Plains")) 
                 {
+                    placedProperly = true;
                     print("Rock Placed Correctly");
                 } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand"))
                 {
-                    Destroy(Rock);
-                    print("Rock Destroyed");
+                    placedProperly = false;
+                    CheckPlacement(Rock);
                 } else if (size == 0)
                 {
-                    Destroy(Rock);
-                    print("Void Rock Destroyed");
+                    placedProperly = false;
+                    CheckPlacement(Rock);
                 }
             }
         }
@@ -386,17 +391,31 @@ public class HexMap : MonoBehaviour
             {
                 if (collider.CompareTag("Mountains")) 
                 {
+                    placedProperly = true;
                     print("Boulder Placed Correctly");
                 } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand"))
                 {
-                    Destroy(Boulder);
-                    print("Boulder Destroyed");
+                    placedProperly = false;
+                    CheckPlacement(Boulder);
                 } else if (size == 0)
                 {
-                    Destroy(Boulder);
-                    print("Void Boulder Destroyed");
+                    placedProperly = false;
+                    CheckPlacement(Boulder);
                 }
             }
+        }
+    }
+
+    //Function Used to Determine if the Object was placed correctly. If not it is deleted, if it is correct, it will remain
+    public void CheckPlacement(GameObject gameObject)
+    {
+        if (placedProperly == true)
+        {
+            return;
+        } 
+        else {
+            Destroy(gameObject);
+            print(gameObject + "Destroyed");
         }
     }
 }

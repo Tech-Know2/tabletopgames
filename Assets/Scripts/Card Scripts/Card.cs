@@ -32,6 +32,8 @@ public class Card : ScriptableObject
     
     //Bools for card related buildings and board manipulation
     public bool createsBuildings;
+    public bool createsSettlement;
+    public List<Settlements> settlementScriptableObject = new List <Settlements>();
     public bool createdUnits;
 
     //Choose the Government if it is a Government Card or Government Related Card
@@ -74,13 +76,23 @@ public class Card : ScriptableObject
     public string effectCostType; //List types from above
     public string religionName; //Name if the cost is related to religion
     public int turnsActive = 0; //Dont Mess With This Var. It storeshow many turns that this card has been active.
+    
+    //Building Based Vars
+    public List<GameObject> buildingGameObjects = new List <GameObject>();
+    public List<Buildings> buildingScriptableObject = new List <Buildings>();
 
-    //Card Impacts (Buildings, Units, etc)
-    /*public List<Building> buildings = new List<Building>();
-    public List<Unit> units = new List<Unit>();*/
+    [TextArea(12, 40)]
+    public string desierdTileString = 
+        "Strings to determine the effects on the game: Don't Alter Won't Change\n" +
+        "\"Deep Sea\" \n" +
+        "\"Shallow Sea\" \n" +
+        "\"Sand\" \n" +
+        "\"Plains\" \n" +
+        "\"Mountains\" \n";
+    public List<string> desiredTilesList = new List<string>();
 
-    public List<GameObject> buildingObjects = new List <GameObject>();
-    public List<Buildings> buildings = new List <Buildings>();
+    //Unit Based Vars
+    public List<Unit> units = new List<Unit>();
 
     public void ResetCardState()
     {

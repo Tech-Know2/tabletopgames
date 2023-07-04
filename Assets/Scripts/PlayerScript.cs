@@ -40,7 +40,7 @@ public class PlayerScript : MonoBehaviour
         currentEra = 1;
         currentTurn = 1;
 
-        dealer.filterCards();   
+        dealer.filterCards();
     }
 
     void checkEra()
@@ -65,27 +65,7 @@ public class PlayerScript : MonoBehaviour
         economyManager.passedTurnCount = currentTurn;
         economyManager.passedEraCount = currentEra;
 
-        if (Input.GetMouseButtonDown(0)) // 0 represents the left mouse button
-        {
-            // Convert the mouse position from screen space to world space
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            // Temp Storage of the Buildings of the Selected Card
-            List<GameObject> tempBuildingStorage = new List<GameObject>();
-
-            // Cast a ray from the camera to detect if it hits the GameObject
-            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
-
-            if (hit.collider != null && (hit.collider.CompareTag("Action Card") || hit.collider.CompareTag("Event Card")))
-            {
-                selectedCard = hit.collider.gameObject;
-
-                Card card = selectedCard.GetComponent<Card>();
-                tempBuildingStorage = new List<GameObject>(card.buildingObjects);
-
-                placementScript.cardBuildings = tempBuildingStorage;
-            }
-        }
+        
     }
 
     public void CardSelected()
