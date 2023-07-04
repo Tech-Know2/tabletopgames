@@ -34,10 +34,10 @@ public class CardEffectManager : MonoBehaviour
         {
             originalCard = playerScript.cardData;
             card = Instantiate(originalCard);
-            currentHighLevelCard = card;
         } else if (firstTime == false)
         {
             card = currentHighLevelCard;
+            firstTime = true;
         }
 
         effectCostType = card.effectCostType;
@@ -184,16 +184,6 @@ public class CardEffectManager : MonoBehaviour
         print("Peace Treaty Card");
     }
 
-    //Restart the States of the Card Turns in Order to Count Properly
-    public void RestartGame()
-    {
-        // Reset the state of active cards
-        foreach (Card card in activeCards)
-        {
-            card.ResetCardState();
-        }
-    }
-
     //Manage Active Card Effects
     public void CurrentlyActiveCards()
     {
@@ -205,6 +195,10 @@ public class CardEffectManager : MonoBehaviour
 
             // Apply the card effect
             card = currentCard;
+            
+            //A higher level variable to store the current card
+            currentHighLevelCard = card;
+            firstTime = false;
             EffectFilter();
 
             if (currentCard.turnsActive > currentCard.turnEffectLength)

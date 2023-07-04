@@ -2141,8 +2141,7 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: 289b5300ed1375d44be336cfd10fcc46, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 143550137}
   previousTechButton: {fileID: 194251182}
   economyManager: {fileID: 1972966346}
@@ -2879,10 +2878,9 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: 79fd5d359a3faa745bb34c167484bca5, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 194251182}
-  previousTechButton: {fileID: 1066660279}
+  previousTechButton: {fileID: 0}
   economyManager: {fileID: 1972966346}
 --- !u!1 &207508240
 GameObject:
@@ -3291,8 +3289,7 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: 3905df23d952439408f32c87d3ad8ace, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 242596282}
   previousTechButton: {fileID: 649085370}
   economyManager: {fileID: 1972966346}
@@ -6355,10 +6352,9 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: 614d623d19cb72640bf0b24eab65696e, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 609383496}
-  previousTechButton: {fileID: 1066660279}
+  previousTechButton: {fileID: 0}
   economyManager: {fileID: 1972966346}
 --- !u!1 &626126963
 GameObject:
@@ -6889,8 +6885,7 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: bd46ce3bd14fd7f48af77e913d37bb21, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 649085370}
   previousTechButton: {fileID: 1897956164}
   economyManager: {fileID: 1972966346}
@@ -9624,10 +9619,9 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: f04ea16d45b85554788d0be5b51727ff, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 841624305}
-  previousTechButton: {fileID: 1066660279}
+  previousTechButton: {fileID: 0}
   economyManager: {fileID: 1972966346}
 --- !u!1 &844960786
 GameObject:
@@ -11204,8 +11198,7 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: 1a7086df3c2b61d458fd7f5f50aeec26, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 943938026}
   previousTechButton: {fileID: 1897956164}
   economyManager: {fileID: 1972966346}
@@ -12008,8 +12001,7 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: 94c97ff5710a43d4f82cd9e929213df5, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 1042517314}
   previousTechButton: {fileID: 649085370}
   economyManager: {fileID: 1972966346}
@@ -12202,8 +12194,7 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: 566034f5c46b8234088e9863ec73a0ea, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 1961914402}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 1066660279}
   previousTechButton: {fileID: 0}
   economyManager: {fileID: 1972966346}
@@ -13515,7 +13506,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1129166872
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14460,8 +14451,7 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: eeba7635d9c13d3409b7c8d96ca28ef7, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 1231403525}
   previousTechButton: {fileID: 1897956164}
   economyManager: {fileID: 1972966346}
@@ -14653,8 +14643,7 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: aed1e4953f8880c45b80886354f36f25, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 1264867953}
   previousTechButton: {fileID: 1066660279}
   economyManager: {fileID: 1972966346}
@@ -14796,10 +14785,9 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: 089cafa3d85641240b8f12fa8b6121fd, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 1266292857}
-  previousTechButton: {fileID: 1066660279}
+  previousTechButton: {fileID: 0}
   economyManager: {fileID: 1972966346}
 --- !u!1 &1271528102
 GameObject:
@@ -16133,7 +16121,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1961914402}
+      - m_Target: {fileID: 2144876508}
         m_TargetAssemblyTypeName: TechTreeController, Assembly-CSharp
         m_MethodName: ActivateTree
         m_Mode: 1
@@ -16372,8 +16360,7 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: 987de355450d5d54499e8d0be92207e5, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 1413085795}
   previousTechButton: {fileID: 1532955896}
   economyManager: {fileID: 1972966346}
@@ -16919,8 +16906,7 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: c0bef905a7091fe4d99101ad258f6c11, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 1432347258}
   previousTechButton: {fileID: 1855458917}
   economyManager: {fileID: 1972966346}
@@ -17074,10 +17060,9 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: 4224743093f487c46af8f20fc491ae68, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 1447447390}
-  previousTechButton: {fileID: 1066660279}
+  previousTechButton: {fileID: 0}
   economyManager: {fileID: 1972966346}
 --- !u!1 &1448826029
 GameObject:
@@ -17229,8 +17214,7 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: f8b3951c375b5194aba3a24107591abd, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 1448826031}
   previousTechButton: {fileID: 1532955896}
   economyManager: {fileID: 1972966346}
@@ -18052,10 +18036,9 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: 7a980333709a4d84f94bfd718e2acc73, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 1532955896}
-  previousTechButton: {fileID: 1066660279}
+  previousTechButton: {fileID: 0}
   economyManager: {fileID: 1972966346}
 --- !u!1 &1544333670
 GameObject:
@@ -18638,10 +18621,9 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: 174c1d67db328dd499efa8198a1275b5, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 1961914402}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 1560586251}
-  previousTechButton: {fileID: 1066660279}
+  previousTechButton: {fileID: 0}
   economyManager: {fileID: 1972966346}
 --- !u!1 &1569851501
 GameObject:
@@ -20007,8 +19989,7 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: bff1cf90c4f1aae44a71e30b640c3c06, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 1678545239}
   previousTechButton: {fileID: 1868155949}
   economyManager: {fileID: 1972966346}
@@ -21447,7 +21428,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1961914402}
+      - m_Target: {fileID: 2144876508}
         m_TargetAssemblyTypeName: TechTreeController, Assembly-CSharp
         m_MethodName: leftSpin
         m_Mode: 1
@@ -23323,8 +23304,7 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: 6fc292e4946cc1d4cb72422a6a9878a6, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 1855458917}
   previousTechButton: {fileID: 143550137}
   economyManager: {fileID: 1972966346}
@@ -23638,10 +23618,9 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: 2540f4bfffafd93498ba1139665703ad, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 1868155949}
-  previousTechButton: {fileID: 1066660279}
+  previousTechButton: {fileID: 0}
   economyManager: {fileID: 1972966346}
 --- !u!1 &1897956162
 GameObject:
@@ -23793,10 +23772,9 @@ MonoBehaviour:
   originalTech: {fileID: 11400000, guid: bd83cdc593b64764a88d6a1858648058, type: 2}
   dealer: {fileID: 318920425}
   playerScript: {fileID: 1972966344}
-  techTreeController: {fileID: 0}
-  clonedResearchedTechs: []
+  techTreeController: {fileID: 2144876508}
   currentTechButton: {fileID: 1897956164}
-  previousTechButton: {fileID: 1066660279}
+  previousTechButton: {fileID: 0}
   economyManager: {fileID: 1972966346}
 --- !u!1 &1898979851
 GameObject:
@@ -24677,7 +24655,6 @@ GameObject:
   - component: {fileID: 1961914401}
   - component: {fileID: 1961914400}
   - component: {fileID: 1961914399}
-  - component: {fileID: 1961914402}
   m_Layer: 5
   m_Name: Right Spin Button
   m_TagString: Untagged
@@ -24750,7 +24727,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1961914402}
+      - m_Target: {fileID: 2144876508}
         m_TargetAssemblyTypeName: TechTreeController, Assembly-CSharp
         m_MethodName: rightSpin
         m_Mode: 1
@@ -24800,35 +24777,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1961914396}
   m_CullTransparentMesh: 1
---- !u!114 &1961914402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1961914396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca51e7ff9ddf9e94db8ce9343849addf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  techTreeButton: {fileID: 852638083}
-  techTree: {fileID: 2144876502}
-  nonagon: {fileID: 443126108}
-  isSettlementTechResearched: 0
-  techBranches:
-  - {fileID: 1066660277}
-  - {fileID: 1129166871}
-  - {fileID: 1769708018}
-  - {fileID: 753553728}
-  - {fileID: 1177337486}
-  - {fileID: 688403837}
-  - {fileID: 797091567}
-  - {fileID: 1096611055}
-  - {fileID: 1550763045}
-  - {fileID: 1062281411}
-  techBranchHolder: {fileID: 2041063933}
-  treeEnabled: 0
 --- !u!1 &1967331076
 GameObject:
   m_ObjectHideFlags: 0
@@ -24966,6 +24914,7 @@ GameObject:
   - component: {fileID: 1972966345}
   - component: {fileID: 1972966346}
   - component: {fileID: 1972966348}
+  - component: {fileID: 1972966349}
   m_Layer: 0
   m_Name: Player and Camera Rig
   m_TagString: Player and Camera Rig
@@ -25117,6 +25066,19 @@ MonoBehaviour:
   playerScript: {fileID: 1972966344}
   economyManager: {fileID: 1972966346}
   activeCards: []
+--- !u!114 &1972966349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972966341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48883b23ca00d334c83e30211474ff04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clonedResearchedTechs: []
 --- !u!1 &1973439577
 GameObject:
   m_ObjectHideFlags: 0
