@@ -22,7 +22,11 @@ public class CameraController : MonoBehaviour
     public Quaternion newRotation;
     public Vector3 newZoom;
 
+    //Camera Controller Movement Type Bools
     public bool cameraPanningAllowed = true;
+    public bool cameraScrollAllowed = true;
+    public bool cameraMovementAllowed = true;
+
     public Vector3 dragStartPosition;
     public Vector3 dragCurrentPosition;
     public Vector3 rotateStartPosiiton;
@@ -64,21 +68,24 @@ public class CameraController : MonoBehaviour
 
     void HandelMouseInput()
     {
-        //Scroll With The Mouse
-        if(Input.mouseScrollDelta.y != 0)
+        if (cameraScrollAllowed == true)
         {
-            if(newZoom.y >= maxZoomDistance && Input.mouseScrollDelta.y > 0) {
-                // Zooming in when already at maximum zoom distance is not allowed.
-                return;
-            } else if(newZoom.y <= minZoomDistance && Input.mouseScrollDelta.y < 0) {
-                // Zooming out when already at minimum zoom distance is not allowed.
-                return;
-            } else {
-                newZoom += Input.mouseScrollDelta.y * zoomAmount;
-                if(newZoom.y >= maxZoomDistance) {
-                    newZoom.y = maxZoomDistance - 10f;
-                } else if(newZoom.y <= minZoomDistance) {
-                    newZoom.y = minZoomDistance + 10f;
+            //Scroll With The Mouse
+            if(Input.mouseScrollDelta.y != 0)
+            {
+                if(newZoom.y >= maxZoomDistance && Input.mouseScrollDelta.y > 0) {
+                    // Zooming in when already at maximum zoom distance is not allowed.
+                    return;
+                } else if(newZoom.y <= minZoomDistance && Input.mouseScrollDelta.y < 0) {
+                    // Zooming out when already at minimum zoom distance is not allowed.
+                    return;
+                } else {
+                    newZoom += Input.mouseScrollDelta.y * zoomAmount;
+                    if(newZoom.y >= maxZoomDistance) {
+                        newZoom.y = maxZoomDistance - 10f;
+                    } else if(newZoom.y <= minZoomDistance) {
+                        newZoom.y = minZoomDistance + 10f;
+                    }
                 }
             }
         }
@@ -133,48 +140,50 @@ public class CameraController : MonoBehaviour
     }
 
     void HandelMovementInput()
-    {
-        //Going Faster or Slower with Shift
-        if(Input.GetKey(KeyCode.LeftShift))
+    {   
+        if(cameraMovementAllowed == true)
         {
-            moveSpeed = fastSpeed;
-        }else 
-        {
-            moveSpeed = normalSpeed;
-        }
+            //Going Faster or Slower with Shift
+            if(Input.GetKey(KeyCode.LeftShift))
+            {
+                moveSpeed = fastSpeed;
+            }else 
+            {
+                moveSpeed = normalSpeed;
+            }
 
-        //Moving the Camera in All Cardinal Directions
-        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-        {
-            newPosition += (transform.forward * moveSpeed);
-        }
-        if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-        {
-            newPosition += (transform.forward * -moveSpeed);
-        }
-        if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-        {
-            newPosition += (transform.right * -moveSpeed);
-        }
-        if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-        {
-            newPosition += (transform.right * moveSpeed);
-        }
-        
-        //Rotation the Camera
-        if(Input.GetKey(KeyCode.Q))
-        {
-            newRotation *= Quaternion.Euler(Vector3.up * rotationAmount);
-        }
-        if(Input.GetKey(KeyCode.E))
-        {
-            newRotation *= Quaternion.Euler(Vector3.up * -rotationAmount);
-        }
+            //Moving the Camera in All Cardinal Directions
+            if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+            {
+                newPosition += (transform.forward * moveSpeed);
+            }
+            if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            {
+                newPosition += (transform.forward * -moveSpeed);
+            }
+            if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            {
+                newPosition += (transform.right * -moveSpeed);
+            }
+            if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            {
+                newPosition += (transform.right * moveSpeed);
+            }
+            
+            //Rotation the Camera
+            if(Input.GetKey(KeyCode.Q))
+            {
+                newRotation *= Quaternion.Euler(Vector3.up * rotationAmount);
+            }
+            if(Input.GetKey(KeyCode.E))
+            {
+                newRotation *= Quaternion.Euler(Vector3.up * -rotationAmount);
+            }
 
-        //Smoothing Out All Movement and Input
-        transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * moveTime);
-        transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * moveTime);
-        cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * moveTime);
+            //Smoothing Out All Movement and Input
+            transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * moveTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * moveTime);
+            cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * moveTime);
+        }
     }
 }
-

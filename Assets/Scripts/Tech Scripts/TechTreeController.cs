@@ -8,6 +8,7 @@ public class TechTreeController : MonoBehaviour
     public Button techTreeButton;
     public GameObject techTree;
     public RawImage nonagon;
+    public CameraController cameraController;
 
     public bool isSettlementTechResearched;
     private bool scrollEnabled;
@@ -43,6 +44,21 @@ public class TechTreeController : MonoBehaviour
             {
                 techBranches[x].SetActive(false);
             }
+        }
+    }
+
+    public void Update()
+    {
+        if(treeEnabled == true)
+        {
+            cameraController.cameraPanningAllowed = false;
+            cameraController.cameraScrollAllowed = false;
+            cameraController.cameraMovementAllowed = false;
+        } else 
+        {
+            cameraController.cameraPanningAllowed = true;
+            cameraController.cameraScrollAllowed = true;
+            cameraController.cameraMovementAllowed = true;
         }
     }
 
