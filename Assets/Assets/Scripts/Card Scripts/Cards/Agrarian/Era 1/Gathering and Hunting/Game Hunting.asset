@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b214d7cb84762544eba4738d12acc8e9, type: 3}
+  m_Name: Game Hunting
+  m_EditorClassIdentifier: 
+  cardName: Game Hunting
+  description: Gather 2 food from each of the fertile tiles around a city. Requires
+    10 people.
+  cardCategory: Agrarian
+  cardColor: '#0CA789'
+  cardTech: Gathering and Hunting
+  cardEra: 1
+  originalPlayer: 
+  isGovernmentCard: 0
+  isGovernmentWarSupportBoostCard: 0
+  isAllianceCard: 0
+  isDeclareWarCard: 0
+  isPeaceTreatyCard: 0
+  isPurchasable: 1
+  createsBuildings: 0
+  createdUnits: 0
+  governmentType: 
+  government: {fileID: 0}
+  governmentAlliance: 
+  governmentWarDecleration: 
+  goldPerTurnEffect: 0
+  silverPerTurnEffect: 0
+  warSupportAgainstGovernmentEffect: 0
+  wearinessEffect: 0
+  loyaltySabotageEffect: 0
+  religionEffect: 0
+  buildings: []
+  units: []
+  governmentTypeWarSupportEffect: []
