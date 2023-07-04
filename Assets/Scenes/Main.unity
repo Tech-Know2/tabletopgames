@@ -25065,6 +25065,7 @@ MonoBehaviour:
   government: {fileID: 0}
   playerScript: {fileID: 1972966344}
   economyManager: {fileID: 1972966346}
+  firstTime: 1
   activeCards: []
 --- !u!114 &1972966349
 MonoBehaviour:

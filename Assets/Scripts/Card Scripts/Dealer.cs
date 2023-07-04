@@ -110,6 +110,7 @@ public class Dealer : MonoBehaviour
         else
         {
             Debug.LogError("Government scriptable object is not attached to the player.");
+            return;
         }
 
         playerScript.currentTurn += 1;
@@ -127,8 +128,6 @@ public class Dealer : MonoBehaviour
         // Display the Cards in the Appropriate Slots
         playActionCards();
         //playEventCards();
-
-        print("Next Turn Function Ran Through Here");
     }
 
     public void arrayCounter()
