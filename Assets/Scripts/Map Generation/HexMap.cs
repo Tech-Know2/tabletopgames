@@ -2,6 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[System.Serializable]
+public class TerrainObjectData
+{
+    public string terrainObjectName;
+    public GameObject terrainObject;
+    public int lowerSpawnRate;
+    public int upperSpawnRate;
+    public List<string> acceptableTileSpawns;
+}
+
 public class HexMap : MonoBehaviour
 {
     //Parent Game Object
@@ -14,12 +25,8 @@ public class HexMap : MonoBehaviour
     public GameObject plains;
     public GameObject mountains;
 
-    //Terrain Game Objects
-    public GameObject bush;
-    public GameObject tree;
-    public GameObject rock;
-    public GameObject cacti;
-    public GameObject boulder;
+    //Contains all of the data for the creation of terrain objects
+    public List<TerrainObjectData> terrainObjectData;
 
     //Terrain Game Object Control Variables
     // Terrain Starter and Ender Variables (Lowest Terrain to Highest Terrain)
@@ -97,7 +104,7 @@ public class HexMap : MonoBehaviour
                             hex.transform.SetParent(parent.transform);
                             if (generateTerrainObjects)
                             {
-                                placeCacti(tileXOffset, tileZOffset, x, z);
+                                generateObjects(tileXOffset, tileZOffset, x, z, "Sand");
                             }
                         }
                     }
@@ -112,10 +119,7 @@ public class HexMap : MonoBehaviour
                             hex.transform.SetParent(parent.transform);
                             if (generateTerrainObjects)
                             {
-                                placeBush(tileXOffset, tileZOffset, x, z);
-                                placeBush(tileXOffset, tileZOffset, x, z);
-                                placeTree(tileXOffset, tileZOffset, x, z);
-                                placeRock(tileXOffset, tileZOffset, x, z);
+                                generateObjects(tileXOffset, tileZOffset, x, z, "Plains");
                             }
                         }
                     }else if (yNoise < mountainsEnd)
@@ -129,8 +133,7 @@ public class HexMap : MonoBehaviour
                             hex.transform.SetParent(parent.transform);
                             if (generateTerrainObjects)
                             {
-                                placeBoulder(tileXOffset, tileZOffset, x, z);
-                                placeRock(tileXOffset, tileZOffset, x, z);
+                                generateObjects(tileXOffset, tileZOffset, x, z, "Mountains");
                             }
                         }
                     }
@@ -153,12 +156,26 @@ public class HexMap : MonoBehaviour
         return false;
     }
 
-    void placeCacti(float tileXOffset, float tileZOffset, int x, int z)
+    public void generateObjects(float tileXOffset, float tileZOffset, int x, int z, string hexTag)
+    {
+        // Iterate over each TerrainObjectData in the terrainObjectData list
+        foreach (TerrainObjectData terrainData in terrainObjectData)
+        {
+            // Check if the hexTag is included in the acceptableTileSpawns list of the current TerrainObjectData
+            if (terrainData.acceptableTileSpawns.Contains(hexTag))
+            {
+                // Generate objects for the current TerrainObjectData
+                GenerateObjectsForTerrainData(terrainData, tileXOffset, tileZOffset, x, z);
+            }
+        }
+    }
+
+    private void GenerateObjectsForTerrainData(TerrainObjectData terrainData, float tileXOffset, float tileZOffset, int x, int z)
     {
         float maxHeight = 0f;
         int size = 0;
 
-        float cactiCount = Random.Range(3f,9f);
+        int objectCount = Random.Range(terrainData.lowerSpawnRate, terrainData.upperSpawnRate);
 
         Vector3 rayOrigin = new Vector3(x, 20f, z);
         RaycastHit hitInfo;
@@ -169,242 +186,50 @@ public class HexMap : MonoBehaviour
             print("Raycast Works");
         }
 
-        for(int y = 0; y < cactiCount; y++)
+        for (int y = 0; y < objectCount; y++)
         {
-            MeshFilter meshFilter = GetComponent<MeshFilter>();
-            float maxMeshHeight = 1f;
-
-            if(meshFilter != null) {
-                maxMeshHeight = meshFilter.mesh.bounds.size.y;
-                print(maxMeshHeight);
-            }
-
-            GameObject Cacti = Instantiate(cacti);
-            Cacti.transform.position = new Vector3(Random.Range(x*tileXOffset - tileXOffset/2, x*tileXOffset + tileXOffset/2), maxHeight + maxMeshHeight/2, Random.Range(z*tileZOffset - tileZOffset/2, z*tileZOffset + tileZOffset/2));
-            print("Cacti Planted");
-            Cacti.transform.SetParent(parent.transform);  
-
-            Collider[] colliders = Physics.OverlapSphere(Cacti.transform.position, 2f);
-            size = colliders.Length;
-
-            foreach (Collider collider in colliders) 
+            GameObject terrainObjectPrefab = terrainData.terrainObject;
+            if (terrainObjectPrefab != null)
             {
-                if (collider.CompareTag("Sand")) {
-                    placedProperly = true;
-                    print("Cacti Placed Correctly");
-                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Plains") || collider.CompareTag("Mountains")){
-                    placedProperly = false;
-                    CheckPlacement(Cacti);
-                } else if (size == 0)
+                float maxMeshHeight = 1f;
+                MeshFilter meshFilter = terrainObjectPrefab.GetComponent<MeshFilter>();
+                if (meshFilter != null)
                 {
-                    placedProperly = false;
-                    CheckPlacement(Cacti);
+                    maxMeshHeight = meshFilter.sharedMesh.bounds.size.y;
+                }
+
+                GameObject terrainObject = Instantiate(terrainObjectPrefab);
+                terrainObject.transform.position = new Vector3(Random.Range(x * tileXOffset - tileXOffset / 2, x * tileXOffset + tileXOffset / 2), maxHeight + maxMeshHeight / 2, Random.Range(z * tileZOffset - tileZOffset / 2, z * tileZOffset + tileZOffset / 2));
+                print("Terrain Object Placed");
+                terrainObject.transform.SetParent(parent.transform);
+
+                Collider[] colliders = Physics.OverlapSphere(terrainObject.transform.position, 2f);
+                size = colliders.Length;
+
+                bool placedProperly = false;
+
+                foreach (Collider collider in colliders)
+                {
+                    if (terrainData.acceptableTileSpawns.Contains(collider.tag))
+                    {
+                        placedProperly = true;
+                        print("Object Placed Correctly");
+                        // Do something with the placed terrain object
+                        break;
+                    }
+                }
+
+                if (!placedProperly)
+                {
+                    // Delete the object if it's not placed correctly
+                    Destroy(terrainObject);
+                    print("Object Deleted");
                 }
             }
         }
     }
 
-    void placeBush (float tileXOffset, float tileZOffset, int x, int z)
-    {
-        float maxHeight = 1f;
-        int size = 0;
-        float bushCount = Random.Range(3f,8f);
 
-        Vector3 rayOrigin = new Vector3(x, 20f, z);
-        RaycastHit hitInfo;
-
-        if (Physics.Raycast(rayOrigin, Vector3.down, out hitInfo))
-        {
-            maxHeight = hitInfo.point.y;
-            print("Raycast Works");
-        }
-        for(int y = 0; y < bushCount; y++)
-        {
-            MeshFilter meshFilter = GetComponent<MeshFilter>();
-            float maxMeshHeight = 1f;
-            if(meshFilter != null) 
-            {
-                maxMeshHeight = meshFilter.mesh.bounds.size.y;
-                print(maxMeshHeight);
-            }
-                            
-            GameObject Bush = Instantiate(bush);
-            Bush.transform.position = new Vector3(Random.Range(x*tileXOffset - tileXOffset/2, x*tileXOffset + tileXOffset/2), maxHeight + maxMeshHeight/2, Random.Range(z*tileZOffset - tileZOffset/2, z*tileZOffset + tileZOffset/2));
-            print("Bush Planted");
-            Bush.transform.SetParent(parent.transform); 
-             
-            Collider[] colliders = Physics.OverlapSphere(Bush.transform.position, 2f);
-            size = colliders.Length;
-            foreach (Collider collider in colliders) 
-            {
-                if (collider.CompareTag("Plains")) 
-                {
-                    placedProperly = true;
-                    print("Bush Placed Correctly");
-                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand"))
-                {
-                    placedProperly = false;
-                    CheckPlacement(Bush);
-                } else if (size == 0)
-                {
-                    placedProperly = false;
-                    CheckPlacement(Bush);
-                }
-            }
-        }
-    }
-
-    void placeTree (float tileXOffset, float tileZOffset, int x, int z)
-    {
-        float maxHeight = 1f;
-        int size = 0;
-                
-        float treeCount = Random.Range(3f,7f);
-
-        Vector3 rayOrigin = new Vector3(x, 20f, z);
-        RaycastHit hitInfo;
-
-        if (Physics.Raycast(rayOrigin, Vector3.down, out hitInfo))
-        {
-            maxHeight = hitInfo.point.y;
-            print("Raycast Works");
-        }
-        for(int y = 0; y < treeCount; y++)
-        {
-            MeshFilter meshFilter = GetComponent<MeshFilter>();
-            float maxMeshHeight = 1f;
-            if(meshFilter != null) 
-            {
-                maxMeshHeight = meshFilter.mesh.bounds.size.y;
-                print(maxMeshHeight);
-            }
-                            
-            GameObject Tree = Instantiate(tree);
-            Tree.transform.position = new Vector3(Random.Range(x*tileXOffset - tileXOffset/2, x*tileXOffset + tileXOffset/2), maxHeight + maxMeshHeight/2, Random.Range(z*tileZOffset - tileZOffset/2, z*tileZOffset + tileZOffset/2));
-            print("Tree Planted");
-            Tree.transform.SetParent(parent.transform);  
-
-            Collider[] colliders = Physics.OverlapSphere(Tree.transform.position, 2f);
-            size = colliders.Length;
-            foreach (Collider collider in colliders) 
-            {
-                if (collider.CompareTag("Plains")) 
-                {
-                    placedProperly = true;
-                    print("Tree Placed Correctly");
-                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand"))
-                {
-                    placedProperly = false;
-                    CheckPlacement(Tree);
-                } else if (size == 0)
-                {
-                    placedProperly = false;
-                    CheckPlacement(Tree);
-                }
-            }
-        }
-    }
-
-    void placeRock (float tileXOffset, float tileZOffset, int x, int z)
-    {
-        float maxHeight = 1f;
-        int size = 0;
-                
-        float rockCount = Random.Range(3f,9f);
-
-        Vector3 rayOrigin = new Vector3(x, 20f, z);
-        RaycastHit hitInfo;
-
-        if (Physics.Raycast(rayOrigin, Vector3.down, out hitInfo))
-        {
-            maxHeight = hitInfo.point.y;
-            print("Raycast Works");
-        }
-        for(int y = 0; y < rockCount; y++)
-        {
-            MeshFilter meshFilter = GetComponent<MeshFilter>();
-            float maxMeshHeight = 1f;
-            if(meshFilter != null) 
-            {
-                maxMeshHeight = meshFilter.mesh.bounds.size.y;
-                print(maxMeshHeight);
-            }
-                            
-            GameObject Rock = Instantiate(rock);
-            Rock.transform.position = new Vector3(Random.Range(x*tileXOffset - tileXOffset/2, x*tileXOffset + tileXOffset/2), maxHeight + maxMeshHeight/2, Random.Range(z*tileZOffset - tileZOffset/2, z*tileZOffset + tileZOffset/2));
-            print("Tree Planted");
-            Rock.transform.SetParent(parent.transform);  
-
-            Collider[] colliders = Physics.OverlapSphere(Rock.transform.position, 2f);
-            size = colliders.Length;
-            foreach (Collider collider in colliders) 
-            {
-                if (collider.CompareTag("Plains")) 
-                {
-                    placedProperly = true;
-                    print("Rock Placed Correctly");
-                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand"))
-                {
-                    placedProperly = false;
-                    CheckPlacement(Rock);
-                } else if (size == 0)
-                {
-                    placedProperly = false;
-                    CheckPlacement(Rock);
-                }
-            }
-        }
-    }
-
-    void placeBoulder(float tileXOffset, float tileZOffset, int x, int z)
-    {
-        float maxHeight = 0f;
-        int size = 0;
-
-        float boulderCount = Random.Range(3f,5f);
-
-        Vector3 rayOrigin = new Vector3(x, 20f, z);
-        RaycastHit hitInfo;
-        if (Physics.Raycast(rayOrigin, Vector3.down, out hitInfo))
-        {
-            maxHeight = hitInfo.point.y;
-            print("Raycast Works");
-        }
-        for(int y = 0; y < boulderCount; y++)
-        {
-            MeshFilter meshFilter = GetComponent<MeshFilter>();
-            float maxMeshHeight = 1f;
-            if(meshFilter != null) 
-            {
-                maxMeshHeight = meshFilter.mesh.bounds.size.y;
-                print(maxMeshHeight);
-            }
-                            
-            GameObject Boulder = Instantiate(boulder);
-            Boulder.transform.position = new Vector3(Random.Range(x*tileXOffset - tileXOffset/2, x*tileXOffset + tileXOffset/2), maxHeight + maxMeshHeight/2, Random.Range(z*tileZOffset - tileZOffset/2, z*tileZOffset + tileZOffset/2));
-            print("Boulder Placed");
-            Boulder.transform.SetParent(parent.transform); 
-
-            Collider[] colliders = Physics.OverlapSphere(Boulder.transform.position, maxMeshHeight);
-            size = colliders.Length;
-            foreach (Collider collider in colliders) 
-            {
-                if (collider.CompareTag("Mountains")) 
-                {
-                    placedProperly = true;
-                    print("Boulder Placed Correctly");
-                } else if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand"))
-                {
-                    placedProperly = false;
-                    CheckPlacement(Boulder);
-                } else if (size == 0)
-                {
-                    placedProperly = false;
-                    CheckPlacement(Boulder);
-                }
-            }
-        }
-    }
 
     //Function Used to Determine if the Object was placed correctly. If not it is deleted, if it is correct, it will remain
     public void CheckPlacement(GameObject gameObject)

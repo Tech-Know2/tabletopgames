@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &172923321029051586
+--- !u!1 &5172075776804537618
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 172923321580607416}
-  - component: {fileID: 172923321029051612}
-  - component: {fileID: 172923321029051587}
-  - component: {fileID: 6066248277927792751}
+  - component: {fileID: 5172075776804537622}
+  - component: {fileID: 5172075776804537623}
+  - component: {fileID: 5172075776804537620}
+  - component: {fileID: 5172075776804537621}
   m_Layer: 0
   m_Name: Game Board
   m_TagString: Barrier
@@ -19,13 +19,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &172923321580607416
+--- !u!4 &5172075776804537622
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172923321029051586}
+  m_GameObject: {fileID: 5172075776804537618}
   m_LocalRotation: {x: 0.6830127, y: -0.18301274, z: 0.18301274, w: 0.6830127}
   m_LocalPosition: {x: 846.22284, y: 0, z: 750}
   m_LocalScale: {x: 836.0655, y: 836.0656, z: 54.502014}
@@ -34,13 +34,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 30}
---- !u!64 &172923321029051612
+--- !u!64 &5172075776804537623
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172923321029051586}
+  m_GameObject: {fileID: 5172075776804537618}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
@@ -48,19 +48,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2534964839176971238, guid: bcd8844238b0bf44bb4dee5fd7a47762, type: 3}
---- !u!114 &172923321029051587
+--- !u!114 &5172075776804537620
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172923321029051586}
+  m_GameObject: {fileID: 5172075776804537618}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cd55c94f5e2863419644bc07361ef22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 172923321029051586}
+  parent: {fileID: 5172075776804537618}
   deepSea: {fileID: 1287783578228961940, guid: e315c0d804c1490419424801cc93d060, type: 3}
   shallowSea: {fileID: 2134901623199710270, guid: 90072bae72ea8dd4ea81e6e1b2fef3f1,
     type: 3}
@@ -68,12 +68,44 @@ MonoBehaviour:
   plains: {fileID: 1166280319995372320, guid: 79054845b1e803940893c76d5749a153, type: 3}
   mountains: {fileID: 6471062737119407778, guid: e26ab5a56cf2c2c47bfa12d48307c7cc,
     type: 3}
-  bush: {fileID: 6196946088157550288, guid: 05086bfbc2648c247bcb37d4add2487c, type: 3}
-  tree: {fileID: 5749836953928422096, guid: 7c5951d7526807540a47927e61680896, type: 3}
-  rock: {fileID: 5528113861964220842, guid: b7426f963fd922d48802ca6e4d5405a1, type: 3}
-  cacti: {fileID: 153279585046605221, guid: 321856e6db3db3d4c8018111fc0f75a8, type: 3}
-  boulder: {fileID: 1379770243432906494, guid: f6bf5b498f144ed4bb42adbc28ab616e, type: 3}
-  generateTerrainObjects: 0
+  terrainObjectData:
+  - terrainObjectName: Cacti
+    terrainObject: {fileID: 153279585046605221, guid: 321856e6db3db3d4c8018111fc0f75a8,
+      type: 3}
+    lowerSpawnRate: 3
+    upperSpawnRate: 9
+    acceptableTileSpawns:
+    - Sand
+  - terrainObjectName: Bush
+    terrainObject: {fileID: 6196946088157550288, guid: 05086bfbc2648c247bcb37d4add2487c,
+      type: 3}
+    lowerSpawnRate: 3
+    upperSpawnRate: 8
+    acceptableTileSpawns:
+    - Plains
+  - terrainObjectName: Tree
+    terrainObject: {fileID: 5749836953928422096, guid: 7c5951d7526807540a47927e61680896,
+      type: 3}
+    lowerSpawnRate: 3
+    upperSpawnRate: 7
+    acceptableTileSpawns:
+    - Plains
+  - terrainObjectName: Rock
+    terrainObject: {fileID: 5528113861964220842, guid: b7426f963fd922d48802ca6e4d5405a1,
+      type: 3}
+    lowerSpawnRate: 3
+    upperSpawnRate: 9
+    acceptableTileSpawns:
+    - Plains
+    - Mountains
+  - terrainObjectName: Boulder
+    terrainObject: {fileID: 1379770243432906494, guid: f6bf5b498f144ed4bb42adbc28ab616e,
+      type: 3}
+    lowerSpawnRate: 3
+    upperSpawnRate: 5
+    acceptableTileSpawns:
+    - Mountains
+  generateTerrainObjects: 1
   deepSeaEnd: 0.3
   shallowSeaEnd: 0.4
   sandyEnd: 0.49
@@ -84,11 +116,11 @@ MonoBehaviour:
   scale: 1.4
   tileXOffset: 34.5
   tileZOffset: 30
---- !u!33 &6066248277927792751
+--- !u!33 &5172075776804537621
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172923321029051586}
+  m_GameObject: {fileID: 5172075776804537618}
   m_Mesh: {fileID: 2534964839176971238, guid: bfaeda6a88074644f8719c5848101f9b, type: 3}

@@ -20,12 +20,13 @@ public class CardPlayer : MonoBehaviour, IPointerClickHandler
 
     public Card card;
     private CardDataHolder cardDataHolder;
-    public GameObject cardGameObject;
+    public GameObject currentCardGameObject;
+    private GameObject previousCardGameObject;
 
     private void Start()
     {
         Transform playerAndCameraRig = GameObject.Find("Player and Camera Rig")?.transform;
-        cardGameObject = gameObject;
+        currentCardGameObject = gameObject;
 
         if (playerAndCameraRig != null)
         {
@@ -64,7 +65,7 @@ public class CardPlayer : MonoBehaviour, IPointerClickHandler
                 playerScript.CardSelected();
 
                 // Destroy the card GameObject
-                Destroy(cardGameObject);
+                Destroy(currentCardGameObject);
             }
             else
             {
