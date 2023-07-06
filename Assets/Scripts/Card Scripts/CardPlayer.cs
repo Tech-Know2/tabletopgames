@@ -11,6 +11,7 @@ public class CardPlayer : MonoBehaviour, IPointerClickHandler
     private CameraController cameraController;
     private PlayerScript playerScript;
     public CardEffectManager cardEffectManager;
+    private TileSelection tileSelection;
 
     // UX and UI for the selecting of cards and the playing of cards
     public float cardSelectScaler = 1.3f;
@@ -89,13 +90,6 @@ public class CardPlayer : MonoBehaviour, IPointerClickHandler
                 }
             }
         }
-
-        if (acceptableSelectionTags.Contains(gameObject.tag))
-        {
-            selectedTileLocation = gameObject;
-            print("Location Selected");
-        }
-
     }
 
     public void ExecuteCardAction()
