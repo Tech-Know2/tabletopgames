@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [System.Serializable]
 public class TerrainObjectData
 {
@@ -217,7 +216,7 @@ public class HexMap : MonoBehaviour
                         // Do something with the placed terrain object
                         break;
                     }
-                }
+                }   
 
                 if (!placedProperly)
                 {

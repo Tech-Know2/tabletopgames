@@ -8,7 +8,6 @@ public class CardPlayer : MonoBehaviour, IPointerClickHandler
     public string cardTag = "Card";
 
     private bool isSelected = false;
-    //private bool isClicked = false;
     private CameraController cameraController;
     private PlayerScript playerScript;
     public CardEffectManager cardEffectManager;
@@ -16,17 +15,16 @@ public class CardPlayer : MonoBehaviour, IPointerClickHandler
     // UX and UI for the selecting of cards and the playing of cards
     public float cardSelectScaler = 1.3f;
     public GameObject selectedTileLocation;
-    public List<string> acceptableOutlineTags = new List<string>();
+    public List<string> acceptableSelectionTags = new List<string>();
 
     public Card card;
     private CardDataHolder cardDataHolder;
-    public GameObject currentCardGameObject;
-    private GameObject previousCardGameObject;
+    private static CardPlayer previousCard;
+    private static CardPlayer currentCard;
 
     private void Start()
     {
         Transform playerAndCameraRig = GameObject.Find("Player and Camera Rig")?.transform;
-        currentCardGameObject = gameObject;
 
         if (playerAndCameraRig != null)
         {
@@ -50,28 +48,68 @@ public class CardPlayer : MonoBehaviour, IPointerClickHandler
             // Scale the card by the cardSelectScaler value
             transform.localScale = Vector3.one * cardSelectScaler;
         }
+        else
+        {
+            // Reset the card scale to its original size
+            transform.localScale = Vector3.one;
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (gameObject.CompareTag(cardTag))
         {
-            if (isSelected)
+            if (isSelected && currentCard == this)
             {
-                // Perform the desired functions, update camera, and send the card to the player script
-                UpdateCamera();
-                playerScript.cardData = card;
-                cardEffectManager.firstTime = true;
-                playerScript.CardSelected();
-
-                // Destroy the card GameObject
-                Destroy(currentCardGameObject);
+                // The current card was clicked twice, execute the action
+                ExecuteCardAction();
+            }
+            else if (isSelected && currentCard != this)
+            {
+                // A different card was clicked, update the previous and current cards
+                previousCard = currentCard;
+                currentCard.isSelected = false;
+                currentCard = this;
+                isSelected = true;
             }
             else
             {
                 // Select the card
-                isSelected = true;
+                if (currentCard != null)
+                {
+                    previousCard = currentCard;
+                    previousCard.isSelected = false;
+                }
+
+                currentCard = this;
+
+                if (playerScript.cardsPlayed < playerScript.maxCardsPerTurn)
+                {
+                    isSelected = true;
+                }
             }
+        }
+
+        if (acceptableSelectionTags.Contains(gameObject.tag))
+        {
+            selectedTileLocation = gameObject;
+            print("Location Selected");
+        }
+
+    }
+
+    public void ExecuteCardAction()
+    {
+        if (playerScript.cardsPlayed <= playerScript.maxCardsPerTurn)
+        {
+            // Perform the desired functions, update camera, and send the card to the player script
+            UpdateCamera();
+            playerScript.cardData = card;
+            cardEffectManager.firstTime = true;
+            playerScript.CardSelected();
+
+            // Destroy the card GameObject
+            Destroy(gameObject);
         }
     }
 
