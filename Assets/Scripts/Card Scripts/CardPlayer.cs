@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using TMPro; 
 
 public class CardPlayer : MonoBehaviour, IPointerClickHandler
 {
@@ -23,8 +25,14 @@ public class CardPlayer : MonoBehaviour, IPointerClickHandler
     private static CardPlayer previousCard;
     private static CardPlayer currentCard;
 
+    //Pop-up for card requierments
+    public TextMeshProUGUI cardRequierment; 
+    public GameObject requiermentPopUp;
+    private bool popUpActivated = false;
+
     private void Start()
     {
+        popUpActivated = false;
         Transform playerAndCameraRig = GameObject.Find("Player and Camera Rig")?.transform;
 
         if (playerAndCameraRig != null)
@@ -96,16 +104,33 @@ public class CardPlayer : MonoBehaviour, IPointerClickHandler
     {
         if (playerScript.cardsPlayed <= playerScript.maxCardsPerTurn)
         {
-            // Perform the desired functions, update camera, and send the card to the player script
-            UpdateCamera();
-            playerScript.cardData = card;
-            cardEffectManager.firstTime = true;
-            playerScript.CardSelected();
+            if (!card.requiresTileLocation || (card.requiresTileLocation && selectedTileLocation != null))
+            {
+                // The card does not require a tile or a tile has been selected
+                
+                // Hide the Pop-up
+                popUpActivated = false;
+                requiermentPopUp.SetActive(popUpActivated);
 
-            // Destroy the card GameObject
-            Destroy(gameObject);
+                UpdateCamera();
+                playerScript.cardData = card;
+                cardEffectManager.firstTime = true;
+                playerScript.CardSelected();
+
+                // Destroy the card GameObject
+                Destroy(gameObject);
+            }
+            else
+            {
+                // The card requires a tile, but no tile has been selected
+                popUpActivated = true;
+                requiermentPopUp.SetActive(popUpActivated);
+
+                cardRequierment.text = "Card Requires a Tile";
+            }
         }
     }
+
 
     public void UpdateCamera()
     {

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5172075776804537618
+--- !u!1 &5524274989546678552
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5172075776804537622}
-  - component: {fileID: 5172075776804537623}
-  - component: {fileID: 5172075776804537620}
-  - component: {fileID: 5172075776804537621}
+  - component: {fileID: 5524274989546678548}
+  - component: {fileID: 5524274989546678551}
+  - component: {fileID: 5524274989546678550}
+  - component: {fileID: 5524274989546678553}
   m_Layer: 0
   m_Name: Game Board
   m_TagString: Barrier
@@ -19,28 +19,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5172075776804537622
+--- !u!4 &5524274989546678548
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5172075776804537618}
+  m_GameObject: {fileID: 5524274989546678552}
   m_LocalRotation: {x: 0.6830127, y: -0.18301274, z: 0.18301274, w: 0.6830127}
   m_LocalPosition: {x: 846.22284, y: 0, z: 750}
-  m_LocalScale: {x: 836.0655, y: 836.0656, z: 54.502014}
+  m_LocalScale: {x: 836.0655, y: 836.0656, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 30}
---- !u!64 &5172075776804537623
+--- !u!64 &5524274989546678551
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5172075776804537618}
+  m_GameObject: {fileID: 5524274989546678552}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
@@ -48,19 +48,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2534964839176971238, guid: bcd8844238b0bf44bb4dee5fd7a47762, type: 3}
---- !u!114 &5172075776804537620
+--- !u!114 &5524274989546678550
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5172075776804537618}
+  m_GameObject: {fileID: 5524274989546678552}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cd55c94f5e2863419644bc07361ef22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 5172075776804537618}
+  parent: {fileID: 5524274989546678552}
   deepSea: {fileID: 1287783578228961940, guid: e315c0d804c1490419424801cc93d060, type: 3}
   shallowSea: {fileID: 2134901623199710270, guid: 90072bae72ea8dd4ea81e6e1b2fef3f1,
     type: 3}
@@ -105,7 +105,7 @@ MonoBehaviour:
     upperSpawnRate: 5
     acceptableTileSpawns:
     - Mountains
-  generateTerrainObjects: 1
+  generateTerrainObjects: 0
   deepSeaEnd: 0.3
   shallowSeaEnd: 0.4
   sandyEnd: 0.49
@@ -116,11 +116,11 @@ MonoBehaviour:
   scale: 1.4
   tileXOffset: 34.5
   tileZOffset: 30
---- !u!33 &5172075776804537621
+--- !u!33 &5524274989546678553
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5172075776804537618}
+  m_GameObject: {fileID: 5524274989546678552}
   m_Mesh: {fileID: 2534964839176971238, guid: bfaeda6a88074644f8719c5848101f9b, type: 3}

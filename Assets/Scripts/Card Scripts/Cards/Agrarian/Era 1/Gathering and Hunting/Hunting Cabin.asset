@@ -20,24 +20,65 @@ MonoBehaviour:
   cardTech: Gathering and Hunting
   cardEra: 1
   originalPlayer: 
+  cardEffectRegion: 
   isGovernmentCard: 0
+  assignsGovernment: 0
   isGovernmentWarSupportBoostCard: 0
   isAllianceCard: 0
   isDeclareWarCard: 0
   isPeaceTreatyCard: 0
   isPurchasable: 1
+  requiresTileLocation: 1
   createsBuildings: 1
+  createsSettlement: 0
+  settlementScriptableObject: []
   createdUnits: 0
   governmentType: 
   government: {fileID: 0}
   governmentAlliance: 
   governmentWarDecleration: 
-  goldPerTurnEffect: 0
-  silverPerTurnEffect: 0
-  warSupportAgainstGovernmentEffect: 0
-  wearinessEffect: 0
-  loyaltySabotageEffect: 0
-  religionEffect: 0
-  buildings: []
+  effectDescriptionEditorDisplay: 'Strings to determine the effects on the game:
+    Don''t Alter Won''t Change
+
+    If the effect only lasts for 1 turn, don''t select
+    the Requires Multiple Turns Bool.
+
+    If it only lasts for one turn, don''t
+    put in anything
+
+    "Gold Cost" to take gold per turn
+
+    "Loyalty Cost" to
+    take loyalty per turn
+
+    "Silver Cost" to take silver per turn
+
+    "Food Cost"
+    to take food per turn
+
+    "People Cost" to take people per turn
+
+    "War Support
+    Cost" to take War Support per turn
+
+    "Religion Cost" to take away religion
+    from area
+
+    "Weariness Cost" to effect war weariness
+
+    "Loyalty Cost" to
+    effect the loyalty of your people'
+  requiresMultipleTurns: 0
+  turnEffectLength: 0
+  requiresPeople: 0
+  turnEffectCost: 0
+  effectCostType: 
+  religionName: 
+  turnsActive: 0
+  buildingGameObjects: []
+  buildingScriptableObject: []
+  desierdTileString: "Strings to determine the effects on the game: Don't Alter Won't
+    Change\n\"Deep Sea\" \n\"Shallow Sea\" \n\"Sand\" \n\"Plains\" \n\"Mountains\"
+    \n"
+  desiredTilesList: []
   units: []
-  governmentTypeWarSupportEffect: []
