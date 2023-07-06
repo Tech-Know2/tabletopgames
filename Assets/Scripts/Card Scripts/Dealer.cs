@@ -87,6 +87,9 @@ public class Dealer : MonoBehaviour
     //Data About the Game
     public int currentEra;
 
+    //Government Check. If this bool is true it means that you have already had a government assigned, and now it is preventing you from getting any more government cards
+    private bool governmentAlreadyAssigned = false;
+
     void Start()
     {
         
@@ -106,6 +109,8 @@ public class Dealer : MonoBehaviour
         {
             Government gov = playerScript.government;
             govType = gov.governmentName;
+
+            governmentAlreadyAssigned = true;
         }
         else
         {
@@ -330,22 +335,26 @@ public class Dealer : MonoBehaviour
                 }
                 else if (cardCat > 300 + agrarianModifier + militaryModifier + industrialModifier && cardCat <= 400 + militaryModifier + agrarianModifier + industrialModifier + academicAndReligiousModifier) //Academic and Religious
                 {
+                    if(governmentAlreadyAssigned == true)
+                    {
+                        academicAndReligiousArray.RemoveAll(card => card.cardTech == "Government");
+                    }
+
                     int cardCount = academicAndReligiousArray.Count;
-                        
-                    //Pick a Card From Inside One of the Categorys
+
+                    //Pick a Card From Inside One of the Categories
                     int cardSelect = Random.Range(0, cardCount);
 
                     if (cardSelect >= 0 && cardSelect < cardCount)
                     {
                         currentCard = academicAndReligiousArray[cardSelect];
                         actionCard.Add(currentCard);
-                        
-                        print("Academic and Religious Array");  
-                        
+
+                        print("Academic and Religious Array");
+
                         x++;
                     }
-                    
-                } 
+                }
                 else if (cardCat > 400 + militaryModifier + agrarianModifier + industrialModifier + academicAndReligiousModifier && cardCat <= 500 + militaryModifier + agrarianModifier + industrialModifier + academicAndReligiousModifier + navalModifier) //Naval
                 {
                     int cardCount = navalArray.Count;
@@ -514,6 +523,11 @@ public class Dealer : MonoBehaviour
                 } 
                 else if (cardCat > 300 && cardCat <= 400) //Academic and Religious
                 {
+                    if(governmentAlreadyAssigned == true)
+                    {
+                        academicAndReligiousArray.RemoveAll(card => card.cardTech == "Government");
+                    }
+
                     int cardCount = academicAndReligiousArray.Count;
 
                     //Pick a Card From Inside One of the Categories

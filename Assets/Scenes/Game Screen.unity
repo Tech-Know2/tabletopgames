@@ -9634,6 +9634,9 @@ GameObject:
   - component: {fileID: 844960789}
   - component: {fileID: 844960788}
   - component: {fileID: 844960787}
+  - component: {fileID: 844960790}
+  - component: {fileID: 844960792}
+  - component: {fileID: 844960791}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -9712,6 +9715,99 @@ Transform:
   m_Father: {fileID: 1972966343}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!114 &844960790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844960786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
+--- !u!114 &844960791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844960786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 0}
+  isGlobal: 0
+  blendDistance: 0
+  weight: 1
+  priority: 0
+--- !u!114 &844960792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844960786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 844960789}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!1 &850915938
 GameObject:
   m_ObjectHideFlags: 0
@@ -13933,6 +14029,7 @@ GameObject:
   - component: {fileID: 1154654484}
   - component: {fileID: 1154654483}
   - component: {fileID: 1154654482}
+  - component: {fileID: 1154654485}
   m_Layer: 5
   m_Name: Government
   m_TagString: Untagged
@@ -14004,7 +14101,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1154654483}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1154654485}
+        m_TargetAssemblyTypeName: TechDisplay, Assembly-CSharp
+        m_MethodName: techResearch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1154654483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14043,6 +14152,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154654480}
   m_CullTransparentMesh: 1
+--- !u!114 &1154654485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154654480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd6a6b896d267314fb1a6642b49a952d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalTech: {fileID: 11400000, guid: e275db7e99a73684586a9f10377e3013, type: 2}
+  dealer: {fileID: 318920425}
+  playerScript: {fileID: 1972966344}
+  techTreeController: {fileID: 2144876508}
+  currentTechButton: {fileID: 1154654482}
+  previousTechButton: {fileID: 850915940}
+  economyManager: {fileID: 1972966346}
 --- !u!1 &1177159975
 GameObject:
   m_ObjectHideFlags: 0
@@ -25047,6 +25175,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardTag: Card
   cardEffectManager: {fileID: 1972966348}
+  cardSelectScaler: 1.3
+  selectedTileLocation: {fileID: 0}
+  acceptableOutlineTags:
+  - Deep Sea
+  - Shallow Sea
+  - Sand
+  - Plains
+  - Mountains
   card: {fileID: 0}
   cardGameObject: {fileID: 0}
 --- !u!114 &1972966348
@@ -25063,7 +25199,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originalCard: {fileID: 0}
   card: {fileID: 0}
-  government: {fileID: 0}
   playerScript: {fileID: 1972966344}
   economyManager: {fileID: 1972966346}
   firstTime: 1

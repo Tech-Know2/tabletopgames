@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CardPlayer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class CardPlayer : MonoBehaviour, IPointerClickHandler
 {
     public string cardTag = "Card";
 
-    private bool isClicked = false;
+    private bool isSelected = false;
+    //private bool isClicked = false;
     private CameraController cameraController;
     private PlayerScript playerScript;
     public CardEffectManager cardEffectManager;
+
+    // UX and UI for the selecting of cards and the playing of cards
+    public float cardSelectScaler = 1.3f;
+    public GameObject selectedTileLocation;
+    public List<string> acceptableOutlineTags = new List<string>();
 
     public Card card;
     private CardDataHolder cardDataHolder;
@@ -38,53 +44,38 @@ public class CardPlayer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void Update()
     {
-        if (isClicked == true)
+        if (isSelected)
         {
-            //Set card game object location to be that of the mouse.
+            // Scale the card by the cardSelectScaler value
+            transform.localScale = Vector3.one * cardSelectScaler;
+        }
+    }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (gameObject.CompareTag(cardTag))
+        {
+            if (isSelected)
+            {
+                // Perform the desired functions, update camera, and send the card to the player script
+                UpdateCamera();
+                playerScript.cardData = card;
+                cardEffectManager.firstTime = true;
+                playerScript.CardSelected();
+
+                // Destroy the card GameObject
+                Destroy(cardGameObject);
+            }
+            else
+            {
+                // Select the card
+                isSelected = true;
+            }
         }
     }
 
     public void UpdateCamera()
     {
-        if (cameraController.cameraPanningAllowed == false)
-        {
-            cameraController.cameraPanningAllowed = true;
-        } else 
-        {   
-            cameraController.cameraPanningAllowed = false;
-        }
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        if (gameObject.CompareTag(cardTag))
-        {
-            if (playerScript.cardsPlayed < playerScript.maxCardsPerTurn)
-            {
-                isClicked = true;
-                UpdateCamera();
-                playerScript.cardData = card;
-                cardEffectManager.firstTime = true;
-                playerScript.CardSelected();
-            }
-        }
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        if (isClicked)
-        {
-            isClicked = false;
-            cameraController.cameraPanningAllowed = true;
-
-            //Destroy the Game Object After its Use and After it has hit the ground
-            if (isClicked == false)
-            {
-                //destory the object once it has collided with game objects tagged "Deep Sea", "Shallow Sea", "Sand", "Plains", "Mountains"
-                Destroy(cardGameObject);
-            }
-            
-        }
+        cameraController.cameraPanningAllowed = !cameraController.cameraPanningAllowed;
     }
 }

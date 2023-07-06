@@ -7,7 +7,7 @@ public class CardEffectManager : MonoBehaviour
     //Access and Retrieve the Scriptable Object Data From the Current Card
     public Card originalCard;
     public Card card;
-    public Government government;
+    private Government government;
     public PlayerScript playerScript;
     public EconomyManager economyManager;
 
@@ -23,6 +23,7 @@ public class CardEffectManager : MonoBehaviour
     
     //Government and Political Based Data Sets
     private string governmentName;
+    private bool assignsGovernment = false;
 
     //Current Active Cards
     public List<Card> activeCards = new List<Card>();
@@ -44,11 +45,13 @@ public class CardEffectManager : MonoBehaviour
         turnEffectCost = card.turnEffectCost;
         cardEffectRegion = card.cardEffectRegion;
 
-        if(government != null)
+        if(card.isGovernmentCard == true)
         {
+            government = card.government;
             governmentName = government.governmentName;
+            assignsGovernment = card.assignsGovernment;
             
-            if(card.isGovernmentWarSupportBoostCard == true || card.isAllianceCard == true || card.isDeclareWarCard == true || card.isPeaceTreatyCard == true)
+            if(card.isGovernmentWarSupportBoostCard == true || card.isAllianceCard == true || card.isDeclareWarCard == true || card.isPeaceTreatyCard == true || card.assignsGovernment == true)
             {
                 //governmentName = card.governemnt.governmentName;
 
@@ -94,10 +97,14 @@ public class CardEffectManager : MonoBehaviour
             WearinessCost();
         } else
         {
-            print(card + "Does Not Have An Effect, Probably and Error");
+            if(government != null)
+            {
+                print(card + "Does Not Have An Effect, Probably and Error");
+            }
         }
     }
 
+    //Government Related Effects
     public void GovernmentEffectFilter()
     {
         if(card.isGovernmentWarSupportBoostCard == true)
@@ -115,6 +122,10 @@ public class CardEffectManager : MonoBehaviour
         else if (card.isDeclareWarCard == true)
         {
             DeclareWarCard();
+        }
+        else if (card.assignsGovernment == true)
+        {
+            AssignGovernment();
         }
     }    
 
@@ -181,6 +192,12 @@ public class CardEffectManager : MonoBehaviour
     public void PeaceTreatyCard()
     {
         print("Peace Treaty Card");
+    }
+
+    public void AssignGovernment()
+    {
+        print("Assigned Government" + governmentName);
+        playerScript.government = government;
     }
 
     //Manage the Currently Active Cards and their Effects

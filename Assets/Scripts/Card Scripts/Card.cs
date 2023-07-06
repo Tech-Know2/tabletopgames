@@ -24,6 +24,7 @@ public class Card : ScriptableObject
 
     //Bools for card related logic
     public bool isGovernmentCard;
+    public bool assignsGovernment;
     public bool isGovernmentWarSupportBoostCard;
     public bool isAllianceCard;
     public bool isDeclareWarCard;

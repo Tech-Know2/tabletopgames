@@ -14,8 +14,7 @@ public class Tech : ScriptableObject
 
     public bool isResearched = false;
 
-    public int goldCost;
-    public List<Button> techButtons = new List<Button>();
+    //public List<Button> techButtons = new List<Button>();
     public List<Card> techCards = new List<Card>();
 
     public void ResetTechState()

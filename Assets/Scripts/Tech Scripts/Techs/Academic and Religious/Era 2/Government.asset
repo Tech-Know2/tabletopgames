@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dbddcb05295233479d4e763081d248a, type: 3}
+  m_Name: Government
+  m_EditorClassIdentifier: 
+  techName: Government
+  description: Unlock the power of structure, and focus your people on new ventures
+    and foundations.
+  techType: Academic and Religious
+  techColor: '#FAC710'
+  techEra: 2
+  isResearched: 0
+  techCards:
+  - {fileID: 11400000, guid: e923bf43b73e1864d864692fa842ae38, type: 2}
+  - {fileID: 11400000, guid: be152419053b1f441b6e37942e7e2c8f, type: 2}
+  - {fileID: 11400000, guid: e56d4dd0084f146429cbcc460aefbe0a, type: 2}
+  - {fileID: 11400000, guid: c62de5a5ed74b6e4d80832fc23e69d64, type: 2}
+  - {fileID: 11400000, guid: 0386647f18bc1fd479910d4e4cc50c71, type: 2}
+  - {fileID: 11400000, guid: 541eb79649d04134ca08ec9cc1c0f068, type: 2}
+  - {fileID: 11400000, guid: f7aff5b5f90cd1047996279ebbaf2add, type: 2}
+  - {fileID: 11400000, guid: 1b09759662f64b3478d3298240cbc8bf, type: 2}

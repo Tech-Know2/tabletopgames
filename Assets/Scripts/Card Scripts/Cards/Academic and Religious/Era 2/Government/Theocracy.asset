@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b214d7cb84762544eba4738d12acc8e9, type: 3}
+  m_Name: Theocracy
+  m_EditorClassIdentifier: 
+  cardName: Theocracy
+  description: Creates a government following this structure.
+  cardCategory: Academic and Religious
+  cardColor: '#FAC710'
+  cardTech: Government
+  cardEra: 2
+  originalPlayer: 
+  cardEffectRegion: 
+  isGovernmentCard: 1
+  assignsGovernment: 1
+  isGovernmentWarSupportBoostCard: 0
+  isAllianceCard: 0
+  isDeclareWarCard: 0
+  isPeaceTreatyCard: 0
+  isPurchasable: 0
+  createsBuildings: 0
+  createsSettlement: 0
+  settlementScriptableObject: []
+  createdUnits: 0
+  governmentType: Theocracy
+  government: {fileID: 11400000, guid: fb764cdf7b57e5043b398b9418855fc9, type: 2}
+  governmentAlliance: 
+  governmentWarDecleration: 
+  effectDescriptionEditorDisplay: 'Strings to determine the effects on the game:
+    Don''t Alter Won''t Change
+
+    If the effect only lasts for 1 turn, don''t select
+    the Requires Multiple Turns Bool.
+
+    If it only lasts for one turn, don''t
+    put in anything
+
+    "Gold Cost" to take gold per turn
+
+    "Loyalty Cost" to
+    take loyalty per turn
+
+    "Silver Cost" to take silver per turn
+
+    "Food Cost"
+    to take food per turn
+
+    "People Cost" to take people per turn
+
+    "War Support
+    Cost" to take War Support per turn
+
+    "Religion Cost" to take away religion
+    from area
+
+    "Weariness Cost" to effect war weariness
+
+    "Loyalty Cost" to
+    effect the loyalty of your people'
+  requiresMultipleTurns: 0
+  turnEffectLength: 0
+  requiresPeople: 0
+  turnEffectCost: 0
+  effectCostType: 
+  religionName: 
+  turnsActive: 0
+  buildingGameObjects: []
+  buildingScriptableObject: []
+  desierdTileString: "Strings to determine the effects on the game: Don't Alter Won't
+    Change\n\"Deep Sea\" \n\"Shallow Sea\" \n\"Sand\" \n\"Plains\" \n\"Mountains\"
+    \n"
+  desiredTilesList: []
+  units: []
