@@ -11,6 +11,9 @@ public class CardEffectManager : MonoBehaviour
     public PlayerScript playerScript;
     public EconomyManager economyManager;
 
+    //Access the Location
+    public GameObject selectedTileLocation;
+
     //Manage Weather or not The Cards Are Being Currently in Use, or First Time Use
     public bool firstTime = true;
     private Card currentHighLevelCard;
@@ -38,6 +41,11 @@ public class CardEffectManager : MonoBehaviour
         } else if (firstTime == false)
         {
             card = currentHighLevelCard;
+        }
+
+        if(selectedTileLocation != null)
+        {
+            print("Tile Selected");
         }
 
         effectCostType = card.effectCostType;

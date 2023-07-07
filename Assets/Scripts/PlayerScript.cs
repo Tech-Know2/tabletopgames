@@ -13,7 +13,7 @@ public class PlayerScript : MonoBehaviour
     public int eraTwoLength;
 
     // Associate the script with our code so it can be called
-    public CardPlayer cardPlayer;
+    public CardSelector cardSelector;
     public Dealer dealer;
     public PlacementScript placementScript;
     public EconomyManager economyManager;
@@ -21,6 +21,7 @@ public class PlayerScript : MonoBehaviour
 
     // Selected Card Game Object
     private GameObject selectedCard;
+    public GameObject selectedTileLocation;
     public Card cardData;
 
     //Amount of Cards that Can Be Played Per Turn
@@ -83,6 +84,7 @@ public class PlayerScript : MonoBehaviour
     public void PlayCard()
     {
         cardEffectManager.originalCard = cardData;
+        cardEffectManager.selectedTileLocation = selectedTileLocation;
         cardEffectManager.EffectFilter();
     }
 }

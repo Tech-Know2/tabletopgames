@@ -8,6 +8,7 @@ public class Buildings : ScriptableObject
     //Display Attributes
     public string buildingName;
     public string buildingDescription;
+    public Sprite buildingThumbnail;
     public GameObject[] requiredTech;
 
     //Game Modifier Attribute Variables for Consumption
