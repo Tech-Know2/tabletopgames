@@ -53,9 +53,10 @@ public class CardSelector : MonoBehaviour
                     
                     //Pick Up The Card Logic
                     selectedCard = hit.collider.gameObject;
-                    
-                    //Get the original scale of the object
+                    originalParent = selectedCard.transform.parent;
+                    originalPosition = selectedCard.transform.position;
                     originalScale = selectedCard.transform.localScale;
+                    
 
                     selectedCard.transform.SetParent(null);
                     selectedCard.transform.localScale = new Vector3(10f, 15f, 1f);
@@ -63,8 +64,6 @@ public class CardSelector : MonoBehaviour
                     Cursor.visible = false;
 
                     // Store the original position and parent
-                    originalPosition = selectedCard.transform.position;
-                    originalParent = selectedCard.transform.parent;
 
                 }
             }
@@ -94,8 +93,8 @@ public class CardSelector : MonoBehaviour
                 // Reset the card to its original position, scale, and parent
                 selectedCard.transform.SetParent(originalParent);
                 selectedCard.transform.position = originalPosition;
-                selectedCard.transform.localScale = new Vector3(11.173914f ,17.3849792f ,1f );
-                //selectedCard.transform.localScale = new Vector3(1f, 2f, 0.1f);
+                //selectedCard.transform.localScale = new Vector3(11.173914f ,17.3849792f ,1f );
+                selectedCard.transform.localScale = originalScale;
                 
 
                 ExecuteCardAction();
