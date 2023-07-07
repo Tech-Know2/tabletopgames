@@ -83,7 +83,7 @@ public class HexMap : MonoBehaviour
                     }
                     else if (yNoise < shallowSeaEnd)
                     {
-                        Vector3 hexPosition = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
+                        Vector3 hexPosition = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 3, z * tileZOffset);
                         if (CheckCollisionWithBarrier(hexPosition))
                         {
                             Quaternion rotation = Quaternion.Euler(90f, 0f, 0f);
@@ -94,7 +94,7 @@ public class HexMap : MonoBehaviour
                     }
                     else if (yNoise < sandyEnd)
                     {
-                        Vector3 hexPosition = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
+                        Vector3 hexPosition = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 6, z * tileZOffset);
                         if (CheckCollisionWithBarrier(hexPosition))
                         {
                             Quaternion rotation = Quaternion.Euler(90f, 0f, 0f);
@@ -109,7 +109,7 @@ public class HexMap : MonoBehaviour
                     }
                     else if (yNoise < plainsEnd)
                     {
-                        Vector3 hexPosition = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
+                        Vector3 hexPosition = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 9, z * tileZOffset);
                         if (CheckCollisionWithBarrier(hexPosition))
                         {
                             Quaternion rotation = Quaternion.Euler(90f, 0f, 0f);
@@ -123,7 +123,7 @@ public class HexMap : MonoBehaviour
                         }
                     }else if (yNoise < mountainsEnd)
                     {
-                        Vector3 mountainHexPosition = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
+                        Vector3 mountainHexPosition = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 12, z * tileZOffset);
                         if (CheckCollisionWithBarrier(mountainHexPosition))
                          {
                             Quaternion rotation = Quaternion.Euler(90f, 0f, 0f);

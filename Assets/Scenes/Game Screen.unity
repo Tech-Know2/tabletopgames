@@ -25187,6 +25187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6302138818e377c44a2aaa8d27201449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedTileLocation: {fileID: 0}
   acceptableSelectionTags:
   - Deep Sea
   - Shallow Sea
@@ -27287,6 +27288,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524274989546678548, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5524274989546678548, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
         type: 3}
