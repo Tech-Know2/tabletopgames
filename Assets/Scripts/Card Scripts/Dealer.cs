@@ -114,7 +114,7 @@ public class Dealer : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Government scriptable object is not attached to the player.");
+            Debug.Log("Government scriptable object is not attached to the player.");
         }
 
         playerScript.currentTurn += 1;
@@ -142,20 +142,6 @@ public class Dealer : MonoBehaviour
         //playEventCards();
 
         print("Next Turn Function Ran Through Here");
-    }
-
-    public void arrayCounter()
-    {
-        print(agrarianArray.Count + "Agrarian Array Count");
-        print(militaryArray.Count + "Military Array Count");
-        print(settlementArray.Count + "Settlement Array Count");
-        print(industrialArray.Count + "Industrial Array Count");
-        print(transportationAndEconomyArray.Count + "Transport and Economy Array Count");
-        print(academicAndReligiousArray.Count + "Academic and Religious Array Count");
-        print(defenseArray.Count + "Defense Array Count");
-        print(mediaAndSocialArray.Count + "Media and Social Array Count");
-        print(navalArray.Count + "Naval Array Count");
-        print(scoutingArray.Count + "Scouting Array Count");
     }
 
     public void discardCards()
@@ -238,8 +224,6 @@ public class Dealer : MonoBehaviour
             {
                 Debug.LogError("Card with wrong identifier: " + card.name);
             }
-
-            print(card.name + " has been sorted");
         }
 
         // Remove the cards after the iteration
@@ -293,8 +277,6 @@ public class Dealer : MonoBehaviour
                         currentCard = agrarianArray[cardSelect];
                         actionCard.Add(currentCard);
 
-                        print("Agrarian Array");
-
                         x++;
                     }
 
@@ -309,8 +291,6 @@ public class Dealer : MonoBehaviour
                     {
                         currentCard = militaryArray[cardSelect];
                         actionCard.Add(currentCard);
-                    
-                        print("Military Array");
                         
                         x++;
                     }
@@ -327,8 +307,6 @@ public class Dealer : MonoBehaviour
                     {
                         currentCard = industrialArray[cardSelect];
                         actionCard.Add(currentCard);
-
-                        print("industrial Array");  
                         
                         x++;
                     }
@@ -350,8 +328,6 @@ public class Dealer : MonoBehaviour
                         currentCard = academicAndReligiousArray[cardSelect];
                         actionCard.Add(currentCard);
 
-                        print("Academic and Religious Array");
-
                         x++;
                     }
                 }
@@ -366,8 +342,6 @@ public class Dealer : MonoBehaviour
                     {
                         currentCard = navalArray[cardSelect];
                         actionCard.Add(currentCard);
-
-                        print("Naval Array");  
                         
                         x++;
                     }
@@ -383,9 +357,7 @@ public class Dealer : MonoBehaviour
                     if (cardSelect >= 0 && cardSelect < cardCount)
                     {
                         currentCard = transportationAndEconomyArray[cardSelect];
-                        actionCard.Add(currentCard);
-
-                        print("Transport and Economy Array");  
+                        actionCard.Add(currentCard); 
                         
                         x++;
                     }
@@ -402,8 +374,6 @@ public class Dealer : MonoBehaviour
                     {
                         currentCard = defenseArray[cardSelect];
                         actionCard.Add(currentCard);
-
-                        print("Defense Array");  
                         
                         x++;
                     }
@@ -421,8 +391,6 @@ public class Dealer : MonoBehaviour
                         currentCard = scoutingArray[cardSelect];
                         actionCard.Add(currentCard);
                         
-                        print("scouting Array");  
-                        
                         x++;
                     }
                     
@@ -439,8 +407,6 @@ public class Dealer : MonoBehaviour
                         currentCard = mediaAndSocialArray[cardSelect];
                         actionCard.Add(currentCard);
                         
-                        print("Media Array");  
-                        
                         x++;
                     }
                     
@@ -455,8 +421,6 @@ public class Dealer : MonoBehaviour
                     {
                         currentCard = settlementArray[cardSelect];
                         actionCard.Add(currentCard);
-
-                        print("Settlement Array");  
                         
                         x++;
                     }
@@ -464,10 +428,6 @@ public class Dealer : MonoBehaviour
 
             } else {
                 int cardCat = Random.Range(0, 951);
-
-                //Console Messages to Help Me Debug the Path and the Errors
-                print("The Cards dealt has no Government");
-                print("Action card Holder Count: " + actionCardHolder.Count);
 
                 if (cardCat >= 0 && cardCat <= 100) //Agrarian
                 {
@@ -480,8 +440,6 @@ public class Dealer : MonoBehaviour
                     {
                         currentCard = agrarianArray[cardSelect];
                         actionCard.Add(currentCard);
-
-                        print("Agrarian Array");  
                         
                         x++;
                     }
@@ -498,8 +456,6 @@ public class Dealer : MonoBehaviour
                     {
                         currentCard = militaryArray[cardSelect];
                         actionCard.Add(currentCard);
-
-                        print("Military Array");  
                         
                         x++;
                     }
@@ -515,8 +471,6 @@ public class Dealer : MonoBehaviour
                     {
                         currentCard = industrialArray[cardSelect];
                         actionCard.Add(currentCard);
-
-                        print("Industrial Array");  
                         
                         x++;
                     }
@@ -537,8 +491,6 @@ public class Dealer : MonoBehaviour
                     {
                         currentCard = academicAndReligiousArray[cardSelect];
                         actionCard.Add(currentCard);
-
-                        print("Academic and Religious Array");  
                         
                         x++;
                     }
@@ -554,8 +506,6 @@ public class Dealer : MonoBehaviour
                     {
                         currentCard = navalArray[cardSelect];
                         actionCard.Add(currentCard);
-
-                        print("Naval Array");  
                         
                         x++;
                     }
@@ -571,8 +521,6 @@ public class Dealer : MonoBehaviour
                     {
                         currentCard = transportationAndEconomyArray[cardSelect];
                         actionCard.Add(currentCard);
-
-                        print("Transport and Economy Array");  
                         
                         x++;
                     }
@@ -588,8 +536,6 @@ public class Dealer : MonoBehaviour
                     {
                         currentCard = defenseArray[cardSelect];
                         actionCard.Add(currentCard);
-
-                        print("Defense Array");  
                         
                         x++;
                     }
@@ -605,8 +551,6 @@ public class Dealer : MonoBehaviour
                     {
                         currentCard = scoutingArray[cardSelect];
                         actionCard.Add(currentCard);
-
-                        print("Scouting Array");  
                         
                         x++;
                     }
@@ -622,8 +566,6 @@ public class Dealer : MonoBehaviour
                     {
                         currentCard = mediaAndSocialArray[cardSelect];
                         actionCard.Add(currentCard);
-
-                        print("Media and Social Array"); 
                         
                         x++;
                     }
@@ -639,8 +581,6 @@ public class Dealer : MonoBehaviour
                     {
                         currentCard = settlementArray[cardSelect];
                         actionCard.Add(currentCard);
-
-                        print("Settlement Array");
 
                         x++;
                     }
@@ -670,8 +610,6 @@ public class Dealer : MonoBehaviour
 
     public void playActionCards()
     {
-        print("Play Action Cards Function Has Been Called");
-
         for (int a = 0; a < actionCardHolder.Count; a++)
         {
             Card card = actionCard[a];
