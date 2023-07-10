@@ -9,7 +9,6 @@ public class BuildingSlotDisplay : MonoBehaviour
     //UI Displays
     public TextMeshProUGUI nameSlot;
     public TextMeshProUGUI descriptionSlot;
-    //public RawImage iconSlot;
 
     //Data for the UI
     public Settlements settlementData;
@@ -34,9 +33,8 @@ public class BuildingSlotDisplay : MonoBehaviour
     {
         if (passedBuildType == "Settlement")
         {
-            nameSlot.text = settlementData.cityName;
+            nameSlot.text = "Settlement";
             descriptionSlot.text = "Construct a new settlement to further your empire's reach";
-            //iconSlot.texture = settlementData.settlementBuildThumbnail.texture;
         }
         else 
         {
