@@ -25036,6 +25036,7 @@ GameObject:
   - component: {fileID: 1972966350}
   - component: {fileID: 1972966352}
   - component: {fileID: 1972966351}
+  - component: {fileID: 1972966353}
   m_Layer: 0
   m_Name: Player and Camera Rig
   m_TagString: Player and Camera Rig
@@ -25113,8 +25114,11 @@ MonoBehaviour:
   economyManager: {fileID: 1972966346}
   government: {fileID: 0}
   nameGenerator: {fileID: 1972966352}
+  buildingEffectController: {fileID: 1972966353}
   playerSettlementDataList: []
   playerSettlementObjectList: []
+  playerBuildingsDataList: []
+  playerBuildingObjectList: []
   selectedTileLocation: {fileID: 0}
   cardData: {fileID: 0}
   maxCardsPerTurn: 3
@@ -25266,6 +25270,21 @@ MonoBehaviour:
   - man
   - dune
   newName: 
+--- !u!114 &1972966353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972966341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49ab30e146e3294da23cea80e77b068, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerScript: {fileID: 0}
+  economyManager: {fileID: 0}
+  buildingsList: []
 --- !u!1 &1973439577
 GameObject:
   m_ObjectHideFlags: 0

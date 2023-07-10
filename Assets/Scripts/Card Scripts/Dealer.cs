@@ -127,6 +127,7 @@ public class Dealer : MonoBehaviour
         // Pick the Cards To Be Dealt From the Deck
         // Take Into Account the Current Card Effects
         cardEffectManager.CurrentlyActiveCards();
+        playerScript.TurnEffects();
         
         //Check to make sure there are cards to deal or it crashes and breaks everything
         if(agrarianArray.Count != 0 || militaryArray.Count != 0 || settlementArray.Count != 0 || industrialArray.Count != 0 || transportationAndEconomyArray.Count != 0 || academicAndReligiousArray.Count != 0 || defenseArray.Count != 0 || mediaAndSocialArray.Count != 0 || navalArray.Count != 0 || scoutingArray.Count != 0)

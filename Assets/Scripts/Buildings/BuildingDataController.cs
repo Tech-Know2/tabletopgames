@@ -52,6 +52,9 @@ public class BuildingDataController : MonoBehaviour
     public void BuildingSetUp()
     {
         GetData();
+
+        //Add the Data to the Building Effect Controller Script
+        playerScript.buildingEffectController.buildingsList.Add(clonedBuildingData);
         
         if(originalBuildingData != null)
         {

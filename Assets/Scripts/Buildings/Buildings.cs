@@ -9,12 +9,12 @@ public class Buildings : ScriptableObject
     public string buildingName;
     public string buildingDescription;
     public Sprite buildingThumbnail;
-    public GameObject[] requiredTech;
 
     //Game Modifier Attribute Variables for Consumption
     public int goldUpKeep;
     public int silverUpKeep;
     public int peopleUpKeep;
+    public int foodUpkeep;
     public float health;
     public int buildTime;
 
@@ -29,12 +29,12 @@ public class Buildings : ScriptableObject
     //Game Modifier Attribute Variables for Production
     public int goldProduction;
     public int silverProduction;
+    public int foodProduction;
     public float techPointProduction;
     public float travelStaminaDecreaseMultipler;
 
     //Variables to Keep Track of Building Constraints and Requierments
     public bool requiresAnotherBuilding;
-    public GameObject[] localBuildingRequirements;
     public List<string> acceptableBuildTiles = new List<string>();
 
     //Producible Objects from Building

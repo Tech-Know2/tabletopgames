@@ -31,8 +31,8 @@ MonoBehaviour:
   requiresTileLocation: 1
   createsBuildings: 0
   createsSettlement: 0
-  settlementScriptableObject: []
-  createdUnits: 0
+  settlementScriptableObject: {fileID: 0}
+  createsUnits: 0
   governmentType: 
   government: {fileID: 0}
   governmentAlliance: 

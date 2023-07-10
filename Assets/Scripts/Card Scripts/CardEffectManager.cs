@@ -276,7 +276,35 @@ public class CardEffectManager : MonoBehaviour
         }
         else //Card Creates Every other build type
         {
-            // Handle other types of buildings
+            Vector3 tilePosition = selectedTileLocation.transform.position;
+
+            if (card.buildingGameObjects.Count > 0)
+            {
+                for (int x = 0; x < buildingData.Count; x++)
+                {
+                    if(buildingData[x].acceptableBuildTiles.Contains(selectedTileLocation.tag))
+                    {
+                        GameObject buildingPrefab = card.buildingGameObjects[0];
+                        GameObject building = Instantiate(buildingPrefab, tilePosition, Quaternion.identity);
+                        BuildingDataController buildingController = building.GetComponent<BuildingDataController>();
+
+                        buildingController.BuildingSetUp();
+
+                        //Add the data to the Players Empire Data Collector List
+                        playerScript.playerBuildingsDataList.Add(buildingController.clonedBuildingData);
+                        playerScript.playerBuildingObjectList.Add(building);
+
+
+                    } else //Building on the Wrong Tile
+                    {
+                        print("Wrong tile");
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("No building prefab defined for the card: " + card.name);
+            }
         }
     }
 

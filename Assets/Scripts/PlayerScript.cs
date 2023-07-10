@@ -19,10 +19,13 @@ public class PlayerScript : MonoBehaviour
     public EconomyManager economyManager;
     public Government government;
     public NameGenerator nameGenerator;
+    public BuildingEffectController buildingEffectController;
     
     //Player's Empire Data and Information
     public List<Settlements> playerSettlementDataList = new List<Settlements>();
     public List<GameObject> playerSettlementObjectList = new List<GameObject>();
+    public List<Buildings> playerBuildingsDataList = new List<Buildings>();
+    public List<GameObject> playerBuildingObjectList = new List<GameObject>();
 
     // Selected Card Game Object
     private GameObject selectedCard;
@@ -44,7 +47,7 @@ public class PlayerScript : MonoBehaviour
         placementScript = GetComponent<PlacementScript>();
 
         currentEra = 1;
-        currentTurn = 1;
+        currentTurn = 0;
 
         dealer.filterCards();
     }
@@ -52,6 +55,11 @@ public class PlayerScript : MonoBehaviour
     public void Name()
     {
         nameGenerator.GenerateName();
+    }
+
+    public void TurnEffects()
+    {
+        buildingEffectController.BuildingsEffects();
     }
 
     void checkEra()
