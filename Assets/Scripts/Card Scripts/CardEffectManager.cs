@@ -10,6 +10,7 @@ public class CardEffectManager : MonoBehaviour
     private Government government;
     public PlayerScript playerScript;
     public EconomyManager economyManager;
+    public BuildingPopUp buildingPopUp;
 
     //Building and Creation Card Variables
     public GameObject selectedTileLocation;
@@ -227,24 +228,37 @@ public class CardEffectManager : MonoBehaviour
         Settlements settlementData = null;
         List<Buildings> buildingData = null;
 
+        //Settlement Placement logic
         if (card.settlementScriptableObject != null)
         {
             settlementData = card.settlementScriptableObject;
+
+            buildingPopUp.SetSettlementData(settlementData);
+            buildingPopUp.BuildingDisplay("Settlement");
+            buildingPopUp.settlementData = settlementData;
         }
         else 
         {
             return;
         }
 
+        //Building Placement logic
         if (card.buildingScriptableObject != null)
         {
             buildingData = card.buildingScriptableObject;
+
+            buildingPopUp.BuildingDisplay("Building");
+            foreach (Buildings building in buildingData)
+            {
+                buildingPopUp.buildingsData.Add(building);
+            }
         }
         else 
         {
             return;
         }
 
+        /*
         //Card Creates Settlements
         if (card.createsSettlement)
         {
@@ -305,7 +319,7 @@ public class CardEffectManager : MonoBehaviour
             {
                 Debug.LogError("No building prefab defined for the card: " + card.name);
             }
-        }
+        }*/
     }
 
     public void CreateUnits()

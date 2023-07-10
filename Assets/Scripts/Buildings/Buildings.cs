@@ -18,14 +18,6 @@ public class Buildings : ScriptableObject
     public float health;
     public int buildTime;
 
-    //Tiles it Can Be Placed On
-    public bool placedOnDeepSea;
-    public bool placedOnShallowSea;
-    public bool placedOnSand;
-    public bool placedOnPlains;
-    public bool placedOnMountains;
-
-
     //Game Modifier Attribute Variables for Production
     public int goldProduction;
     public int silverProduction;
