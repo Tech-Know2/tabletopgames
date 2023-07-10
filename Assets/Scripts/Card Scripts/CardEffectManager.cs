@@ -222,7 +222,7 @@ public class CardEffectManager : MonoBehaviour
     }
 
     //Placement and Creation Based Card Effects
-    public void ConstructBuilding()
+    public void ConstructBuilding() //Temporary Setup (Can only have one building per tile at this point)
     {
         Settlements settlementData = null;
         List<Buildings> buildingData = null;
