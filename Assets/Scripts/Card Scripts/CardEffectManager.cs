@@ -11,7 +11,7 @@ public class CardEffectManager : MonoBehaviour
     public PlayerScript playerScript;
     public EconomyManager economyManager;
 
-    //Access the Location
+    //Building and Creation Card Variables
     public GameObject selectedTileLocation;
 
     //Manage Weather or not The Cards Are Being Currently in Use, or First Time Use
@@ -67,9 +67,22 @@ public class CardEffectManager : MonoBehaviour
             }
         }
 
+        //Check to see if the card Requires multiple Turns
         if (card.requiresMultipleTurns == true && firstTime == true)
         {
             activeCards.Add(card);
+        }
+
+        //Check to see if the card creates buildings or settlements
+        if (card.createsBuildings == true || card.createsSettlement == true)
+        {
+            ConstructBuilding();
+        }
+
+        //Check to see if the card creates units
+        if(card.createsUnits == true)
+        {
+            CreateUnits();
         }
 
         if(effectCostType == "Gold Cost")
@@ -206,6 +219,70 @@ public class CardEffectManager : MonoBehaviour
     {
         print("Assigned Government" + governmentName);
         playerScript.government = government;
+    }
+
+    //Placement and Creation Based Card Effects
+    public void ConstructBuilding()
+    {
+        Settlements settlementData = null;
+        List<Buildings> buildingData = null;
+
+        if (card.settlementScriptableObject != null)
+        {
+            settlementData = card.settlementScriptableObject;
+        }
+        else 
+        {
+            return;
+        }
+
+        if (card.buildingScriptableObject != null)
+        {
+            buildingData = card.buildingScriptableObject;
+        }
+        else 
+        {
+            return;
+        }
+
+        //Card Creates Settlements
+        if (card.createsSettlement)
+        {
+            Vector3 tilePosition = selectedTileLocation.transform.position;
+
+            if (card.buildingGameObjects.Count > 0)
+            {
+                if(settlementData.acceptableBuildTiles.Contains(selectedTileLocation.tag))
+                {
+                    GameObject settlementPrefab = card.buildingGameObjects[0];
+                    GameObject settlement = Instantiate(settlementPrefab, tilePosition, Quaternion.identity);
+                    BuildingDataController buildingController = settlement.GetComponent<BuildingDataController>();
+
+                    buildingController.SettlementSetup();
+
+                    //Add the data to the Players Empire Data Collector List
+                    playerScript.playerSettlementDataList.Add(buildingController.clonedSettlementData);
+                    playerScript.playerSettlementObjectList.Add(settlement);
+
+                } else //Building on the Wrong Tile
+                {
+                    print("Wrong tile");
+                }
+            }
+            else
+            {
+                Debug.LogError("No settlement prefab defined for the card: " + card.name);
+            }
+        }
+        else //Card Creates Every other build type
+        {
+            // Handle other types of buildings
+        }
+    }
+
+    public void CreateUnits()
+    {
+
     }
 
     //Manage the Currently Active Cards and their Effects

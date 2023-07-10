@@ -13,6 +13,14 @@ MonoBehaviour:
   m_Name: Settlement Prefab Data
   m_EditorClassIdentifier: 
   cityName: 
-  cityLevel: 0
+  cityLevel: 1
   cityPopulation: 0
   calculatedLoyalty: 0
+  acceptableBuildTiles:
+  - Sand
+  - Plains
+  - Mountains
+  settlementReligiousFollowers: []
+  settlementBuildings: []
+  tilesUnderCityControl: []
+  settlementUnits: []

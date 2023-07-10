@@ -28,11 +28,11 @@ MonoBehaviour:
   isPeaceTreatyCard: 0
   isPurchasable: 1
   requiresTileLocation: 1
-  createsBuildings: 1
+  createsBuildings: 0
   createsSettlement: 1
-  settlementScriptableObject:
-  - {fileID: 11400000, guid: cfb15f4eb41760b43adfff6a49864d59, type: 2}
-  createdUnits: 0
+  settlementScriptableObject: {fileID: 11400000, guid: cfb15f4eb41760b43adfff6a49864d59,
+    type: 2}
+  createsUnits: 0
   governmentType: 
   government: {fileID: 0}
   governmentAlliance: 

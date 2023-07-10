@@ -35,9 +35,10 @@ public class Buildings : ScriptableObject
     //Variables to Keep Track of Building Constraints and Requierments
     public bool requiresAnotherBuilding;
     public GameObject[] localBuildingRequirements;
+    public List<string> acceptableBuildTiles = new List<string>();
 
     //Producible Objects from Building
-    public GameObject[] produceableObjects;
+    public List<GameObject> producableObjects = new List<GameObject>();
 
     //Bools to check Building Identity
     public bool isLandTrainingRelated;

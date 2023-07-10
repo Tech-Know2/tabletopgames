@@ -35,8 +35,8 @@ public class Card : ScriptableObject
     public bool requiresTileLocation; //Used to determine weather or not a tile needs to be selected in order for the card to be used
     public bool createsBuildings;
     public bool createsSettlement;
-    public List<Settlements> settlementScriptableObject = new List <Settlements>();
-    public bool createdUnits;
+    public Settlements settlementScriptableObject;
+    public bool createsUnits;
 
     //Choose the Government if it is a Government Card or Government Related Card
     public string governmentType; // Name of the government created, or the name of the governemnt the war support count will be effecting

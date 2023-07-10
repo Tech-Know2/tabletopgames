@@ -145,7 +145,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5317182380889064387}
   - component: {fileID: 6939509060616882071}
-  - component: {fileID: 1298456252035630391}
   - component: {fileID: 5566110679980375244}
   m_Layer: 0
   m_Name: Card Prefab
@@ -185,23 +184,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1298456252035630391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1368944600935861469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f5c267a8df50f9458986850d1685744, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardTag: Card
-  cardEffectManager: {fileID: 0}
-  selectedTileLocation: {fileID: 0}
-  acceptableSelectionTags: []
-  card: {fileID: 0}
 --- !u!54 &5566110679980375244
 Rigidbody:
   m_ObjectHideFlags: 0

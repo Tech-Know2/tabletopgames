@@ -25034,6 +25034,7 @@ GameObject:
   - component: {fileID: 1972966346}
   - component: {fileID: 1972966348}
   - component: {fileID: 1972966350}
+  - component: {fileID: 1972966352}
   - component: {fileID: 1972966351}
   m_Layer: 0
   m_Name: Player and Camera Rig
@@ -25111,6 +25112,9 @@ MonoBehaviour:
   placementScript: {fileID: 1972966345}
   economyManager: {fileID: 1972966346}
   government: {fileID: 0}
+  nameGenerator: {fileID: 1972966352}
+  playerSettlementDataList: []
+  playerSettlementObjectList: []
   selectedTileLocation: {fileID: 0}
   cardData: {fileID: 0}
   maxCardsPerTurn: 3
@@ -25207,6 +25211,61 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clonedResearchedTechs: []
+--- !u!114 &1972966352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972966341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00aa6a02e56584e45b6bef6bb515ce1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  adjectives:
+  - Cold
+  - Frozen
+  - Hot
+  - Thoughtful
+  - Prosperous
+  - Adventure
+  - Bright
+  - Lovely
+  - Baren
+  - Adorable
+  - Awful
+  - Strong
+  - Clever
+  - Quiet
+  - Charming
+  - Courageous
+  - Generous
+  - Sincere
+  - Artistic
+  - Affectionate
+  nouns:
+  - dog
+  - cat
+  - lion
+  - liger
+  - pen
+  - trigger
+  - house
+  - grass
+  - speaker
+  - phone
+  - time
+  - building
+  - day
+  - night
+  - cross
+  - field
+  - cleaner
+  - woman
+  - man
+  - dune
+  newName: 
 --- !u!1 &1973439577
 GameObject:
   m_ObjectHideFlags: 0
