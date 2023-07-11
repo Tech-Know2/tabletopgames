@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class PlacementScript : MonoBehaviour
 {
     // Materials Indicating Placement Capabilities
     private Material originalMaterial;
     public Camera mainCamera;
+
+    //Access Scripts
+    public PlayerScript playerScript;
 
     // Access the Information About the Building
     public BuildingPopUp buildingPopUp;
@@ -51,8 +55,7 @@ public class PlacementScript : MonoBehaviour
             // Check if the ray hits any objects
             if (Physics.Raycast(ray, out hit))
             {
-                // Check if the object is different from the previously hovered object
-                if (hit.transform.position != hoveringLocation && acceptableTileTags.Contains(hit.transform.tag))
+                if (acceptableTileTags.Contains(hit.transform.tag))//hit.transform.position != hoveringLocation && 
                 {
                     // Store the new hovered object
                     hoveredObject = hit.transform.gameObject;
@@ -99,11 +102,25 @@ public class PlacementScript : MonoBehaviour
             {
                 if (buildingData != null)
                 {
-                    if (buildingData.acceptableBuildTiles.Contains(hoveredObject.tag) && buildingData.requiresASettlement == false)
+                    if (buildingData.acceptableBuildTiles.Contains(hoveredObject.tag))
                     {
-                        solidPlacement = true;
+                        if (playerScript.playerSettlementDataList.Any(settlement => settlement.tilesUnderCityControl.Contains(hoveredObject)) && buildingData.requiresASettlement == true)
+                        {
+                            solidPlacement = true;
 
-                        buildingInstance.transform.position = hoveringLocation;
+                            buildingInstance.transform.position = hoveringLocation;
+
+                        }else if(buildingData.acceptableBuildTiles.Contains(hoveredObject.tag) && buildingData.requiresASettlement == false)
+                        {
+                            solidPlacement = true;
+
+                            buildingInstance.transform.position = hoveringLocation;
+                        }
+                        else
+                        {
+                            solidPlacement = false;
+                            Debug.Log("Tile not under a city's control");
+                        }
                     }
                     else
                     {
@@ -130,8 +147,15 @@ public class PlacementScript : MonoBehaviour
                         buildingDataController.SettlementSetup();
                     }else 
                     {
-                        buildingDataController.originalBuildingData = buildingData;
-                        buildingDataController.BuildingSetUp();
+                        if(playerScript.playerSettlementDataList.Any(settlement => settlement.tilesUnderCityControl.Contains(hoveredObject)))
+                        {
+                            buildingDataController.originalBuildingData = buildingData;
+                            buildingDataController.BuildingSetUp();
+                        } else 
+                        {
+                            print("Tile not under a city's control");
+                        }
+                        
                     }
                     
                     // Reset placement variables

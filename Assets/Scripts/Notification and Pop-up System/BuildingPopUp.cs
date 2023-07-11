@@ -105,11 +105,12 @@ public class BuildingPopUp : MonoBehaviour
             for (int i = 0; i < clickedCard.buildingGameObjects.Count; i++)
             {
                 GameObject newBuildingSlot = Instantiate(buildingSlotPrefab);
-                //newBuildingSlot.transform.SetParent(buildingSlots[i].transform, false);
                 newBuildingSlot.transform.position = buildingSlots[i].transform.position;
 
+                print("Building a building");
+
                 BuildingSlotDisplay buildingSlotDisplay = newBuildingSlot.GetComponent<BuildingSlotDisplay>();
-                //buildingSlotDisplay.buildingData = buildingsData[i];
+                buildingSlotDisplay.buildingData = buildingsData[i];
                 buildingSlotDisplay.building = clickedCard.buildingGameObjects[i];
             }
         }

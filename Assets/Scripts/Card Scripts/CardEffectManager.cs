@@ -225,8 +225,8 @@ public class CardEffectManager : MonoBehaviour
     //Placement and Creation Based Card Effects
     public void ConstructBuilding() //Temporary Setup (Can only have one building per tile at this point)
     {
-        Settlements settlementData = null;
-        List<Buildings> buildingData = null;
+        Settlements settlementData;
+        Buildings buildingData;
 
         //Settlement Placement logic
         if (card.settlementScriptableObject != null)
@@ -237,95 +237,25 @@ public class CardEffectManager : MonoBehaviour
             buildingPopUp.BuildingDisplay("Settlement");
             buildingPopUp.settlementData = settlementData;
         }
-        else 
-        {
-            return;
-        }
 
-        //Building Placement logic
-        if (card.buildingScriptableObject != null)
+        // Building Placement logic
+        if (card.buildingGameObjects != null)
         {
-            buildingData = card.buildingScriptableObject;
+            for (int i = 0; i < card.buildingGameObjects.Count; i++)
+            {
+                GameObject building = card.buildingGameObjects[i];
+                BuildingDataController buildingDataController = building.GetComponent<BuildingDataController>();
+                buildingData = buildingDataController.originalBuildingData;
+                buildingPopUp.buildingsData.Add(buildingData);
+                buildingPopUp.BuildingDisplay("Building");
+            }
             print("Building Card");
-
-            buildingPopUp.BuildingDisplay("Building");
-            foreach (Buildings building in buildingData)
-            {
-                buildingPopUp.buildingsData.Add(building);
-            }
         }
-        else 
-        {
-            return;
-        }
-
-        /*
-        //Card Creates Settlements
-        if (card.createsSettlement)
-        {
-            Vector3 tilePosition = selectedTileLocation.transform.position;
-
-            if (card.buildingGameObjects.Count > 0)
-            {
-                if(settlementData.acceptableBuildTiles.Contains(selectedTileLocation.tag))
-                {
-                    GameObject settlementPrefab = card.buildingGameObjects[0];
-                    GameObject settlement = Instantiate(settlementPrefab, tilePosition, Quaternion.identity);
-                    BuildingDataController buildingController = settlement.GetComponent<BuildingDataController>();
-
-                    buildingController.SettlementSetup();
-
-                    //Add the data to the Players Empire Data Collector List
-                    playerScript.playerSettlementDataList.Add(buildingController.clonedSettlementData);
-                    playerScript.playerSettlementObjectList.Add(settlement);
-
-                } else //Building on the Wrong Tile
-                {
-                    print("Wrong tile");
-                }
-            }
-            else
-            {
-                Debug.LogError("No settlement prefab defined for the card: " + card.name);
-            }
-        }
-        else //Card Creates Every other build type
-        {
-            Vector3 tilePosition = selectedTileLocation.transform.position;
-
-            if (card.buildingGameObjects.Count > 0)
-            {
-                for (int x = 0; x < buildingData.Count; x++)
-                {
-                    if(buildingData[x].acceptableBuildTiles.Contains(selectedTileLocation.tag))
-                    {
-                        GameObject buildingPrefab = card.buildingGameObjects[0];
-                        GameObject building = Instantiate(buildingPrefab, tilePosition, Quaternion.identity);
-                        BuildingDataController buildingController = building.GetComponent<BuildingDataController>();
-
-                        buildingController.BuildingSetUp();
-
-                        //Add the data to the Players Empire Data Collector List
-                        playerScript.playerBuildingsDataList.Add(buildingController.clonedBuildingData);
-                        playerScript.playerBuildingObjectList.Add(building);
-
-
-                    } else //Building on the Wrong Tile
-                    {
-                        print("Wrong tile");
-                    }
-                }
-            }
-            else
-            {
-                Debug.LogError("No building prefab defined for the card: " + card.name);
-            }
-        }*/
     }
 
     public void CreateUnits()
     {
-
+        //Create code here to manage unit creation
     }
 
     //Manage the Currently Active Cards and their Effects

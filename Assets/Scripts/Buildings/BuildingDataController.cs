@@ -6,6 +6,7 @@ public class BuildingDataController : MonoBehaviour
 {
     //Access the player script
     public PlayerScript playerScript;
+    public CityController cityController;
 
     //Data Provided By the Building
     public Settlements originalSettlementData;
@@ -14,6 +15,9 @@ public class BuildingDataController : MonoBehaviour
     //Data Copied to Be Manipulated
     public Settlements clonedSettlementData;
     public Buildings clonedBuildingData;
+
+    //Get the Control Sphere
+    public GameObject controlSphere;
 
     public void GetData()
     {
@@ -35,6 +39,8 @@ public class BuildingDataController : MonoBehaviour
 
         print("Building Setup In Progress");
 
+        controlSphere.SetActive(true);
+
         if(originalSettlementData != null)
         {
             clonedSettlementData = Instantiate(originalSettlementData);
@@ -45,8 +51,14 @@ public class BuildingDataController : MonoBehaviour
         }
 
         playerScript.Name();
+        playerScript.playerSettlementDataList.Add(clonedSettlementData);
+        GameObject attachedGameObject = gameObject;
+        playerScript.playerSettlementObjectList.Add(gameObject);
+
         clonedSettlementData.cityName = playerScript.nameGenerator.newName;
         print(playerScript.nameGenerator.newName);
+
+        cityController.SettlementStart();
     }
 
     public void BuildingSetUp()

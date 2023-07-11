@@ -22,17 +22,12 @@ MonoBehaviour:
   foodUpkeep: 0
   health: 0
   buildTime: 0
-  placedOnDeepSea: 0
-  placedOnShallowSea: 0
-  placedOnSand: 0
-  placedOnPlains: 0
-  placedOnMountains: 0
   goldProduction: 0
-  silverProduction: 0
+  silverProduction: 10
   foodProduction: 5
   techPointProduction: 0
   travelStaminaDecreaseMultipler: 0
-  requiresAnotherBuilding: 0
+  requiresASettlement: 0
   acceptableBuildTiles: []
   producableObjects: []
   isLandTrainingRelated: 0

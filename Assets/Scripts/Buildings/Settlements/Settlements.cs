@@ -7,7 +7,6 @@ public class Settlements : ScriptableObject
 {
     public string cityName;
     public int cityLevel;
-    public Sprite settlementBuildThumbnail;
     public int cityPopulation;
     public float calculatedLoyalty;
 

@@ -25393,8 +25393,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bb4036b72e05ef438036445f3272124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goodPlacement: {fileID: 2100000, guid: 56c32ebabad57e54986617243dea56fd, type: 2}
-  badPlacement: {fileID: 2100000, guid: d92dc251c85167c45866105d17b9f601, type: 2}
   mainCamera: {fileID: 844960788}
   buildingPopUp: {fileID: 906370546}
   settlementData: {fileID: 0}
@@ -27689,6 +27687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca51e7ff9ddf9e94db8ce9343849addf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingPopUp: {fileID: 906370546}
   techTreeButton: {fileID: 852638083}
   techTree: {fileID: 2144876502}
   nonagon: {fileID: 443126108}
