@@ -85,21 +85,13 @@ public class PlacementScript : MonoBehaviour
                 {
                     if (settlementData.acceptableBuildTiles.Contains(hoveredObject.tag))
                     {
-                        if (renderer != null)
-                        {
-                            //renderer.material = goodPlacement;
-                            solidPlacement = true;
+                        solidPlacement = true;
 
-                            buildingInstance.transform.position = hoveringLocation;
-                        }
+                        buildingInstance.transform.position = hoveringLocation;
                     }
                     else
                     {
-                        if (renderer != null)
-                        {
-                            //renderer.material = badPlacement;
-                            solidPlacement = false;
-                        }
+                        solidPlacement = false;
                     }
                 }
             }
@@ -109,21 +101,13 @@ public class PlacementScript : MonoBehaviour
                 {
                     if (buildingData.acceptableBuildTiles.Contains(hoveredObject.tag) && buildingData.requiresASettlement == false)
                     {
-                        if (renderer != null)
-                        {
-                            //renderer.material = goodPlacement;
-                            solidPlacement = true;
+                        solidPlacement = true;
 
-                            buildingInstance.transform.position = hoveringLocation;
-                        }
+                        buildingInstance.transform.position = hoveringLocation;
                     }
                     else
                     {
-                        if (renderer != null)
-                        {
-                            //renderer.material = badPlacement;
-                            solidPlacement = false;
-                        }
+                        solidPlacement = false;
                     }
                 }
             }
