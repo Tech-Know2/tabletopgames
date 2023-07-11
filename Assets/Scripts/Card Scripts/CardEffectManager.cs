@@ -246,6 +246,7 @@ public class CardEffectManager : MonoBehaviour
         if (card.buildingScriptableObject != null)
         {
             buildingData = card.buildingScriptableObject;
+            print("Building Card");
 
             buildingPopUp.BuildingDisplay("Building");
             foreach (Buildings building in buildingData)

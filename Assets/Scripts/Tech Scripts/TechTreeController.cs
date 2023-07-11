@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class TechTreeController : MonoBehaviour
 {
+    public BuildingPopUp buildingPopUp;
+
     public Button techTreeButton;
     public GameObject techTree;
     public RawImage nonagon;
@@ -86,6 +88,11 @@ public class TechTreeController : MonoBehaviour
             Movement();
             techTree.SetActive(true);
 
+            foreach (GameObject card in buildingPopUp.cardSlots)
+            {
+                card.SetActive(false);
+            }
+
             currentBranchNumber = 0;
 
             // Check if settlementTech is not null before accessing its properties
@@ -108,6 +115,11 @@ public class TechTreeController : MonoBehaviour
             treeEnabled = false;
             techTree.SetActive(false);
             Movement();
+
+            foreach (GameObject card in buildingPopUp.cardSlots)
+            {
+                card.SetActive(true);
+            }
         }
     }
 

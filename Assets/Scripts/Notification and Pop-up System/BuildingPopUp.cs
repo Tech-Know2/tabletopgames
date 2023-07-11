@@ -18,6 +18,7 @@ public class BuildingPopUp : MonoBehaviour
     //Prefab for Dispays
     public GameObject buildingSlotPrefab;
     public List<GameObject> buildingSlots = new List<GameObject>(); //Max buildings per card is 4
+    private List<GameObject> usedBuildingSlots = new List<GameObject>();
 
     //Data for the Buildings
     public List<Buildings> buildingsData = new List<Buildings>();

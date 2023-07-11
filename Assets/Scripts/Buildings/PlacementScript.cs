@@ -77,10 +77,6 @@ public class PlacementScript : MonoBehaviour
     {
         if(isPlacing)
         {
-            Renderer renderer = buildingInstance.GetComponent<Renderer>();
-
-            originalMaterial = renderer.material;
-
             bool solidPlacement = false;
 
             if (buildingType == "Settlement")
