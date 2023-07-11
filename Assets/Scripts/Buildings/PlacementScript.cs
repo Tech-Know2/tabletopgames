@@ -5,8 +5,6 @@ using UnityEngine;
 public class PlacementScript : MonoBehaviour
 {
     // Materials Indicating Placement Capabilities
-    public Material goodPlacement;
-    public Material badPlacement;
     private Material originalMaterial;
     public Camera mainCamera;
 
@@ -54,17 +52,14 @@ public class PlacementScript : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 // Check if the object is different from the previously hovered object
-                if (hit.transform.gameObject != hoveredObject && acceptableTileTags.Contains(hit.transform.tag))
+                if (hit.transform.position != hoveringLocation && acceptableTileTags.Contains(hit.transform.tag))
                 {
                     // Store the new hovered object
                     hoveredObject = hit.transform.gameObject;
 
                     // Update the preview position to follow the mouse
                     Vector3 mousePosition = hit.point;
-                    hoveringLocation = hit.transform.position;
-
-                    // Preview placement
-                    Preview(buildingInstance.tag);
+                    hoveringLocation = mousePosition;
                 }
             }
             else
@@ -96,15 +91,17 @@ public class PlacementScript : MonoBehaviour
                     {
                         if (renderer != null)
                         {
-                            renderer.material = goodPlacement;
+                            //renderer.material = goodPlacement;
                             solidPlacement = true;
+
+                            buildingInstance.transform.position = hoveringLocation;
                         }
                     }
                     else
                     {
                         if (renderer != null)
                         {
-                            renderer.material = badPlacement;
+                            //renderer.material = badPlacement;
                             solidPlacement = false;
                         }
                     }
@@ -114,19 +111,21 @@ public class PlacementScript : MonoBehaviour
             {
                 if (buildingData != null)
                 {
-                    if (buildingData.acceptableBuildTiles.Contains(hoveredObject.tag))
+                    if (buildingData.acceptableBuildTiles.Contains(hoveredObject.tag) && buildingData.requiresASettlement == false)
                     {
                         if (renderer != null)
                         {
-                            renderer.material = goodPlacement;
+                            //renderer.material = goodPlacement;
                             solidPlacement = true;
+
+                            buildingInstance.transform.position = hoveringLocation;
                         }
                     }
                     else
                     {
                         if (renderer != null)
                         {
-                            renderer.material = badPlacement;
+                            //renderer.material = badPlacement;
                             solidPlacement = false;
                         }
                     }
@@ -137,12 +136,11 @@ public class PlacementScript : MonoBehaviour
             {
                 if (solidPlacement == true)
                 {
+                    //Delete the buildingInstance so that there is only one buildinh
+                    Destroy(buildingInstance);
+
                     // Place the building
                     GameObject placedBuilding = Instantiate(buildingInstance, hoveringLocation, Quaternion.identity);
-
-                    //Set the material back to the original
-                    Renderer rend = placedBuilding.GetComponent<Renderer>();
-                    rend.material = originalMaterial;
 
                     //Assign all of the data to the newly created building
                     BuildingDataController buildingDataController= placedBuilding.GetComponent<BuildingDataController>();
