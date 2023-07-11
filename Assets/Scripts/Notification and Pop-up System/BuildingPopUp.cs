@@ -26,29 +26,29 @@ public class BuildingPopUp : MonoBehaviour
     //Currently Selected Card
     public Card clickedCard;
 
-    public void OnMouseDown()
+    public void SlotClickFunctionality(GameObject clickedObject)
     {
-        if (CompareTag("Building Slot"))
+        print("Building Slot Clicked");
+
+        BuildingSlotDisplay buildingSlotDisplay = clickedObject.GetComponent<BuildingSlotDisplay>();
+
+        if (buildingSlotDisplay != null)
         {
-            print("Building Slot Clicked");
-
-            GameObject clickedObject = gameObject;
-            buildingDataController = clickedObject.GetComponent<BuildingDataController>();
-
-            if(buildingDataController.originalSettlementData != null)
+            if (buildingSlotDisplay.settlementData != null)
             {
-                placementScript.PlaceBuilding("Settlements", clickedObject.GetComponent<BuildingSlotDisplay>().building);
+                placementScript.PlaceBuilding("Settlements", buildingSlotDisplay.building, buildingSlotDisplay.settlementData, null);
 
                 clickedObject.SetActive(false);
             }
-            else 
+            else
             {
-                placementScript.PlaceBuilding("Buildings", clickedObject.GetComponent<BuildingSlotDisplay>().building);
+                placementScript.PlaceBuilding("Buildings", buildingSlotDisplay.building, null, buildingSlotDisplay.buildingData);
 
                 clickedObject.SetActive(false);
             }
         }
     }
+
 
     public void BuildingDisplay(string passedBuildType)
     {

@@ -10877,7 +10877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardEffectManager: {fileID: 1972966348}
-  placementScript: {fileID: 0}
+  placementScript: {fileID: 1972966345}
   buildingPopUp: {fileID: 906370544}
   isBuildingPopUpActive: 0
   cardSlots:
@@ -25397,8 +25397,14 @@ MonoBehaviour:
   badPlacement: {fileID: 2100000, guid: d92dc251c85167c45866105d17b9f601, type: 2}
   mainCamera: {fileID: 844960788}
   buildingPopUp: {fileID: 906370546}
-  settlement: {fileID: 0}
-  building: {fileID: 0}
+  settlementData: {fileID: 0}
+  buildingData: {fileID: 0}
+  acceptableTileTags:
+  - Deep Sea
+  - Shallow Sea
+  - Sand
+  - Plains
+  - Mountains
 --- !u!114 &1972966346
 MonoBehaviour:
   m_ObjectHideFlags: 0
