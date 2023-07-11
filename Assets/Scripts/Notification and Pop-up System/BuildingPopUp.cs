@@ -24,40 +24,37 @@ public class BuildingPopUp : MonoBehaviour
 
     public void Start()
     {
-        isBuildingPopUpActive = false;
-        buildingPopUp.SetActive(isBuildingPopUpActive);
+        
     }
 
     public void BuildingDisplay(string passedBuildType)
     {
-        if (!isBuildingPopUpActive)
+        isBuildingPopUpActive = true;
+        isCardsShowing = false;
+
+        buildingPopUp.SetActive(isBuildingPopUpActive);
+
+        foreach (GameObject card in cardSlots)
         {
-            isBuildingPopUpActive = true;
-            isCardsShowing = false;
-
-            buildingPopUp.SetActive(true);
-
-            foreach (GameObject card in cardSlots)
-            {
-                card.SetActive(isCardsShowing);
-            }
-
-            Debug.Log("Popup Active: " + isBuildingPopUpActive);
-            PropogateBuildingDisplays(passedBuildType);
+            card.SetActive(isCardsShowing);
         }
-        else
+
+        PropogateBuildingDisplays(passedBuildType);
+    }
+
+    public void closeBuildingDisplay()
+    {
+        isBuildingPopUpActive = false;
+        isCardsShowing = true;
+
+        buildingPopUp.SetActive(isBuildingPopUpActive);
+
+        foreach (GameObject card in cardSlots)
         {
-            isBuildingPopUpActive = false;
-            isCardsShowing = true;
-
-            foreach (GameObject card in cardSlots)
-            {
-                card.SetActive(isCardsShowing);
-            }
-
-            buildingPopUp.SetActive(false);
-            ClearBuildingDisplays();
+            card.SetActive(isCardsShowing);
         }
+
+        ClearBuildingDisplays();
     }
 
 
