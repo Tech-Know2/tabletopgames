@@ -10834,6 +10834,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 906370545}
+  - component: {fileID: 906370546}
   m_Layer: 5
   m_Name: Building UI Popup Panel
   m_TagString: Untagged
@@ -10863,6 +10864,39 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &906370546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 906370544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09ba0307f5f738040bc23257c605d28a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardEffectManager: {fileID: 1972966348}
+  placementScript: {fileID: 0}
+  buildingPopUp: {fileID: 906370544}
+  isBuildingPopUpActive: 0
+  cardSlots:
+  - {fileID: 1752223223}
+  - {fileID: 71447210}
+  - {fileID: 1839536607}
+  - {fileID: 169280545}
+  - {fileID: 2053405950}
+  isCardsShowing: 1
+  buildingSlotPrefab: {fileID: 4417078064399256553, guid: fc6a3394ac90e1e49a61ebfcf77cd396,
+    type: 3}
+  buildingSlots:
+  - {fileID: 16607869}
+  - {fileID: 1576270477}
+  - {fileID: 1707160780}
+  - {fileID: 1689520174}
+  buildingsData: []
+  settlementData: {fileID: 0}
+  clickedCard: {fileID: 0}
 --- !u!1 &918074471
 GameObject:
   m_ObjectHideFlags: 0
@@ -25359,7 +25393,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bb4036b72e05ef438036445f3272124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardBuildings: []
+  goodPlacement: {fileID: 2100000, guid: 56c32ebabad57e54986617243dea56fd, type: 2}
+  badPlacement: {fileID: 2100000, guid: d92dc251c85167c45866105d17b9f601, type: 2}
+  mainCamera: {fileID: 844960788}
+  buildingPopUp: {fileID: 906370546}
+  settlement: {fileID: 0}
+  building: {fileID: 0}
 --- !u!114 &1972966346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25403,7 +25442,7 @@ MonoBehaviour:
   card: {fileID: 0}
   playerScript: {fileID: 1972966344}
   economyManager: {fileID: 1972966346}
-  buildingPopUp: {fileID: 2096405344}
+  buildingPopUp: {fileID: 906370546}
   selectedTileLocation: {fileID: 0}
   firstTime: 1
   activeCards: []
@@ -26876,7 +26915,6 @@ GameObject:
   - component: {fileID: 2096405341}
   - component: {fileID: 2096405343}
   - component: {fileID: 2096405342}
-  - component: {fileID: 2096405344}
   m_Layer: 5
   m_Name: Building Panel Background
   m_TagString: Untagged
@@ -26942,37 +26980,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2096405340}
   m_CullTransparentMesh: 1
---- !u!114 &2096405344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2096405340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09ba0307f5f738040bc23257c605d28a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardEffectManager: {fileID: 1972966348}
-  buildingPopUp: {fileID: 906370544}
-  isBuildingPopUpActive: 0
-  cardSlots:
-  - {fileID: 1752223223}
-  - {fileID: 71447210}
-  - {fileID: 1839536607}
-  - {fileID: 169280545}
-  - {fileID: 2053405950}
-  isCardsShowing: 1
-  buildingSlotPrefab: {fileID: 4417078064399256553, guid: fc6a3394ac90e1e49a61ebfcf77cd396,
-    type: 3}
-  buildingSlots:
-  - {fileID: 16607869}
-  - {fileID: 1576270477}
-  - {fileID: 1707160780}
-  - {fileID: 1689520174}
-  buildingsData: []
-  settlementData: {fileID: 0}
 --- !u!1 &2103561758
 GameObject:
   m_ObjectHideFlags: 0

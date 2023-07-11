@@ -34,7 +34,7 @@ public class Card : ScriptableObject
     //Bools for card related buildings and board manipulation
     public bool requiresTileLocation; //Used to determine weather or not a tile needs to be selected in order for the card to be used
     public bool createsBuildings;
-    public bool createsSettlement;
+    public bool createsSettlement; //You can only ever create one settlement for each card. Never any more as the code is setup only to handle one, it is also a game feature
     public Settlements settlementScriptableObject;
     public bool createsUnits;
 
@@ -80,7 +80,7 @@ public class Card : ScriptableObject
     public int turnsActive = 0; //Dont Mess With This Var. It storeshow many turns that this card has been active.
     
     //Building Based Vars
-    public List<GameObject> buildingGameObjects = new List <GameObject>();
+    public List<GameObject> buildingGameObjects = new List <GameObject>(); //used for both storing building and settlement game objects
     public List<Buildings> buildingScriptableObject = new List <Buildings>();
 
     [TextArea(12, 40)]

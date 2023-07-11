@@ -4,11 +4,46 @@ using UnityEngine;
 
 public class PlacementScript : MonoBehaviour
 {
-    private GameObject currentBuildCard; // Reference to the current build card
-    public List<GameObject> cardBuildings = new List<GameObject>(); // List to store buildings
+    //Materials Indicating Placement Capabilities
+    public Material goodPlacement;
+    public Material badPlacement;
+    public Camera mainCamera;
 
-    private GameObject currentBuilding; // Reference to the current building being placed
-    private Buildings buildings; // Reference to the Building component of the current building
+    //Access the Information About the Building
+    public BuildingPopUp buildingPopUp;
+    public Settlements settlement;
+    public Buildings building;
 
-    private List<string> desiredTiles = new List<string>(); // List to store desired tiles
+    //Location and Building Vars
+    private GameObject selectedTileLocation;
+    private GameObject buildingGameObject;
+
+    public void PlaceBuilding(string buildType, GameObject building)
+    {
+        if(buildType == "Settlement")
+        {
+            buildingGameObject = building;
+        }else 
+        {
+            buildingGameObject = building;
+        }
+    }
+
+    private void Update()
+    {
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            // Get the position of the hit point
+            Vector3 hitPosition = hit.point;
+        }
+        
+        if (Input.GetMouseButtonDown(0))
+        {
+            //
+        }
+    }
+    
 }

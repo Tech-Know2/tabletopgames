@@ -7,6 +7,7 @@ public class BuildingPopUp : MonoBehaviour
     //Connecting to Other Scripts
     private BuildingDataController buildingDataController;
     public CardEffectManager cardEffectManager;
+    public PlacementScript placementScript;
 
     //Enabling and Disabling the Pop-ups
     public GameObject buildingPopUp;
@@ -22,13 +23,37 @@ public class BuildingPopUp : MonoBehaviour
     public List<Buildings> buildingsData = new List<Buildings>();
     public Settlements settlementData;
 
-    public void Start()
+    //Currently Selected Card
+    public Card clickedCard;
+
+    public void OnMouseDown()
     {
-        
+        if (CompareTag("Building Slot"))
+        {
+            print("Building Slot Clicked");
+
+            GameObject clickedObject = gameObject;
+            buildingDataController = clickedObject.GetComponent<BuildingDataController>();
+
+            if(buildingDataController.originalSettlementData != null)
+            {
+                placementScript.PlaceBuilding("Settlements", clickedObject.GetComponent<BuildingSlotDisplay>().building);
+
+                clickedObject.SetActive(false);
+            }
+            else 
+            {
+                placementScript.PlaceBuilding("Buildings", clickedObject.GetComponent<BuildingSlotDisplay>().building);
+
+                clickedObject.SetActive(false);
+            }
+        }
     }
 
     public void BuildingDisplay(string passedBuildType)
     {
+        clickedCard = cardEffectManager.card;
+
         isBuildingPopUpActive = true;
         isCardsShowing = false;
 
@@ -60,7 +85,7 @@ public class BuildingPopUp : MonoBehaviour
 
     public void PropogateBuildingDisplays(string passedBuildType)
     {
-        if (passedBuildType == "Settlement")
+        if (passedBuildType == "Settlement" && buildingSlots.Count > 0)
         {
             GameObject newBuildingSlot = Instantiate(buildingSlotPrefab);
             newBuildingSlot.transform.SetParent(buildingSlots[0].transform, false);
@@ -68,16 +93,20 @@ public class BuildingPopUp : MonoBehaviour
 
             BuildingSlotDisplay buildingSlotDisplay = newBuildingSlot.GetComponent<BuildingSlotDisplay>();
             buildingSlotDisplay.settlementData = settlementData;
+            buildingSlotDisplay.building = clickedCard.buildingGameObjects[0];
             buildingSlotDisplay.setDisplayVariables("Settlement");
-            
         }
         else
         {
-            for (int i = 0; i < buildingsData.Count; i++)
+            for (int i = 0; i < clickedCard.buildingGameObjects.Count; i++)
             {
                 GameObject newBuildingSlot = Instantiate(buildingSlotPrefab);
-                newBuildingSlot.transform.SetParent(buildingSlots[i].transform, false);
+                //newBuildingSlot.transform.SetParent(buildingSlots[i].transform, false);
                 newBuildingSlot.transform.position = buildingSlots[i].transform.position;
+
+                BuildingSlotDisplay buildingSlotDisplay = newBuildingSlot.GetComponent<BuildingSlotDisplay>();
+                //buildingSlotDisplay.buildingData = buildingsData[i];
+                buildingSlotDisplay.building = clickedCard.buildingGameObjects[i];
             }
         }
     }
@@ -89,6 +118,6 @@ public class BuildingPopUp : MonoBehaviour
 
     public void ClearBuildingDisplays()
     {
-        buildingsData.Clear();
+        //
     }
 }

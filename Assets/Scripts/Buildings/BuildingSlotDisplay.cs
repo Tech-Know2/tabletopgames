@@ -14,6 +14,9 @@ public class BuildingSlotDisplay : MonoBehaviour
     public Settlements settlementData;
     public Buildings buildingData;
 
+    //Data for the placement
+    public GameObject building;
+
     public void Awake()
     {
         Transform childName = transform.Find("Name");
