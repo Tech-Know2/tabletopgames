@@ -40,13 +40,13 @@ public class BuildingPopUp : MonoBehaviour
             {
                 print(buildingSlotDisplay.settlementData);
                 placementScript.PlaceBuilding("Settlement", buildingSlotDisplay.building, buildingSlotDisplay);
-                clickedObject.SetActive(false);
+                Destroy(clickedObject);
             }
             else
             {
                 print(buildingSlotDisplay.buildingData);
                 placementScript.PlaceBuilding("Building", buildingSlotDisplay.building, buildingSlotDisplay);
-                clickedObject.SetActive(false);
+                Destroy(clickedObject);
             }
 
         }
@@ -82,7 +82,7 @@ public class BuildingPopUp : MonoBehaviour
             card.SetActive(isCardsShowing);
         }
 
-        ClearBuildingDisplays();
+        //ClearBuildingDisplays();
     }
 
 

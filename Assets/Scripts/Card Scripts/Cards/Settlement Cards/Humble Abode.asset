@@ -76,7 +76,7 @@ MonoBehaviour:
   religionName: 
   turnsActive: 0
   buildingGameObjects:
-  - {fileID: 6514745788175997149, guid: 2af2b2b1f0cdadc4ebe6b99e58d236f4, type: 3}
+  - {fileID: 5400654387808132337, guid: 03a8177688af2b542a40a249257a0fc1, type: 3}
   buildingScriptableObject: []
   desierdTileString: 'Strings to determine the effects on the game: Don''t Alter
     Won''t Change

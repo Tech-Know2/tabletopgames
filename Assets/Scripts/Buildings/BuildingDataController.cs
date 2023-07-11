@@ -13,7 +13,7 @@ public class BuildingDataController : MonoBehaviour
 
     //Data Copied to Be Manipulated
     public Settlements clonedSettlementData;
-    public Buildings clonedBuildingData; 
+    public Buildings clonedBuildingData;
 
     public void GetData()
     {

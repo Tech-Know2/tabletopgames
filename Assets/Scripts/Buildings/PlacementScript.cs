@@ -58,10 +58,10 @@ public class PlacementScript : MonoBehaviour
                 {
                     // Store the new hovered object
                     hoveredObject = hit.transform.gameObject;
-                    hoveringLocation = hit.transform.position;
 
-                    // Update the preview position
-                    buildingInstance.transform.position = hoveringLocation;
+                    // Update the preview position to follow the mouse
+                    Vector3 mousePosition = hit.point;
+                    hoveringLocation = hit.transform.position;
 
                     // Preview placement
                     Preview(buildingInstance.tag);
@@ -76,6 +76,7 @@ public class PlacementScript : MonoBehaviour
             Preview(buildingType);
         }
     }
+
 
     private void Preview(string buildingType)
     {
@@ -138,20 +139,23 @@ public class PlacementScript : MonoBehaviour
                 {
                     // Place the building
                     GameObject placedBuilding = Instantiate(buildingInstance, hoveringLocation, Quaternion.identity);
-                    renderer.material = originalMaterial;
+
+                    //Set the material back to the original
+                    Renderer rend = placedBuilding.GetComponent<Renderer>();
+                    rend.material = originalMaterial;
 
                     //Assign all of the data to the newly created building
-                    BuildingSlotDisplay newBuildingSlotDisplay = placedBuilding.GetComponent<BuildingSlotDisplay>();
+                    BuildingDataController buildingDataController= placedBuilding.GetComponent<BuildingDataController>();
                     if(buildingType == "Settlement")
                     {
-                        newBuildingSlotDisplay.settlementData = settlementData;
+                        buildingDataController.originalSettlementData = settlementData;
+                        buildingDataController.SettlementSetup();
                     }else 
                     {
-                        newBuildingSlotDisplay.buildingData = buildingData;
+                        buildingDataController.originalBuildingData = buildingData;
+                        buildingDataController.BuildingSetUp();
                     }
                     
-                    
-
                     // Reset placement variables
                     buildingInstance.transform.position = hoveringLocation;
                     isPlacing = false;
