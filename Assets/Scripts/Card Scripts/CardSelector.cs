@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class CardSelector : MonoBehaviour
 {
@@ -148,14 +149,32 @@ public class CardSelector : MonoBehaviour
                 }
             }
 
-            playerScript.selectedTileLocation = selectedTileLocation;
-            cardEffectManager.firstTime = true;
-            playerScript.CardSelected();
-
-            // Destroy the card GameObject after it has collided and stored the data of its collision
-            if (playerScript.cardData != null && playerScript.selectedTileLocation != null)
+            if(cardDataHolder.cardData.requiresASettlement == true)
             {
-                Destroy(selectedCard);
+                if(playerScript.playerSettlementDataList.Any(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation)))
+                {
+                    playerScript.selectedTileLocation = selectedTileLocation;
+                    cardEffectManager.firstTime = true;
+                    playerScript.CardSelected();
+
+                    // Destroy the card GameObject after it has collided and stored the data of its collision
+                    if (playerScript.cardData != null && playerScript.selectedTileLocation != null)
+                    {
+                        Destroy(selectedCard);
+                    }
+                }
+            } 
+            else if(cardDataHolder.cardData.requiresASettlement == false) 
+            {
+                playerScript.selectedTileLocation = selectedTileLocation;
+                cardEffectManager.firstTime = true;
+                playerScript.CardSelected();
+
+                // Destroy the card GameObject after it has collided and stored the data of its collision
+                if (playerScript.cardData != null && playerScript.selectedTileLocation != null)
+                {
+                    Destroy(selectedCard);
+                }
             }
         }
     }
