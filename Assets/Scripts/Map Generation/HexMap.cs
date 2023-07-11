@@ -72,7 +72,7 @@ public class HexMap : MonoBehaviour
                 {
                     if (yNoise < deepSeaEnd)
                     {
-                        float randomHeightEffect = Mathf.PerlinNoise(0f, 2f);
+                        //float randomHeightEffect = Mathf.PerlinNoise(0f, 2f);
 
                         Vector3 hexPosition = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         if (CheckCollisionWithBarrier(hexPosition))
@@ -85,7 +85,7 @@ public class HexMap : MonoBehaviour
                     }
                     else if (yNoise < shallowSeaEnd)
                     {
-                        float randomHeightEffect = Mathf.PerlinNoise(0f, 2f);
+                        //float randomHeightEffect = Mathf.PerlinNoise(0f, 2f);
 
                         Vector3 hexPosition = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         if (CheckCollisionWithBarrier(hexPosition))
@@ -98,7 +98,7 @@ public class HexMap : MonoBehaviour
                     }
                     else if (yNoise < sandyEnd)
                     {
-                        float randomHeightEffect = Mathf.PerlinNoise(0f, 2f);
+                        //float randomHeightEffect = Mathf.PerlinNoise(0f, 2f);
 
                         Vector3 hexPosition = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         if (CheckCollisionWithBarrier(hexPosition))
@@ -115,7 +115,7 @@ public class HexMap : MonoBehaviour
                     }
                     else if (yNoise < plainsEnd)
                     {
-                        float randomHeightEffect = Mathf.PerlinNoise(0f, 2f);
+                        //float randomHeightEffect = Mathf.PerlinNoise(0f, 2f);
 
                         Vector3 hexPosition = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         if (CheckCollisionWithBarrier(hexPosition))
@@ -131,7 +131,7 @@ public class HexMap : MonoBehaviour
                         }
                     }else if (yNoise < mountainsEnd)
                     {
-                        float randomHeightEffect = Mathf.PerlinNoise(0f, 2f);
+                        //float randomHeightEffect = Mathf.PerlinNoise(0f, 2f);
                         
                         Vector3 mountainHexPosition = new Vector3(x * tileXOffset + (z % 2 == 0 ? 0 : tileXOffset / 2), 0, z * tileZOffset);
                         if (CheckCollisionWithBarrier(mountainHexPosition))

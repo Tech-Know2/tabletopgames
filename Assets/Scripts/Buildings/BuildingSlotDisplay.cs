@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class BuildingSlotDisplay : MonoBehaviour
+public class BuildingSlotDisplay : MonoBehaviour, IPointerClickHandler
 {
+    //Public Script Connections
+    public BuildingPopUp buildingPopUp;
+
     //UI Displays
     public TextMeshProUGUI nameSlot;
     public TextMeshProUGUI descriptionSlot;
@@ -14,8 +18,14 @@ public class BuildingSlotDisplay : MonoBehaviour
     public Settlements settlementData;
     public Buildings buildingData;
 
+    //Data for the placement
+    public GameObject building;
+
     public void Awake()
     {
+        GameObject buildingPopUpObject = GameObject.Find("Building UI Popup Panel");
+        buildingPopUp = buildingPopUpObject.GetComponent<BuildingPopUp>();
+
         Transform childName = transform.Find("Name");
         if (childName != null)
         {
@@ -39,6 +49,16 @@ public class BuildingSlotDisplay : MonoBehaviour
         else 
         {
             //Do Something later
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (CompareTag("Building Slot"))
+        {
+            GameObject clickedObject = eventData.pointerPress;
+
+            buildingPopUp.SlotClickFunctionality(clickedObject);
         }
     }
 }

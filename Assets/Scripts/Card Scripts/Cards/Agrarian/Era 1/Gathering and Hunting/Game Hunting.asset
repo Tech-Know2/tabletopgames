@@ -29,7 +29,7 @@ MonoBehaviour:
   isPeaceTreatyCard: 0
   isPurchasable: 1
   requiresTileLocation: 1
-  createsBuildings: 0
+  createsBuildings: 1
   createsSettlement: 0
   settlementScriptableObject: {fileID: 0}
   createsUnits: 0
@@ -75,10 +75,13 @@ MonoBehaviour:
   effectCostType: 
   religionName: 
   turnsActive: 0
-  buildingGameObjects: []
-  buildingScriptableObject: []
+  buildingGameObjects:
+  - {fileID: 7244802663986789280, guid: 0d284b4a7b24ed6459db6cadec9407c3, type: 3}
+  - {fileID: 7244802663986789280, guid: 0d284b4a7b24ed6459db6cadec9407c3, type: 3}
   desierdTileString: "Strings to determine the effects on the game: Don't Alter Won't
     Change\n\"Deep Sea\" \n\"Shallow Sea\" \n\"Sand\" \n\"Plains\" \n\"Mountains\"
     \n"
-  desiredTilesList: []
+  desiredTilesList:
+  - Plains
+  - Mountains
   units: []

@@ -402,3 +402,4 @@ MonoBehaviour:
   descriptionSlot: {fileID: 4417078063159355032}
   settlementData: {fileID: 0}
   buildingData: {fileID: 0}
+  building: {fileID: 0}

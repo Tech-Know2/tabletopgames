@@ -26,7 +26,7 @@ public class Buildings : ScriptableObject
     public float travelStaminaDecreaseMultipler;
 
     //Variables to Keep Track of Building Constraints and Requierments
-    public bool requiresAnotherBuilding;
+    public bool requiresASettlement;
     public List<string> acceptableBuildTiles = new List<string>();
 
     //Producible Objects from Building

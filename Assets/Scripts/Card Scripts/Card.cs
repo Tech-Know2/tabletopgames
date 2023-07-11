@@ -32,9 +32,9 @@ public class Card : ScriptableObject
     public bool isPurchasable;
     
     //Bools for card related buildings and board manipulation
-    public bool requiresTileLocation; //Used to determine weather or not a tile needs to be selected in order for the card to be used
+    public bool requiresASettlement; //Used to determine weather or not a tile needs to be selected in order for the card to be used
     public bool createsBuildings;
-    public bool createsSettlement;
+    public bool createsSettlement; //You can only ever create one settlement for each card. Never any more as the code is setup only to handle one, it is also a game feature
     public Settlements settlementScriptableObject;
     public bool createsUnits;
 
@@ -77,11 +77,10 @@ public class Card : ScriptableObject
     public int turnEffectCost; //List the amount of change (-10 loyalty, -10 food, etc)
     public string effectCostType; //List types from above
     public string religionName; //Name if the cost is related to religion
-    public int turnsActive = 0; //Dont Mess With This Var. It storeshow many turns that this card has been active.
+    public int turnsActive = 0; //Dont Mess With This Var. It stores how many turns that this card has been active.
     
     //Building Based Vars
-    public List<GameObject> buildingGameObjects = new List <GameObject>();
-    public List<Buildings> buildingScriptableObject = new List <Buildings>();
+    public List<GameObject> buildingGameObjects = new List <GameObject>(); //used for both storing building and settlement game objects. Also make sure that the builing that you add always has the BuildingDataController attached to it
 
     [TextArea(12, 40)]
     public string desierdTileString = 
