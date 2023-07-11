@@ -4,66 +4,162 @@ using UnityEngine;
 
 public class PlacementScript : MonoBehaviour
 {
-    //Materials Indicating Placement Capabilities
+    // Materials Indicating Placement Capabilities
     public Material goodPlacement;
     public Material badPlacement;
+    private Material originalMaterial;
     public Camera mainCamera;
 
-    //Access the Information About the Building
+    // Access the Information About the Building
     public BuildingPopUp buildingPopUp;
     public Settlements settlementData;
     public Buildings buildingData;
 
-    //Location and Building Vars
-    private GameObject selectedTileLocation;
-    private GameObject buildingGameObject;
+    // Location and Building Vars
+    private GameObject buildingInstance;
     public List<string> acceptableTileTags;
+    private GameObject hoveredObject;
+    private bool isPlacing = false;
+    private Vector3 hoveringLocation;
 
-    public void PlaceBuilding(string buildType, GameObject building, Settlements passedSettlementData, Buildings passedBuildingData)
-{
-    if (buildType == "Settlement")
+    private string buildingType;
+
+    public void PlaceBuilding(string buildType, GameObject building, BuildingSlotDisplay buildingSlotDisplay)
     {
-        buildingGameObject = building;
-        settlementData = passedSettlementData;
+        if (buildType == "Settlement")
+        {
+            settlementData = buildingSlotDisplay.settlementData;
+            buildingInstance = Instantiate(building);
+            buildingType = buildType;
+            isPlacing = true;
+        }
+        else
+        {
+            buildingData = buildingSlotDisplay.buildingData;
+            buildingInstance = Instantiate(building);
+            buildingType = buildType;
+            isPlacing = true;
+        }
     }
-    else
-    {
-        buildingGameObject = building;
-        buildingData = passedBuildingData;
-    }
-}
-
-
-    private GameObject currentlyHoveredTile;
 
     private void Update()
     {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
+        if (isPlacing)
         {
-            // Check if the object hit by the raycast is a tile with an acceptable tag
-            GameObject tile = hit.collider.gameObject;
-            if (IsTileTagAcceptable(tile.tag))
-            {
-                // Store the currently hovered tile
-                currentlyHoveredTile = tile;
-            }
-        }
+            // Cast a ray from the mouse position into the scene
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (currentlyHoveredTile != null)
+            // Check if the ray hits any objects
+            if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log("Tile clicked: " + currentlyHoveredTile.name);
+                // Check if the object is different from the previously hovered object
+                if (hit.transform.gameObject != hoveredObject && acceptableTileTags.Contains(hit.transform.tag))
+                {
+                    // Store the new hovered object
+                    hoveredObject = hit.transform.gameObject;
+                    hoveringLocation = hit.transform.position;
+
+                    // Update the preview position
+                    buildingInstance.transform.position = hoveringLocation;
+
+                    // Preview placement
+                    Preview(buildingInstance.tag);
+                }
             }
+            else
+            {
+                // No object is being hovered
+                hoveredObject = null;
+            }
+
+            Preview(buildingType);
         }
     }
 
-    // Check if the given tag is in the list of acceptable tile tags
-    private bool IsTileTagAcceptable(string tag)
+    private void Preview(string buildingType)
     {
-        return acceptableTileTags.Contains(tag);
+        if(isPlacing)
+        {
+            Renderer renderer = buildingInstance.GetComponent<Renderer>();
+
+            originalMaterial = renderer.material;
+
+            bool solidPlacement = false;
+
+            if (buildingType == "Settlement")
+            {
+                if (settlementData != null)
+                {
+                    if (settlementData.acceptableBuildTiles.Contains(hoveredObject.tag))
+                    {
+                        if (renderer != null)
+                        {
+                            renderer.material = goodPlacement;
+                            solidPlacement = true;
+                        }
+                    }
+                    else
+                    {
+                        if (renderer != null)
+                        {
+                            renderer.material = badPlacement;
+                            solidPlacement = false;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (buildingData != null)
+                {
+                    if (buildingData.acceptableBuildTiles.Contains(hoveredObject.tag))
+                    {
+                        if (renderer != null)
+                        {
+                            renderer.material = goodPlacement;
+                            solidPlacement = true;
+                        }
+                    }
+                    else
+                    {
+                        if (renderer != null)
+                        {
+                            renderer.material = badPlacement;
+                            solidPlacement = false;
+                        }
+                    }
+                }
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (solidPlacement == true)
+                {
+                    // Place the building
+                    GameObject placedBuilding = Instantiate(buildingInstance, hoveringLocation, Quaternion.identity);
+                    renderer.material = originalMaterial;
+
+                    //Assign all of the data to the newly created building
+                    BuildingSlotDisplay newBuildingSlotDisplay = placedBuilding.GetComponent<BuildingSlotDisplay>();
+                    if(buildingType == "Settlement")
+                    {
+                        newBuildingSlotDisplay.settlementData = settlementData;
+                    }else 
+                    {
+                        newBuildingSlotDisplay.buildingData = buildingData;
+                    }
+                    
+                    
+
+                    // Reset placement variables
+                    buildingInstance.transform.position = hoveringLocation;
+                    isPlacing = false;
+
+                    //Hide the Pop-up and show the Cards
+                    buildingPopUp.closeBuildingDisplay();
+                }
+            }
+        }
     }
 }

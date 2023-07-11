@@ -21,6 +21,7 @@ public class BuildingPopUp : MonoBehaviour
 
     //Data for the Buildings
     public List<Buildings> buildingsData = new List<Buildings>();
+    private Buildings sendingBuildingData;
     public Settlements settlementData;
 
     //Currently Selected Card
@@ -31,21 +32,23 @@ public class BuildingPopUp : MonoBehaviour
         print("Building Slot Clicked");
 
         BuildingSlotDisplay buildingSlotDisplay = clickedObject.GetComponent<BuildingSlotDisplay>();
+        sendingBuildingData = buildingSlotDisplay.buildingData;
 
         if (buildingSlotDisplay != null)
         {
             if (buildingSlotDisplay.settlementData != null)
             {
-                placementScript.PlaceBuilding("Settlements", buildingSlotDisplay.building, buildingSlotDisplay.settlementData, null);
-
+                print(buildingSlotDisplay.settlementData);
+                placementScript.PlaceBuilding("Settlement", buildingSlotDisplay.building, buildingSlotDisplay);
                 clickedObject.SetActive(false);
             }
             else
             {
-                placementScript.PlaceBuilding("Buildings", buildingSlotDisplay.building, null, buildingSlotDisplay.buildingData);
-
+                print(buildingSlotDisplay.buildingData);
+                placementScript.PlaceBuilding("Building", buildingSlotDisplay.building, buildingSlotDisplay);
                 clickedObject.SetActive(false);
             }
+
         }
     }
 

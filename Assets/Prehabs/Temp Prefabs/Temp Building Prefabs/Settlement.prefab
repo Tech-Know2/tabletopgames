@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6514745788175997149}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.94, y: 3.51, z: 11.57}
+  m_LocalPosition: {x: 966, y: 0, z: 179.99994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -48,9 +48,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdefac7f57673804dbf1aa3a3662b266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerScript: {fileID: 0}
   originalSettlementData: {fileID: 11400000, guid: cfb15f4eb41760b43adfff6a49864d59,
     type: 2}
   originalBuildingData: {fileID: 0}
+  clonedSettlementData: {fileID: 0}
+  clonedBuildingData: {fileID: 0}
 --- !u!1 &6514745788328266082
 GameObject:
   m_ObjectHideFlags: 0
