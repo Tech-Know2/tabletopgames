@@ -32,7 +32,7 @@ public class Card : ScriptableObject
     public bool isPurchasable;
     
     //Bools for card related buildings and board manipulation
-    public bool requiresTileLocation; //Used to determine weather or not a tile needs to be selected in order for the card to be used
+    public bool requiresASettlement; //Used to determine weather or not a tile needs to be selected in order for the card to be used
     public bool createsBuildings;
     public bool createsSettlement; //You can only ever create one settlement for each card. Never any more as the code is setup only to handle one, it is also a game feature
     public Settlements settlementScriptableObject;

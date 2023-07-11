@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class CardEffectManager : MonoBehaviour
 {
@@ -167,17 +168,38 @@ public class CardEffectManager : MonoBehaviour
     public void LoyaltyCost()
     {
         print("Loyalty Cost");
-        economyManager.currentLoyalty = economyManager.currentLoyalty + card.turnEffectCost;
+        //economyManager.currentLoyalty = economyManager.currentLoyalty + card.turnEffectCost;
+        if(card.requiresASettlement == true)
+        {
+            if(playerScript.playerSettlementDataList.Any(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation)))
+            {
+
+            }
+        }
     }
 
     public void FoodCost()
     {
         print("Food Cost");
+        if(card.requiresASettlement == true)
+        {
+            if(playerScript.playerSettlementDataList.Any(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation)))
+            {
+
+            }
+        }
     }
 
     public void PeopleCost()
     {
         print("People Cost");
+        if(card.requiresASettlement == true)
+        {
+            if(playerScript.playerSettlementDataList.Any(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation)))
+            {
+
+            }
+        }
     }
 
     public void WarSupportCost()
@@ -188,11 +210,25 @@ public class CardEffectManager : MonoBehaviour
     public void ReligionCost()
     {
         print("Religion Cost");
+        if(card.requiresASettlement == true)
+        {
+            if(playerScript.playerSettlementDataList.Any(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation)))
+            {
+
+            }
+        }
     }
 
     public void WearinessCost()
     {
         print("Weariness Cost");
+        if(card.requiresASettlement == true)
+        {
+            if(playerScript.playerSettlementDataList.Any(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation)))
+            {
+
+            }
+        }
     }
 
     //Different Types of Political Effects    
@@ -256,6 +292,13 @@ public class CardEffectManager : MonoBehaviour
     public void CreateUnits()
     {
         //Create code here to manage unit creation
+        if(card.requiresASettlement == true)
+        {
+            if(playerScript.playerSettlementDataList.Any(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation)))
+            {
+
+            }
+        }
     }
 
     //Manage the Currently Active Cards and their Effects

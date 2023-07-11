@@ -38,7 +38,7 @@ public class CardSelector : MonoBehaviour
 
     private void Update()
     {
-        if (playerScript.cardsPlayed <= playerScript.maxCardsPerTurn)
+        if (playerScript.cardsPlayed < playerScript.maxCardsPerTurn)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -132,7 +132,7 @@ public class CardSelector : MonoBehaviour
 
     public void ExecuteCardAction()
     {
-        if (playerScript.cardsPlayed <= playerScript.maxCardsPerTurn)
+        if (playerScript.cardsPlayed < playerScript.maxCardsPerTurn)
         {
             cardDataHolder = selectedCard.GetComponent<CardDataHolder>();
             playerScript.cardData = cardDataHolder.cardData;

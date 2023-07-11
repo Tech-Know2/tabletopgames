@@ -48,7 +48,7 @@ public class CityController : MonoBehaviour
     {
         if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand") || collider.CompareTag("Plains") || collider.CompareTag("Mountains"))
         {
-            if (buildingDataController.controlSphere != null && collider.gameObject.transform.IsChildOf(buildingDataController.controlSphere.transform))
+            if (collider.gameObject == buildingDataController.controlSphere)
             {
                 if (!collidedTiles.Contains(collider.gameObject))
                 {
@@ -59,6 +59,7 @@ public class CityController : MonoBehaviour
             }
         }
     }
+
 
     public void CityUpgraded()
     {

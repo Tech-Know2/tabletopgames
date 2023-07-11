@@ -9,6 +9,10 @@ public class Settlements : ScriptableObject
     public int cityLevel;
     public int cityPopulation;
     public float calculatedLoyalty;
+    public int cityFood;
+
+    public List<Object> storedObjects = new List<Object>();
+    public List<Object> objectsProducedEachTurn = new List<Object>();
 
     //Create a list for the loyalty of the citizens
     public List<string> acceptableBuildTiles = new List<string>();
