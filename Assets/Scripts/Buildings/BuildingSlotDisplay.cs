@@ -48,7 +48,8 @@ public class BuildingSlotDisplay : MonoBehaviour, IPointerClickHandler
         }
         else 
         {
-            //Do Something later
+            nameSlot.text = buildingData.buildingName;
+            descriptionSlot.text = buildingData.buildingDescription;
         }
     }
 

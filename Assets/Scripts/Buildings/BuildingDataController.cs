@@ -43,8 +43,8 @@ public class BuildingDataController : MonoBehaviour
 
         if(originalSettlementData != null)
         {
-            clonedSettlementData = Instantiate(originalSettlementData);
-            print("Cloned Settlement Data");
+            //clonedSettlementData = Instantiate(originalSettlementData);
+            clonedSettlementData = originalSettlementData;
         }else 
         {
             return;
@@ -70,7 +70,8 @@ public class BuildingDataController : MonoBehaviour
         
         if(originalBuildingData != null)
         {
-            clonedBuildingData = Instantiate(originalBuildingData);
+            //clonedBuildingData = Instantiate(originalBuildingData);
+            clonedBuildingData = originalBuildingData;
             print("Cloned Building Data");
         }else 
         {

@@ -52,14 +52,13 @@ public class CityController : MonoBehaviour
             {
                 if (!collidedTiles.Contains(collider.gameObject))
                 {
-                    Debug.Log("Tile Under Control: " + collider.gameObject.name);
+                    print("Tile Under Control: " + collider.gameObject.name);
                     settlementData.tilesUnderCityControl.Add(collider.gameObject);
                     collidedTiles.Add(collider.gameObject);
                 }
             }
         }
     }
-
 
     public void CityUpgraded()
     {

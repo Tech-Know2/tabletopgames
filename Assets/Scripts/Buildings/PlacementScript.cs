@@ -55,7 +55,7 @@ public class PlacementScript : MonoBehaviour
             // Check if the ray hits any objects
             if (Physics.Raycast(ray, out hit))
             {
-                if (acceptableTileTags.Contains(hit.transform.tag))//hit.transform.position != hoveringLocation && 
+                if (acceptableTileTags.Contains(hit.transform.tag))
                 {
                     // Store the new hovered object
                     hoveredObject = hit.transform.gameObject;
@@ -78,7 +78,7 @@ public class PlacementScript : MonoBehaviour
 
     private void Preview(string buildingType)
     {
-        if(isPlacing)
+        if (isPlacing)
         {
             bool solidPlacement = false;
 
@@ -89,7 +89,6 @@ public class PlacementScript : MonoBehaviour
                     if (settlementData.acceptableBuildTiles.Contains(hoveredObject.tag))
                     {
                         solidPlacement = true;
-
                         buildingInstance.transform.position = hoveringLocation;
                     }
                     else
@@ -107,13 +106,11 @@ public class PlacementScript : MonoBehaviour
                         if (playerScript.playerSettlementDataList.Any(settlement => settlement.tilesUnderCityControl.Contains(hoveredObject)) && buildingData.requiresASettlement == true)
                         {
                             solidPlacement = true;
-
                             buildingInstance.transform.position = hoveringLocation;
-
-                        }else if(buildingData.acceptableBuildTiles.Contains(hoveredObject.tag) && buildingData.requiresASettlement == false)
+                        }
+                        else if (buildingData.acceptableBuildTiles.Contains(hoveredObject.tag) && buildingData.requiresASettlement == false)
                         {
                             solidPlacement = true;
-
                             buildingInstance.transform.position = hoveringLocation;
                         }
                         else
@@ -125,6 +122,7 @@ public class PlacementScript : MonoBehaviour
                     else
                     {
                         solidPlacement = false;
+                        print("Bad Placement");
                     }
                 }
             }
@@ -133,37 +131,39 @@ public class PlacementScript : MonoBehaviour
             {
                 if (solidPlacement == true)
                 {
-                    //Delete the buildingInstance so that there is only one buildinh
-                    Destroy(buildingInstance);
-
                     // Place the building
                     GameObject placedBuilding = Instantiate(buildingInstance, hoveringLocation, Quaternion.identity);
 
-                    //Assign all of the data to the newly created building
-                    BuildingDataController buildingDataController= placedBuilding.GetComponent<BuildingDataController>();
-                    if(buildingType == "Settlement")
+                    // Assign all of the data to the newly created building
+                    BuildingDataController buildingDataController = placedBuilding.GetComponent<BuildingDataController>();
+                    buildingDataController.controlSphere.SetActive(true);
+
+                    if (buildingType == "Settlement")
                     {
                         buildingDataController.originalSettlementData = settlementData;
                         buildingDataController.SettlementSetup();
-                    }else 
+                    }
+                    else
                     {
-                        if(playerScript.playerSettlementDataList.Any(settlement => settlement.tilesUnderCityControl.Contains(hoveredObject)))
+                        if (playerScript.playerSettlementDataList.Any(settlement => settlement.tilesUnderCityControl.Contains(hoveredObject)))
                         {
                             buildingDataController.originalBuildingData = buildingData;
                             buildingDataController.BuildingSetUp();
-                        } else 
+                        }
+                        else
                         {
                             print("Tile not under a city's control");
                         }
-                        
                     }
-                    
+
                     // Reset placement variables
-                    buildingInstance.transform.position = hoveringLocation;
                     isPlacing = false;
 
-                    //Hide the Pop-up and show the Cards
+                    // Hide the Pop-up and show the Cards
                     buildingPopUp.closeBuildingDisplay();
+
+                    // Destroy the buildingInstance after placement
+                    Destroy(buildingInstance);
                 }
             }
         }
