@@ -11,6 +11,7 @@ public class Dealer : MonoBehaviour
     public GameObject player;
     public AuctionHouse auctionHouse;
     public CardEffectManager cardEffectManager;
+    public PlayerScript playerScript;
     private string govType;
 
     //Card Slot Related Information
@@ -97,52 +98,55 @@ public class Dealer : MonoBehaviour
 
     public void nextTurn()
     {
-        print("Next Turn Pressed");
+        //if(playerScript.maxCardsPerTurn == playerScript.cardsPlayed && (playerScript.currentTurn != 0 || playerScript.currentTurn != 1))
+        //{
+            print("Next Turn Pressed");
 
-        PlayerScript playerScript = player.GetComponent<PlayerScript>();
-        currentEra = playerScript.currentEra;
-        playerScript.cardsPlayed = 0;
+            PlayerScript playerScript = player.GetComponent<PlayerScript>();
+            currentEra = playerScript.currentEra;
+            playerScript.cardsPlayed = 0;
 
-        // Access the government scriptable object from the player script
-        
-        if (playerScript.government != null)
-        {
-            Government gov = playerScript.government;
-            govType = gov.governmentName;
+            // Access the government scriptable object from the player script
+            
+            if (playerScript.government != null)
+            {
+                Government gov = playerScript.government;
+                govType = gov.governmentName;
 
-            governmentAlreadyAssigned = true;
-        }
-        else
-        {
-            Debug.Log("Government scriptable object is not attached to the player.");
-        }
+                governmentAlreadyAssigned = true;
+            }
+            else
+            {
+                Debug.Log("Government scriptable object is not attached to the player.");
+            }
 
-        playerScript.currentTurn += 1;
+            playerScript.currentTurn += 1;
 
-        // Call the cards to be drawn by the dealer script
-        // Filter The Cards From the Newly Researched Techs
-        filterCards();
-        // Discard All Unused Cards to the Auction House
-        discardCards();
-        // Pick the Cards To Be Dealt From the Deck
-        // Take Into Account the Current Card Effects
-        cardEffectManager.CurrentlyActiveCards();
-        playerScript.TurnEffects();
-        
-        //Check to make sure there are cards to deal or it crashes and breaks everything
-        if(agrarianArray.Count != 0 || militaryArray.Count != 0 || settlementArray.Count != 0 || industrialArray.Count != 0 || transportationAndEconomyArray.Count != 0 || academicAndReligiousArray.Count != 0 || defenseArray.Count != 0 || mediaAndSocialArray.Count != 0 || navalArray.Count != 0 || scoutingArray.Count != 0)
-        {
-            dealActionCards();
-            //dealEventCards();
-        } else
-        {
-            return;
-        }
-        // Display the Cards in the Appropriate Slots
-        playActionCards();
-        //playEventCards();
+            // Call the cards to be drawn by the dealer script
+            // Filter The Cards From the Newly Researched Techs
+            filterCards();
+            // Discard All Unused Cards to the Auction House
+            discardCards();
+            // Pick the Cards To Be Dealt From the Deck
+            // Take Into Account the Current Card Effects
+            cardEffectManager.CurrentlyActiveCards();
+            playerScript.TurnEffects();
+            
+            //Check to make sure there are cards to deal or it crashes and breaks everything
+            if(agrarianArray.Count != 0 || militaryArray.Count != 0 || settlementArray.Count != 0 || industrialArray.Count != 0 || transportationAndEconomyArray.Count != 0 || academicAndReligiousArray.Count != 0 || defenseArray.Count != 0 || mediaAndSocialArray.Count != 0 || navalArray.Count != 0 || scoutingArray.Count != 0)
+            {
+                dealActionCards();
+                //dealEventCards();
+            } else
+            {
+                return;
+            }
+            // Display the Cards in the Appropriate Slots
+            playActionCards();
+            //playEventCards();
 
-        print("Next Turn Function Ran Through Here");
+            print("Next Turn Function Ran Through Here");
+        //}
     }
 
     public void discardCards()

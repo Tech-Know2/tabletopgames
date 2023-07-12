@@ -224,33 +224,40 @@ public class CardEffectManager : MonoBehaviour
     }
 
     //Placement and Creation Based Card Effects
-    public void ConstructBuilding() //Temporary Setup (Can only have one building per tile at this point)
+    public void ConstructBuilding()
     {
         Settlements settlementData;
         Buildings buildingData;
 
-        //Settlement Placement logic
-        if (card.settlementScriptableObject != null)
+        if(card.createsSettlement == true)
         {
-            settlementData = card.settlementScriptableObject;
+            //Settlement Placement logic
+            if (card.settlementScriptableObject != null)
+            {
+                settlementData = card.settlementScriptableObject;
 
-            buildingPopUp.SetSettlementData(settlementData);
-            buildingPopUp.BuildingDisplay("Settlement");
-            buildingPopUp.settlementData = settlementData;
+                buildingPopUp.SetSettlementData(settlementData);
+                buildingPopUp.BuildingDisplay("Settlement");
+                buildingPopUp.settlementData = settlementData;
+
+                print("Also Called");
+            }
         }
 
-        // Building Placement logic
-        if (card.buildingGameObjects != null)
+        if(card.createsBuildings == true)
         {
-            for (int i = 0; i < card.buildingGameObjects.Count; i++)
+            // Building Placement logic
+            if (card.buildingGameObjects != null)
             {
-                GameObject building = card.buildingGameObjects[i];
-                BuildingDataController buildingDataController = building.GetComponent<BuildingDataController>();
-                buildingData = buildingDataController.originalBuildingData;
-                buildingPopUp.buildingsData.Add(buildingData);
+                for (int i = 0; i < card.buildingGameObjects.Count; i++)
+                {
+                    GameObject building = card.buildingGameObjects[i];
+                    BuildingDataController buildingDataController = building.GetComponent<BuildingDataController>();
+                    buildingData = buildingDataController.originalBuildingData;
+                    buildingPopUp.buildingsData.Add(buildingData);
+                }
                 buildingPopUp.BuildingDisplay("Building");
             }
-            print("Building Card");
         }
     }
 

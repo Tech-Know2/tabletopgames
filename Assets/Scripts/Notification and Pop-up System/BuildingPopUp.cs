@@ -15,6 +15,9 @@ public class BuildingPopUp : MonoBehaviour
     public List<GameObject> cardSlots = new List<GameObject>();
     public bool isCardsShowing = true;
 
+    private int multiBuildingPopUpCount = 0;
+    private int clickedBuildingPopUpCount = 0;
+
     //Prefab for Dispays
     public GameObject buildingSlotPrefab;
     public List<GameObject> buildingSlots = new List<GameObject>(); //Max buildings per card is 4
@@ -47,7 +50,15 @@ public class BuildingPopUp : MonoBehaviour
             {
                 print(buildingSlotDisplay.buildingData);
                 placementScript.PlaceBuilding("Building", buildingSlotDisplay.building, buildingSlotDisplay);
+
                 Destroy(clickedObject);
+
+                clickedBuildingPopUpCount += 1;
+
+                if(clickedBuildingPopUpCount == multiBuildingPopUpCount)
+                {
+                    closeBuildingDisplay();
+                }
             }
 
         }
@@ -62,13 +73,12 @@ public class BuildingPopUp : MonoBehaviour
         isCardsShowing = false;
 
         buildingPopUp.SetActive(isBuildingPopUpActive);
+        PropogateBuildingDisplays(passedBuildType);
 
         foreach (GameObject card in cardSlots)
         {
             card.SetActive(isCardsShowing);
         }
-
-        PropogateBuildingDisplays(passedBuildType);
     }
 
     public void closeBuildingDisplay()
@@ -89,6 +99,8 @@ public class BuildingPopUp : MonoBehaviour
 
     public void PropogateBuildingDisplays(string passedBuildType)
     {
+        print("Propogate Displays");
+
         if (passedBuildType == "Settlement" && buildingSlots.Count > 0)
         {
             GameObject newBuildingSlot = Instantiate(buildingSlotPrefab);
@@ -102,17 +114,29 @@ public class BuildingPopUp : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < clickedCard.buildingGameObjects.Count; i++)
+            if (buildingSlots.Count >= clickedCard.buildingGameObjects.Count)
             {
-                GameObject newBuildingSlot = Instantiate(buildingSlotPrefab);
-                newBuildingSlot.transform.position = buildingSlots[i].transform.position;
+                for (int i = 0; i < buildingsData.Count; i++)
+                {
+                    GameObject newBuildingSlot = Instantiate(buildingSlotPrefab);
+                    newBuildingSlot.transform.SetParent(buildingSlots[i].transform, false);
+                    newBuildingSlot.transform.position = buildingSlots[i].transform.position;
 
-                print("Building a building");
+                    print("Building a building");
 
-                BuildingSlotDisplay buildingSlotDisplay = newBuildingSlot.GetComponent<BuildingSlotDisplay>();
-                buildingSlotDisplay.buildingData = buildingsData[i];
-                buildingSlotDisplay.building = clickedCard.buildingGameObjects[i];
+                    BuildingSlotDisplay buildingSlotDisplay = newBuildingSlot.GetComponent<BuildingSlotDisplay>();
+                    buildingSlotDisplay.buildingData = buildingsData[i];
+                    buildingSlotDisplay.building = clickedCard.buildingGameObjects[i];
+                    buildingSlotDisplay.setDisplayVariables("Building");
+                }
             }
+            else
+            {
+                // Handle the case when there are not enough building slots available
+                Debug.LogError("Not enough building slots available for the buildings.");
+            }
+
+            multiBuildingPopUpCount = buildingsData.Count;
         }
     }
 
