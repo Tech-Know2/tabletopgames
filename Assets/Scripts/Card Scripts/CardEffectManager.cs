@@ -181,26 +181,30 @@ public class CardEffectManager : MonoBehaviour
         {
             //keep Count of the Tiles Being checked
             int acceptableTileCount = 0;
-            List<string> acceptableTileString = new List<string>();
 
             Settlements buildingsSettlement = playerScript.playerSettlementDataList.Find(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation));
             
             for (int x = 0; x < buildingsSettlement.tilesUnderCityControl.Count; x++)
             {
                 GameObject tile =  buildingsSettlement.tilesUnderCityControl[x];
-                if(acceptableTileString.Contains(tile.tag))
+                if(card.desierdTileString.Contains(tile.tag))
                 {
                     acceptableTileCount += 1;
                 }
             }
 
-            buildingsSettlement.cityFood += card.effectManagerList[i].turnEffectCost;
+            print("previous "+ buildingsSettlement.cityFood);
+            print("Tiles " + acceptableTileCount);
+            buildingsSettlement.cityFood += (card.effectManagerList[i].turnEffectCost * acceptableTileCount);
+            print("current " + buildingsSettlement.cityFood);
         }
     }
 
     public void PeopleCost(int i)
     {
         print("People Cost");
+        Settlements buildingsSettlement = playerScript.playerSettlementDataList.Find(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation));
+        buildingsSettlement.cityFood += card.effectManagerList[i].turnEffectCost;
     }
 
     public void WarSupportCost(int i)

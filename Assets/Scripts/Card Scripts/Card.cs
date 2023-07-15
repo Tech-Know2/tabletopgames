@@ -10,7 +10,6 @@ public class EffectManagerList
 {
     public bool requiresMultipleTurns; //Enter the amount of turns the card effect lasts
     public int turnEffectLength;
-    public bool requiresPeople;
     public int turnEffectCost; //List the amount of change (-10 loyalty, -10 food, etc)
     public string effectCostType; //List types from above
     public string religionName; //Name if the cost is related to religion
@@ -91,6 +90,7 @@ public class Card : ScriptableObject
     [TextArea(12, 40)]
     public string desierdTileString = 
         "Strings to determine the effects on the game: Don't Alter Won't Change\n" +
+        "\"Indicates which tile the card can effect\" \n" +
         "\"Deep Sea\" \n" +
         "\"Shallow Sea\" \n" +
         "\"Sand\" \n" +

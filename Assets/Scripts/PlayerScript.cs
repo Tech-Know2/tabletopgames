@@ -77,6 +77,14 @@ public class PlayerScript : MonoBehaviour
 
             buildingEffectController.BuildingEffectManager(building, null);
         }
+
+        for (int i = 0; i < playerSettlementObjectList.Count; i++)
+        {
+            GameObject settlementObject = playerSettlementObjectList[i];
+            CityController cityController = settlementObject.GetComponent<CityController>();
+
+            cityController.UpdateCityDisplayValues();
+        }
     }
 
     void checkEra()

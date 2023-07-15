@@ -44,6 +44,7 @@ public class CityController : MonoBehaviour
 
     public void UpdateCityDisplayValues() //Update all of the variables to the new and updated data
     {
+        cityName = settlementData.cityName;
         cityLevel = settlementData.cityLevel;
         cityFood = settlementData.cityFood;
         cityPopulation = settlementData.cityPopulation;

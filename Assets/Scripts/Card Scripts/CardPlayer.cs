@@ -5,6 +5,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro; 
 
+//Not really used fazed out for a newer script. Thanks
+
 public class CardPlayer : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public string cardTag = "Card";
