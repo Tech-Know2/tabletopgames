@@ -10888,6 +10888,8 @@ MonoBehaviour:
   - {fileID: 169280545}
   - {fileID: 2053405950}
   isCardsShowing: 1
+  multiBuildingPopUpCount: 0
+  clickedBuildingPopUpCount: 0
   buildingSlotPrefab: {fileID: 4417078064399256553, guid: fc6a3394ac90e1e49a61ebfcf77cd396,
     type: 3}
   buildingSlots:
@@ -25395,7 +25397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 844960788}
-  playerScript: {fileID: 0}
+  playerScript: {fileID: 1972966344}
   buildingPopUp: {fileID: 906370546}
   settlementData: {fileID: 0}
   buildingData: {fileID: 0}
@@ -25464,6 +25466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6302138818e377c44a2aaa8d27201449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camera: {fileID: 844960788}
   selectedTileLocation: {fileID: 0}
   acceptableSelectionTags:
   - Deep Sea
@@ -27777,8 +27780,123 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
         type: 3}
+      propertyPath: tileList.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
       propertyPath: generateTerrainObjects
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[0].tile
+      value: 
+      objectReference: {fileID: 1287783578228961940, guid: e315c0d804c1490419424801cc93d060,
+        type: 3}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[1].tile
+      value: 
+      objectReference: {fileID: 2134901623199710270, guid: 90072bae72ea8dd4ea81e6e1b2fef3f1,
+        type: 3}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[2].tile
+      value: 
+      objectReference: {fileID: 7281042472873921757, guid: fc02684f80273d34b8c87a070b3f37e8,
+        type: 3}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[3].tile
+      value: 
+      objectReference: {fileID: 1166280319995372320, guid: 79054845b1e803940893c76d5749a153,
+        type: 3}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[4].tile
+      value: 
+      objectReference: {fileID: 6471062737119407778, guid: e26ab5a56cf2c2c47bfa12d48307c7cc,
+        type: 3}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[0].tileTag
+      value: Deep Sea
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[1].tileTag
+      value: Shallow Sea
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[2].tileTag
+      value: Sand
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[3].tileTag
+      value: Plains
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[4].tileTag
+      value: Mountains
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[0].tileName
+      value: Deep Sea
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[1].tileName
+      value: Shallow Sea
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[2].tileName
+      value: Sand
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[3].tileName
+      value: Plains
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[4].tileName
+      value: Mountains
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[0].lowerSpanwLevel
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[0].upperSpawnLevel
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[1].upperSpawnLevel
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[2].upperSpawnLevel
+      value: 0.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[3].upperSpawnLevel
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524274989546678550, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
+        type: 3}
+      propertyPath: tileList.Array.data[4].upperSpawnLevel
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5524274989546678552, guid: 2b43bf656e2033b4e9ef8d92872c2c28,
         type: 3}

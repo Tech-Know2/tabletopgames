@@ -12,6 +12,15 @@ public class TerrainObjectData
     public List<string> acceptableTileSpawns;
 }
 
+[System.Serializable]
+public class Tiles
+{
+    public string tileName;
+    public GameObject tile;
+    public float upperSpawnLevel;
+    public string tileTag;
+}
+
 public class HexMap : MonoBehaviour
 {
     //Parent Game Object
@@ -26,6 +35,9 @@ public class HexMap : MonoBehaviour
 
     //Contains all of the data for the creation of terrain objects
     public List<TerrainObjectData> terrainObjectData;
+
+    //Contains all of the data for the creation of tiles
+    //public List<Tiles> tileList;
 
     //Terrain Game Object Control Variables
     // Terrain Starter and Ender Variables (Lowest Terrain to Highest Terrain)

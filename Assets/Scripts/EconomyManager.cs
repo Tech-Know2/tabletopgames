@@ -9,7 +9,7 @@ public class EconomyManager : MonoBehaviour
     //Effectable Values
     public int currentGold;
     public int currentSilver;
-    public int currentTechPoints;
+    public float currentTechPoints;
     public int currentWarWeariness;
     public int currentLoyalty; // Default Value is 100
 

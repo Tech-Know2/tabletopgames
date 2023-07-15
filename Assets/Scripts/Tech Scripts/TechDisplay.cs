@@ -11,7 +11,7 @@ public class TechDisplay : MonoBehaviour
     public PlayerScript playerScript;
     public TechTreeController techTreeController;
     private ClonedTechData clonedTechData;
-    private int updatedtechPointCount;
+    private float updatedtechPointCount;
 
     private List<string> researchedTechNames = new List<string>();
 

@@ -28,11 +28,11 @@ MonoBehaviour:
   isDeclareWarCard: 0
   isPeaceTreatyCard: 0
   isPurchasable: 1
-  requiresTileLocation: 1
-  createsBuildings: 1
+  requiresASettlement: 0
+  createsBuildings: 0
   createsSettlement: 0
-  settlementScriptableObject: []
-  createdUnits: 0
+  settlementScriptableObject: {fileID: 0}
+  createsUnits: 0
   governmentType: 
   government: {fileID: 0}
   governmentAlliance: 
@@ -76,7 +76,6 @@ MonoBehaviour:
   religionName: 
   turnsActive: 0
   buildingGameObjects: []
-  buildingScriptableObject: []
   desierdTileString: "Strings to determine the effects on the game: Don't Alter Won't
     Change\n\"Deep Sea\" \n\"Shallow Sea\" \n\"Sand\" \n\"Plains\" \n\"Mountains\"
     \n"

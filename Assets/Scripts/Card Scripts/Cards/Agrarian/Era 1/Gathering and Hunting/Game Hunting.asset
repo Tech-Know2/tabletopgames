@@ -28,7 +28,7 @@ MonoBehaviour:
   isDeclareWarCard: 0
   isPeaceTreatyCard: 0
   isPurchasable: 1
-  requiresTileLocation: 1
+  requiresASettlement: 1
   createsBuildings: 1
   createsSettlement: 0
   settlementScriptableObject: {fileID: 0}

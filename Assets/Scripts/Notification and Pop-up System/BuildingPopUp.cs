@@ -15,8 +15,8 @@ public class BuildingPopUp : MonoBehaviour
     public List<GameObject> cardSlots = new List<GameObject>();
     public bool isCardsShowing = true;
 
-    private int multiBuildingPopUpCount = 0;
-    private int clickedBuildingPopUpCount = 0;
+    public int multiBuildingPopUpCount = 0;
+    public int clickedBuildingPopUpCount = 0;
 
     //Prefab for Dispays
     public GameObject buildingSlotPrefab;
@@ -52,8 +52,6 @@ public class BuildingPopUp : MonoBehaviour
                 placementScript.PlaceBuilding("Building", buildingSlotDisplay.building, buildingSlotDisplay);
 
                 Destroy(clickedObject);
-
-                clickedBuildingPopUpCount += 1;
 
                 if(clickedBuildingPopUpCount == multiBuildingPopUpCount)
                 {
@@ -93,7 +91,7 @@ public class BuildingPopUp : MonoBehaviour
             card.SetActive(isCardsShowing);
         }
 
-        //ClearBuildingDisplays();
+        ClearBuildingDisplays();
     }
 
 
@@ -147,6 +145,8 @@ public class BuildingPopUp : MonoBehaviour
 
     public void ClearBuildingDisplays()
     {
-        //
+        //Reset All Vars back to the starting value
+        buildingsData.Clear();
+        clickedBuildingPopUpCount = 0;
     }
 }

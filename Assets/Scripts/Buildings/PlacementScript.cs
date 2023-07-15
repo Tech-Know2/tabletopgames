@@ -24,6 +24,9 @@ public class PlacementScript : MonoBehaviour
     private bool isPlacing = false;
     private Vector3 hoveringLocation;
 
+    //Settlement that the Building is being placed under the control of
+    private Settlements buildingsSettlement;
+
     private string buildingType;
 
     public void PlaceBuilding(string buildType, GameObject building, BuildingSlotDisplay buildingSlotDisplay)
@@ -71,7 +74,10 @@ public class PlacementScript : MonoBehaviour
                 hoveredObject = null;
             }
 
-            Preview(buildingType);
+            if(buildingType != null)
+            {
+                Preview(buildingType);
+            }
         }
     }
 
@@ -86,10 +92,10 @@ public class PlacementScript : MonoBehaviour
             {
                 if (settlementData != null)
                 {
-                    if (settlementData.acceptableBuildTiles.Contains(hoveredObject.tag))
+                    if (settlementData.acceptableBuildTiles.Contains(hoveredObject.tag) && !playerScript.playerSettlementDataList.Any(settlement => settlement.tilesUnderCityControl.Contains(hoveredObject)))
                     {
                         solidPlacement = true;
-                        buildingInstance.transform.position = hoveringLocation;
+                        buildingInstance.transform.position = new Vector3(hoveredObject.transform.position.x, hoveredObject.transform.position.y + 5f, hoveredObject.transform.position.z);
                     }
                     else
                     {
@@ -103,15 +109,18 @@ public class PlacementScript : MonoBehaviour
                 {
                     if (buildingData.acceptableBuildTiles.Contains(hoveredObject.tag))
                     {
-                        if (playerScript.playerSettlementDataList.Any(settlement => settlement.tilesUnderCityControl.Contains(hoveredObject)) && buildingData.requiresASettlement == true)
+                        if (buildingData.requiresASettlement == true && playerScript.playerSettlementDataList.Any(settlement => settlement.tilesUnderCityControl.Contains(hoveredObject)))
                         {
                             solidPlacement = true;
-                            buildingInstance.transform.position = hoveringLocation;
+                            buildingInstance.transform.position = new Vector3(hoveringLocation.x, hoveringLocation.y + 10f, hoveringLocation.z);
+
+                            //Assign the settlement, and pass it to the building to be
+                            buildingsSettlement = playerScript.playerSettlementDataList.Find(settlement => settlement.tilesUnderCityControl.Contains(hoveredObject));
                         }
-                        else if (buildingData.acceptableBuildTiles.Contains(hoveredObject.tag) && buildingData.requiresASettlement == false)
+                        else if (buildingData.requiresASettlement == false && buildingData.acceptableBuildTiles.Contains(hoveredObject.tag))
                         {
                             solidPlacement = true;
-                            buildingInstance.transform.position = hoveringLocation;
+                            buildingInstance.transform.position = new Vector3(hoveringLocation.x, hoveringLocation.y + 10f, hoveringLocation.z);
                         }
                         else
                         {
@@ -131,12 +140,20 @@ public class PlacementScript : MonoBehaviour
             {
                 if (solidPlacement == true)
                 {
+                    Vector3 spawnLocation;
+
                     // Place the building
-                    GameObject placedBuilding = Instantiate(buildingInstance, hoveringLocation, Quaternion.identity);
+                    if(buildingType == "Settlement")
+                    {
+                        spawnLocation = new Vector3(hoveredObject.transform.position.x, hoveredObject.transform.position.y + 5f, hoveredObject.transform.position.z);
+                    }else 
+                    {
+                        spawnLocation = new Vector3(hoveringLocation.x, hoveringLocation.y + 10f, hoveringLocation.z);
+                    }
+                    GameObject placedBuilding = Instantiate(buildingInstance, spawnLocation, Quaternion.identity);
 
                     // Assign all of the data to the newly created building
                     BuildingDataController buildingDataController = placedBuilding.GetComponent<BuildingDataController>();
-                    buildingDataController.controlSphere.SetActive(true);
 
                     if (buildingType == "Settlement")
                     {
@@ -145,24 +162,29 @@ public class PlacementScript : MonoBehaviour
                     }
                     else
                     {
-                        if (playerScript.playerSettlementDataList.Any(settlement => settlement.tilesUnderCityControl.Contains(hoveredObject)))
-                        {
-                            buildingDataController.originalBuildingData = buildingData;
-                            buildingDataController.BuildingSetUp();
-                        }
-                        else
-                        {
-                            print("Tile not under a city's control");
-                        }
+                        buildingDataController.originalBuildingData = buildingData;
+                        buildingDataController.buildingsSettlement = buildingsSettlement;
+                        buildingDataController.BuildingSetUp();
+
+                        buildingPopUp.clickedBuildingPopUpCount += 1;
                     }
 
                     // Reset placement variables
                     isPlacing = false;
 
                     // Hide the Pop-up and show the Cards
-                    buildingPopUp.closeBuildingDisplay();
+                    if(buildingType == "Settlement")
+                    {
+                        buildingPopUp.closeBuildingDisplay();
+                    } else
+                    {
+                        if(buildingPopUp.clickedBuildingPopUpCount == buildingPopUp.multiBuildingPopUpCount)
+                        {
+                            buildingPopUp.closeBuildingDisplay();
+                        }
+                    }
 
-                    // Destroy the buildingInstance after placement
+                    // Destroy the previewed buildingInstance after placement
                     Destroy(buildingInstance);
                 }
             }
