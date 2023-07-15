@@ -42,9 +42,8 @@ public class CityController : MonoBehaviour
         CheckCollision();
     }
 
-    public void Update() //Update All of the variables to the new and updated data
+    public void UpdateCityDisplayValues() //Update all of the variables to the new and updated data
     {
-        cityName = settlementData.cityName;
         cityLevel = settlementData.cityLevel;
         cityFood = settlementData.cityFood;
         cityPopulation = settlementData.cityPopulation;

@@ -295,26 +295,29 @@ public class CardEffectManager : MonoBehaviour
 
         foreach (Card currentCard in activeCards.ToArray()) // Iterate over a copy of activeCards
         {
+            // Apply the card effect
+            card = currentCard;
+
+            // Store the current card as the high-level card
+            currentHighLevelCard = card;
+            firstTime = false;
+            EffectFilter();
+
+            //Go through the effects and check if they have been running for the appropiate amount of time
             for (int i = 0; i < card.effectManagerList.Count; i++)
             {
                 currentCard.effectManagerList[i].turnsActive++;
 
-                // Apply the card effect
-                card = currentCard;
-
-                // Store the current card as the high-level card
-                currentHighLevelCard = card;
-                firstTime = false;
-                EffectFilter();
-
-                if (currentCard.effectManagerList[i].turnsActive + 1 > currentCard.effectManagerList[i].turnEffectLength)
+                if (currentCard.effectManagerList[i].turnsActive >= currentCard.effectManagerList[i].turnEffectLength)
                 {
-                    currentCard.effectManagerList.Add(currentCard.effectManagerList[i]);
+                    currentCard.effectManagerList.RemoveAt(i);
+                    i--; // Adjust the index after removing an element
                 }
 
-                if (currentCard.effectManagerList.Count == 0)
+                if (currentCard.effectManagerList.Count <= 0)
                 {
                     cardsToRemove.Add(currentCard);
+                    break; // No need to continue iterating if all effects have been removed
                 }
             }
         }
