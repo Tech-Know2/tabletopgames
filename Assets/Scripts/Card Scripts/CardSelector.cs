@@ -89,6 +89,7 @@ public class CardSelector : MonoBehaviour
             {
                 Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedCard.transform.position).z);
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
+                selectedCard.transform.rotation = camera.transform.rotation;
                 selectedCard.transform.position = new Vector3(worldPosition.x, 2f, worldPosition.z);
             }
         }

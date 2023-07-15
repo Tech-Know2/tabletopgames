@@ -7,7 +7,7 @@ using TMPro;
 public class EconomyManager : MonoBehaviour
 {
     //Effectable Values
-    public int currentGold;
+    public float currentGold;
     public int currentSilver;
     public float currentTechPoints;
     public int currentWarWeariness;

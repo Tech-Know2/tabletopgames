@@ -5,6 +5,18 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEditor;
 
+[System.Serializable]
+public class EffectManagerList
+{
+    public bool requiresMultipleTurns; //Enter the amount of turns the card effect lasts
+    public int turnEffectLength;
+    public bool requiresPeople;
+    public int turnEffectCost; //List the amount of change (-10 loyalty, -10 food, etc)
+    public string effectCostType; //List types from above
+    public string religionName; //Name if the cost is related to religion
+    public int turnsActive = 0; //Dont Mess With This Var. It stores how many turns that this card has been active.
+}
+
 [CreateAssetMenu(fileName = "New Card", menuName = "Card")]
 public class Card : ScriptableObject
 {
@@ -71,13 +83,7 @@ public class Card : ScriptableObject
         "\"Weariness Cost\" to effect war weariness\n" +
         "\"Loyalty Cost\" to effect the loyalty of your people";
     
-    public bool requiresMultipleTurns; //Enter the amount of turns the card effect lasts
-    public int turnEffectLength;
-    public bool requiresPeople;
-    public int turnEffectCost; //List the amount of change (-10 loyalty, -10 food, etc)
-    public string effectCostType; //List types from above
-    public string religionName; //Name if the cost is related to religion
-    public int turnsActive = 0; //Dont Mess With This Var. It stores how many turns that this card has been active.
+    public List<EffectManagerList> effectManagerList = new List<EffectManagerList>();
     
     //Building Based Vars
     public List<GameObject> buildingGameObjects = new List <GameObject>(); //used for both storing building and settlement game objects. Also make sure that the builing that you add always has the BuildingDataController attached to it
@@ -94,9 +100,4 @@ public class Card : ScriptableObject
 
     //Unit Based Vars
     public List<Unit> units = new List<Unit>();
-
-    public void ResetCardState()
-    {
-        turnsActive = 0;
-    }
 }

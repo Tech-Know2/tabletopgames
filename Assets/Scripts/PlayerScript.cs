@@ -63,10 +63,11 @@ public class PlayerScript : MonoBehaviour
         for (int i = 0; i < playerSettlementDataList.Count; i++)
         {
             Settlements settlement = playerSettlementDataList[i];
+            buildingEffectController.SettlementEffectManager(playerSettlementDataList[i]);
             for (int x = 0; x < settlement.settlementBuildings.Count; x++)
             {
                 Buildings building = settlement.settlementBuildings[x];
-                buildingEffectController.EffectController(building, settlement);
+                buildingEffectController.BuildingEffectManager(building, settlement);
             }
         }
 
@@ -74,7 +75,7 @@ public class PlayerScript : MonoBehaviour
         {
             Buildings building = playerBuildingsDataList[i];
 
-            buildingEffectController.EffectController(building, null);
+            buildingEffectController.BuildingEffectManager(building, null);
         }
     }
 

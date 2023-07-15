@@ -40,8 +40,6 @@ public class BuildingDataController : MonoBehaviour
     {
         GetData();
 
-        print("Settlement Setup In Progress");
-
         controlSphere.SetActive(true);
 
         if(originalSettlementData != null)
@@ -66,13 +64,10 @@ public class BuildingDataController : MonoBehaviour
     public void BuildingSetUp()
     {
         GetData();
-
-        print("Building Setup In Progress");
         
         if(originalBuildingData != null)
         {
             clonedBuildingData = Instantiate(originalBuildingData);
-            print("Cloned Building Data");
         }else 
         {
             return;
@@ -82,10 +77,16 @@ public class BuildingDataController : MonoBehaviour
         if(clonedBuildingData.requiresASettlement == true)
         {
             buildingsSettlement.settlementBuildings.Add(clonedBuildingData);
+            NewlyCreatedBuilding(clonedBuildingData, buildingsSettlement);
         }
         else 
         {
             playerScript.buildingEffectController.buildingsList.Add(clonedBuildingData);
         }
+    }
+
+    public void NewlyCreatedBuilding(Buildings building, Settlements settlement)
+    {
+        settlement.cityPopulation += building.peopleInitialCost;
     }
 }

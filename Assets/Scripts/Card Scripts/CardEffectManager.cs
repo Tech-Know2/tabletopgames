@@ -50,29 +50,18 @@ public class CardEffectManager : MonoBehaviour
             print("Tile Selected");
         }
 
-        effectCostType = card.effectCostType;
-        turnEffectLength = card.turnEffectLength;
-        turnEffectCost = card.turnEffectCost;
-        cardEffectRegion = card.cardEffectRegion;
-
         if(card.isGovernmentCard == true)
         {
             government = card.government;
             governmentName = government.governmentName;
             assignsGovernment = card.assignsGovernment;
-            
+                
             if(card.isGovernmentWarSupportBoostCard == true || card.isAllianceCard == true || card.isDeclareWarCard == true || card.isPeaceTreatyCard == true || card.assignsGovernment == true)
             {
                 //governmentName = card.governemnt.governmentName;
 
                 GovernmentEffectFilter();
             }
-        }
-
-        //Check to see if the card Requires multiple Turns
-        if (card.requiresMultipleTurns == true && firstTime == true)
-        {
-            activeCards.Add(card);
         }
 
         //Check to see if the card creates buildings or settlements
@@ -87,42 +76,56 @@ public class CardEffectManager : MonoBehaviour
             CreateUnits();
         }
 
-        if(effectCostType == "Gold Cost")
+        for(int i = 0; i < card.effectManagerList.Count; i++)
         {
-            GoldCost();
-        }
-        else if (effectCostType == "Silver Cost")
-        {
-            SilverCost();
-        }
-        else if (effectCostType == "Loyalty Cost")
-        {
-            LoyaltyCost();
-        }
-        else if (effectCostType == "Food Cost")
-        {
-            FoodCost();
-        }
-        else if (effectCostType == "People Cost")
-        {
-            PeopleCost();
-        }
-        else if (effectCostType == "War Support Cost")
-        {
-            WarSupportCost();
-        }
-        else if (effectCostType == "Religion Cost")
-        {
-            ReligionCost();
-        }
-        else if (effectCostType == "Weariness Cost")
-        {
-            WearinessCost();
-        } else
-        {
-            if(government != null)
+            //Check to see if the card Requires multiple Turns
+            if (card.effectManagerList[i].requiresMultipleTurns == true && firstTime == true)
             {
-                print(card + "Does Not Have An Effect, Probably and Error");
+                activeCards.Add(card);
+            }
+            
+            effectCostType = card.effectManagerList[i].effectCostType;
+            turnEffectLength = card.effectManagerList[i].turnEffectLength;
+            turnEffectCost = card.effectManagerList[i].turnEffectCost;
+            cardEffectRegion = card.effectManagerList[i].religionName;
+
+            if(effectCostType == "Gold Cost")
+            {
+                GoldCost(i);
+            }
+            else if (effectCostType == "Silver Cost")
+            {
+                SilverCost(i);
+            }
+            else if (effectCostType == "Loyalty Cost")
+            {
+                LoyaltyCost(i);
+            }
+            else if (effectCostType == "Food Cost")
+            {
+                FoodCost(i);
+            }
+            else if (effectCostType == "People Cost")
+            {
+                PeopleCost(i);
+            }
+            else if (effectCostType == "War Support Cost")
+            {
+                WarSupportCost(i);
+            }
+            else if (effectCostType == "Religion Cost")
+            {
+                ReligionCost(i);
+            }
+            else if (effectCostType == "Weariness Cost")
+            {
+                WearinessCost(i);
+            } else
+            {
+                if(government != null)
+                {
+                    print(card + "Does Not Have An Effect, Probably and Error");
+                }
             }
         }
     }
@@ -153,45 +156,64 @@ public class CardEffectManager : MonoBehaviour
     }    
 
     //Different Types of Economic and Social Effects
-    public void GoldCost()
+    public void GoldCost(int i)
     {
         print("Gold Cost");
-        economyManager.currentGold = economyManager.currentGold + card.turnEffectCost;
+        economyManager.currentGold = economyManager.currentGold + card.effectManagerList[i].turnEffectCost;
     }
 
-    public void SilverCost()
+    public void SilverCost(int i)
     {
         print("Silver Cost");
-        economyManager.currentSilver = economyManager.currentSilver + card.turnEffectCost;
+        economyManager.currentSilver = economyManager.currentSilver + card.effectManagerList[i].turnEffectCost;
     }
 
-    public void LoyaltyCost()
+    public void LoyaltyCost(int i)
     {
         print("Loyalty Cost");
         //economyManager.currentLoyalty = economyManager.currentLoyalty + card.turnEffectCost;
     }
 
-    public void FoodCost()
+    public void FoodCost(int i)
     {
         print("Food Cost");
+        if(card.requiresASettlement == true)
+        {
+            //keep Count of the Tiles Being checked
+            int acceptableTileCount = 0;
+            List<string> acceptableTileString = new List<string>();
+
+            Settlements buildingsSettlement = playerScript.playerSettlementDataList.Find(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation));
+            
+            for (int x = 0; x < buildingsSettlement.tilesUnderCityControl.Count; x++)
+            {
+                GameObject tile =  buildingsSettlement.tilesUnderCityControl[x];
+                if(acceptableTileString.Contains(tile.tag))
+                {
+                    acceptableTileCount += 1;
+                }
+            }
+
+            buildingsSettlement.cityFood += card.effectManagerList[i].turnEffectCost;
+        }
     }
 
-    public void PeopleCost()
+    public void PeopleCost(int i)
     {
         print("People Cost");
     }
 
-    public void WarSupportCost()
+    public void WarSupportCost(int i)
     {
         print("War Support Cost");
     }
 
-    public void ReligionCost()
+    public void ReligionCost(int i)
     {
         print("Religion Cost");
     }
 
-    public void WearinessCost()
+    public void WearinessCost(int i)
     {
         print("Weariness Cost");
     }
@@ -273,19 +295,27 @@ public class CardEffectManager : MonoBehaviour
 
         foreach (Card currentCard in activeCards.ToArray()) // Iterate over a copy of activeCards
         {
-            currentCard.turnsActive++;
-
-            // Apply the card effect
-            card = currentCard;
-
-            // Store the current card as the high-level card
-            currentHighLevelCard = card;
-            firstTime = false;
-            EffectFilter();
-
-            if (currentCard.turnsActive + 1 > currentCard.turnEffectLength)
+            for (int i = 0; i < card.effectManagerList.Count; i++)
             {
-                cardsToRemove.Add(currentCard);
+                currentCard.effectManagerList[i].turnsActive++;
+
+                // Apply the card effect
+                card = currentCard;
+
+                // Store the current card as the high-level card
+                currentHighLevelCard = card;
+                firstTime = false;
+                EffectFilter();
+
+                if (currentCard.effectManagerList[i].turnsActive + 1 > currentCard.effectManagerList[i].turnEffectLength)
+                {
+                    currentCard.effectManagerList.Add(currentCard.effectManagerList[i]);
+                }
+
+                if (currentCard.effectManagerList.Count == 0)
+                {
+                    cardsToRemove.Add(currentCard);
+                }
             }
         }
 

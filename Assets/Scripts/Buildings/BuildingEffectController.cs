@@ -14,16 +14,13 @@ public class BuildingEffectController : MonoBehaviour
 
     }
 
-    public void EffectController(Buildings building, Settlements settlement)
+    public void BuildingEffectManager(Buildings building, Settlements settlement)
     {
         if (settlement != null)
         {
             // Update the City's Food
             settlement.cityFood += building.foodUpkeep;
             settlement.cityFood += building.foodProduction;
-
-            // Update the City's Population
-            settlement.cityPopulation += building.peopleUpKeep;
 
             // Add to the City's Produced Goods
             for (int i = 0; i < building.producableObjects.Count; i++)
@@ -42,4 +39,15 @@ public class BuildingEffectController : MonoBehaviour
         economyManager.currentTechPoints += building.techPointProduction;
     }
 
+    public void SettlementEffectManager(Settlements settlement)
+    {
+        //Calculate City Income
+        economyManager.currentGold += (float)(settlement.cityPopulation * 0.1);
+
+        //Have the people consume some of the food
+        settlement.cityFood -= settlement.cityPopulation;
+
+        //Have the people reproduce based on how much food there is (system may not work, will rework later)
+        settlement.cityPopulation += (int)(settlement.cityFood * 0.25);
+    }
 }

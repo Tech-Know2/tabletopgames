@@ -20,11 +20,6 @@ public class Tech : ScriptableObject
     public void ResetTechState()
     {
         isResearched = false;
-
-        foreach (Card card in techCards)
-        {
-            card.ResetCardState();
-        }
     }
 
 }

@@ -131,7 +131,6 @@ public class PlacementScript : MonoBehaviour
                     else
                     {
                         solidPlacement = false;
-                        print("Bad Placement");
                     }
                 }
             }
