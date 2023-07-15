@@ -7,6 +7,7 @@ public class CardSelector : MonoBehaviour
 {
     private GameObject selectedCard;
     private CameraController cameraController;
+    public Camera camera;
     private PlayerScript playerScript;
     private CardEffectManager cardEffectManager;
 
@@ -65,11 +66,9 @@ public class CardSelector : MonoBehaviour
 
                         selectedCard.transform.SetParent(null);
                         selectedCard.transform.localScale = new Vector3(10f, 15f, 1f);
+                        selectedCard.transform.rotation = camera.transform.rotation;
                         selectedCard.transform.SetParent(null);
                         Cursor.visible = false;
-
-                        // Store the original position and parent
-
                     }
                 }
                 else
@@ -78,6 +77,7 @@ public class CardSelector : MonoBehaviour
                     ExecuteCardAction();
 
                     selectedCard.transform.SetParent(null);
+                    selectedCard.transform.rotation = camera.transform.rotation;
                     selectedCard.transform.localScale = new Vector3(4f, 6f, 0.4f);
 
                     selectedCard = null;
@@ -102,6 +102,7 @@ public class CardSelector : MonoBehaviour
                 // Reset the card to its original position, scale, and parent
                 selectedCard.transform.SetParent(originalParent);
                 selectedCard.transform.position = originalParent.transform.position;
+                selectedCard.transform.rotation = camera.transform.rotation;
                 //selectedCard.transform.localScale = new Vector3(11.173914f ,17.3849792f ,1f );
                 selectedCard.transform.localScale = originalScale;
 

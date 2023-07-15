@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class CityController : MonoBehaviour
 {
     // Accessing Data and Scripts
     public BuildingDataController buildingDataController;
+    public BuildingEffectController buildingEffectController;
     private Settlements settlementData;
 
     // List of tiles under the city's control
@@ -16,6 +18,7 @@ public class CityController : MonoBehaviour
     public int cityLevel;
     public int cityPopulation;
     public float calculatedLoyalty;
+    public int cityFood;
     public List<GameObject> settlementReligiousFollowers = new List<GameObject>();
     public List<Buildings> settlementBuildings = new List<Buildings>();
     public List<GameObject> tilesUnderCityControl = new List<GameObject>();
@@ -23,45 +26,77 @@ public class CityController : MonoBehaviour
 
     public void SettlementStart()
     {
+        buildingDataController.controlSphere.SetActive(true);
         
+        print(buildingDataController.controlSphere);
         settlementData = buildingDataController.clonedSettlementData;
-        settlementData.cityPopulation += 10;
+        settlementData.cityPopulation = 10;
+        settlementData.cityFood = 50;
 
         //Assign the Variables to be public so they can be seen from the editor for debugging
         cityName = settlementData.cityName;
         cityLevel = settlementData.cityLevel;
         cityPopulation = settlementData.cityPopulation;
         calculatedLoyalty = settlementData.calculatedLoyalty;
+
+        CheckCollision();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Update() //Update All of the variables to the new and updated data
     {
-        CheckCollision(other);
+        cityName = settlementData.cityName;
+        cityLevel = settlementData.cityLevel;
+        cityFood = settlementData.cityFood;
+        cityPopulation = settlementData.cityPopulation;
+        calculatedLoyalty = settlementData.calculatedLoyalty;
+        tilesUnderCityControl = settlementData.tilesUnderCityControl;
+        settlementUnits = settlementData.settlementUnits;
+        settlementBuildings = settlementData.settlementBuildings;
+        settlementReligiousFollowers = settlementData.settlementReligiousFollowers;
     }
 
-    private void OnTriggerStay(Collider other)
+    private void CheckCollision()
     {
-        CheckCollision(other);
-    }
+        Collider[] colliders = Physics.OverlapSphere(transform.position, buildingDataController.controlSphere.transform.localScale.x / 2f);
 
-    private void CheckCollision(Collider collider)
-    {
-        if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand") || collider.CompareTag("Plains") || collider.CompareTag("Mountains"))
+        foreach (Collider collider in colliders)
         {
-            if (collider.gameObject == buildingDataController.controlSphere)
+            if (collider.CompareTag("Deep Sea") || collider.CompareTag("Shallow Sea") || collider.CompareTag("Sand") || collider.CompareTag("Plains") || collider.CompareTag("Mountains"))
             {
-                if (!collidedTiles.Contains(collider.gameObject))
+                GameObject tile = collider.gameObject;
+
+                if (!collidedTiles.Contains(tile))
                 {
-                    print("Tile Under Control: " + collider.gameObject.name);
-                    settlementData.tilesUnderCityControl.Add(collider.gameObject);
-                    collidedTiles.Add(collider.gameObject);
+                    print("Tile Under Control: " + tile.name);
+                    settlementData.tilesUnderCityControl.Add(tile);
+                    collidedTiles.Add(tile);
                 }
             }
         }
+
+        buildingDataController.controlSphere.SetActive(false);
     }
 
-    public void CityUpgraded()
+
+    public void CityUpgraded() //Most City Upgrade Impacts are between the city level of 1-4
     {
-        // City Upgrade System
+        if(cityLevel == 2)
+        {
+            //Update city
+            settlementData.cityLevel = cityLevel;
+        } 
+        else if (cityLevel == 3)
+        {
+            //Update city
+            settlementData.cityLevel = cityLevel;
+        } 
+        else if (cityLevel == 4)
+        {
+            settlementData.cityLevel = cityLevel;
+        } 
+        else 
+        {
+
+        }
     }
 }

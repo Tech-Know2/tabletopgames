@@ -23,12 +23,13 @@ MonoBehaviour:
   health: 0
   buildTime: 0
   goldProduction: 0
-  silverProduction: 10
+  silverProduction: 0
   foodProduction: 5
   techPointProduction: 0
   travelStaminaDecreaseMultipler: 0
-  requiresASettlement: 0
-  acceptableBuildTiles: []
+  requiresASettlement: 1
+  acceptableBuildTiles:
+  - Plains
   producableObjects: []
   isLandTrainingRelated: 0
   isNavalTrainingRelated: 0

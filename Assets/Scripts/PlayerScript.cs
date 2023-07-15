@@ -59,7 +59,23 @@ public class PlayerScript : MonoBehaviour
 
     public void TurnEffects()
     {
-        buildingEffectController.BuildingsEffects();
+        //buildingEffectController.EffectController();
+        for (int i = 0; i < playerSettlementDataList.Count; i++)
+        {
+            Settlements settlement = playerSettlementDataList[i];
+            for (int x = 0; x < settlement.settlementBuildings.Count; x++)
+            {
+                Buildings building = settlement.settlementBuildings[x];
+                buildingEffectController.EffectController(building, settlement);
+            }
+        }
+
+        for(int i = 0; i < playerBuildingsDataList.Count; i++)
+        {
+            Buildings building = playerBuildingsDataList[i];
+
+            buildingEffectController.EffectController(building, null);
+        }
     }
 
     void checkEra()
@@ -82,9 +98,7 @@ public class PlayerScript : MonoBehaviour
         checkEra();
 
         economyManager.passedTurnCount = currentTurn;
-        economyManager.passedEraCount = currentEra;
-
-        
+        economyManager.passedEraCount = currentEra;        
     }
 
     public void CardSelected()

@@ -17,7 +17,9 @@ public class BuildingDataController : MonoBehaviour
     public Buildings clonedBuildingData;
 
     //Get the Control Sphere
-    public GameObject controlSphere;
+    public GameObject controlSphere = null;
+
+    public Settlements buildingsSettlement;
 
     public void GetData()
     {
@@ -30,6 +32,7 @@ public class BuildingDataController : MonoBehaviour
         else
         {
             Debug.LogError("Could not find game object named 'Player and Camera Rig'.");
+            return;
         }
     }
 
@@ -37,14 +40,13 @@ public class BuildingDataController : MonoBehaviour
     {
         GetData();
 
-        print("Building Setup In Progress");
+        print("Settlement Setup In Progress");
 
         controlSphere.SetActive(true);
 
         if(originalSettlementData != null)
         {
-            //clonedSettlementData = Instantiate(originalSettlementData);
-            clonedSettlementData = originalSettlementData;
+            clonedSettlementData = Instantiate(originalSettlementData);
         }else 
         {
             return;
@@ -65,17 +67,25 @@ public class BuildingDataController : MonoBehaviour
     {
         GetData();
 
-        //Add the Data to the Building Effect Controller Script
-        playerScript.buildingEffectController.buildingsList.Add(clonedBuildingData);
+        print("Building Setup In Progress");
         
         if(originalBuildingData != null)
         {
-            //clonedBuildingData = Instantiate(originalBuildingData);
-            clonedBuildingData = originalBuildingData;
+            clonedBuildingData = Instantiate(originalBuildingData);
             print("Cloned Building Data");
         }else 
         {
             return;
+        }
+
+        //Add the Data to the Building Effect Controller Script
+        if(clonedBuildingData.requiresASettlement == true)
+        {
+            buildingsSettlement.settlementBuildings.Add(clonedBuildingData);
+        }
+        else 
+        {
+            playerScript.buildingEffectController.buildingsList.Add(clonedBuildingData);
         }
     }
 }

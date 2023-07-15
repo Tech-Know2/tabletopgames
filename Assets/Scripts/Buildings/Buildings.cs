@@ -30,7 +30,7 @@ public class Buildings : ScriptableObject
     public List<string> acceptableBuildTiles = new List<string>();
 
     //Producible Objects from Building
-    public List<GameObject> producableObjects = new List<GameObject>();
+    public List<Object> producableObjects = new List<Object>();
 
     //Bools to check Building Identity
     public bool isLandTrainingRelated;

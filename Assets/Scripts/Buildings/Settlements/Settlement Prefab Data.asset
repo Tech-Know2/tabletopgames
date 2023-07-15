@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cityName: 
   cityLevel: 1
-  cityPopulation: 0
+  cityPopulation: 10
   calculatedLoyalty: 0
+  cityFood: 0
+  storedObjects: []
+  objectsProducedEachTurn: []
   acceptableBuildTiles:
   - Sand
   - Plains
