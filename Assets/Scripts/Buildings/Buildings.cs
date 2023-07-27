@@ -34,10 +34,7 @@ public class Buildings : ScriptableObject
     public List<Object> producableObjects = new List<Object>();
 
     //Bools to check Building Identity
-    public bool isLandTrainingRelated;
-    public bool isNavalTrainingRelated;
     public bool isReligiousTrainingRelated;
-    public bool isSiegeTrainingRelated;
     public bool isPath;
     public bool isDefense;
     public bool isGate;

@@ -9,10 +9,12 @@ using UnityEditor;
 public class EffectManagerList
 {
     public bool requiresMultipleTurns; //Enter the amount of turns the card effect lasts
-    public int turnEffectLength;
+    public int turnEffectLength; //Length of the effect
     public int turnEffectCost; //List the amount of change (-10 loyalty, -10 food, etc)
     public string effectCostType; //List types from above
     public string religionName; //Name if the cost is related to religion
+    public string governmentName; //Name of the government your effecting war support for
+    public Object relgiousIndividual; //Scriptable Object containing the information about the religon
     public int turnsActive = 0; //Dont Mess With This Var. It stores how many turns that this card has been active.
 }
 
@@ -47,7 +49,14 @@ public class Card : ScriptableObject
     public bool createsBuildings;
     public bool createsSettlement; //You can only ever create one settlement for each card. Never any more as the code is setup only to handle one, it is also a game feature
     public Settlements settlementScriptableObject;
+
+    //Unit Creation Variables
     public bool createsUnits;
+    public bool requiresBarrack;
+    public bool requiresWeaponSmith;
+    public bool requiresDiplomatTrainingHall;
+    public bool requiresTrainingHall;
+    public bool requiresMachineWorkshop;
 
     //Choose the Government if it is a Government Card or Government Related Card
     public string governmentType; // Name of the government created, or the name of the governemnt the war support count will be effecting
@@ -68,7 +77,7 @@ public class Card : ScriptableObject
     public int religionEffect;*/
 
     [TextArea(12, 40)]
-    public string effectDescriptionEditorDisplay = 
+    public string effectDescriptionEditorDisplay =
         "Strings to determine the effects on the game: Don't Alter Won't Change\n" +
         "If the effect only lasts for 1 turn, don't select the Requires Multiple Turns Bool.\n" +
         "If it only lasts for one turn, don't put in anything\n" +
@@ -77,11 +86,12 @@ public class Card : ScriptableObject
         "\"Silver Cost\" to take silver per turn\n" +
         "\"Food Cost\" to take food per turn\n" +
         "\"People Cost\" to take people per turn\n" +
-        "\"War Support Cost\" to take War Support per turn\n" +
+        "\"War Support Cost\" to increase War Support per turn against a certain government\n" +
         "\"Religion Cost\" to take away religion from area\n" +
         "\"Weariness Cost\" to effect war weariness\n" +
-        "\"Loyalty Cost\" to effect the loyalty of your people";
-    
+        "\"Loyalty Cost\" to effect the loyalty of your people" +
+        "\"Tech Cost\" to effect your empire's tech points";
+
     public List<EffectManagerList> effectManagerList = new List<EffectManagerList>();
     
     //Building Based Vars

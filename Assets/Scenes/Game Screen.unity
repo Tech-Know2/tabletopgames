@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -25344,7 +25344,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1972966341}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 757, y: 65, z: 92}
+  m_LocalPosition: {x: 565, y: 65, z: 67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -25364,6 +25364,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89507d3a5fcad97499401ca544f9ebef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerName: 
+  playerColor: 
+  avaliableColors:
+  - Red
+  - Blue
+  - Green
+  - Yellow
+  - Pink
+  - Purple
+  - Brown
+  - Black
+  - White
+  - Orange
   currentEra: 1
   currentTurn: 0
   eraOneLength: 20
@@ -25426,6 +25439,23 @@ MonoBehaviour:
   currentLoyalty: 0
   passedTurnCount: 0
   passedEraCount: 0
+  governmentEffectManagerList:
+  - governmentName: Communist
+    currentGovernmentWarSupport: 50
+  - governmentName: Democracy
+    currentGovernmentWarSupport: 50
+  - governmentName: Fascist
+    currentGovernmentWarSupport: 50
+  - governmentName: Monarchy
+    currentGovernmentWarSupport: 50
+  - governmentName: Oligarchy
+    currentGovernmentWarSupport: 50
+  - governmentName: Republic
+    currentGovernmentWarSupport: 50
+  - governmentName: Technocratic
+    currentGovernmentWarSupport: 50
+  - governmentName: Theocracy
+    currentGovernmentWarSupport: 50
   goldDisplay: {fileID: 774106163}
   silverDisplay: {fileID: 1669654357}
   warWearinessDisplay: {fileID: 0}
