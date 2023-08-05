@@ -50,29 +50,16 @@ public class CardEffectManager : MonoBehaviour
             print("Tile Selected");
         }
 
-        effectCostType = card.effectCostType;
-        turnEffectLength = card.turnEffectLength;
-        turnEffectCost = card.turnEffectCost;
-        cardEffectRegion = card.cardEffectRegion;
-
         if(card.isGovernmentCard == true)
         {
             government = card.government;
             governmentName = government.governmentName;
             assignsGovernment = card.assignsGovernment;
-            
+                
             if(card.isGovernmentWarSupportBoostCard == true || card.isAllianceCard == true || card.isDeclareWarCard == true || card.isPeaceTreatyCard == true || card.assignsGovernment == true)
             {
-                //governmentName = card.governemnt.governmentName;
-
                 GovernmentEffectFilter();
             }
-        }
-
-        //Check to see if the card Requires multiple Turns
-        if (card.requiresMultipleTurns == true && firstTime == true)
-        {
-            activeCards.Add(card);
         }
 
         //Check to see if the card creates buildings or settlements
@@ -87,42 +74,60 @@ public class CardEffectManager : MonoBehaviour
             CreateUnits();
         }
 
-        if(effectCostType == "Gold Cost")
+        for(int i = 0; i < card.effectManagerList.Count; i++)
         {
-            GoldCost();
-        }
-        else if (effectCostType == "Silver Cost")
-        {
-            SilverCost();
-        }
-        else if (effectCostType == "Loyalty Cost")
-        {
-            LoyaltyCost();
-        }
-        else if (effectCostType == "Food Cost")
-        {
-            FoodCost();
-        }
-        else if (effectCostType == "People Cost")
-        {
-            PeopleCost();
-        }
-        else if (effectCostType == "War Support Cost")
-        {
-            WarSupportCost();
-        }
-        else if (effectCostType == "Religion Cost")
-        {
-            ReligionCost();
-        }
-        else if (effectCostType == "Weariness Cost")
-        {
-            WearinessCost();
-        } else
-        {
-            if(government != null)
+            //Check to see if the card Requires multiple Turns
+            if (card.effectManagerList[i].requiresMultipleTurns == true && firstTime == true)
             {
-                print(card + "Does Not Have An Effect, Probably and Error");
+                activeCards.Add(card);
+            }
+            
+            effectCostType = card.effectManagerList[i].effectCostType;
+            turnEffectLength = card.effectManagerList[i].turnEffectLength;
+            turnEffectCost = card.effectManagerList[i].turnEffectCost;
+            cardEffectRegion = card.effectManagerList[i].religionName;
+
+            if(effectCostType == "Gold Cost")
+            {
+                GoldCost(i);
+            }
+            else if (effectCostType == "Silver Cost")
+            {
+                SilverCost(i);
+            }
+            else if (effectCostType == "Loyalty Cost")
+            {
+                LoyaltyCost(i);
+            }
+            else if (effectCostType == "Food Cost")
+            {
+                FoodCost(i);
+            }
+            else if (effectCostType == "People Cost")
+            {
+                PeopleCost(i);
+            }
+            else if (effectCostType == "War Support Cost")
+            {
+                WarSupportCost(i);
+            }
+            else if (effectCostType == "Religion Cost")
+            {
+                ReligionCost(i);
+            }
+            else if (effectCostType == "Tech Cost")
+            {
+                TechCost(i);
+            }
+            else if (effectCostType == "Weariness Cost")
+            {
+                WearinessCost(i);
+            } else
+            {
+                if(government != null)
+                {
+                    print(card + "Does Not Have An Effect, Probably and Error");
+                }
             }
         }
     }
@@ -130,94 +135,179 @@ public class CardEffectManager : MonoBehaviour
     //Government Related Effects
     public void GovernmentEffectFilter()
     {
-        if(card.isGovernmentWarSupportBoostCard == true)
+        for (int i = 0; i < card.effectManagerList.Count; i++)
         {
-            GovernmentWarSupportBoost();
-        }
-        else if(card.isAllianceCard == true == true)
-        {
-            AllianceCard();
-        } 
-        else if (card.isPeaceTreatyCard == true)
-        {
-            PeaceTreatyCard();
-        }
-        else if (card.isDeclareWarCard == true)
-        {
-            DeclareWarCard();
-        }
-        else if (card.assignsGovernment == true)
-        {
-            AssignGovernment();
+            if (card.isGovernmentWarSupportBoostCard == true)
+            {
+                GovernmentWarSupportBoost(i);
+            }
+            else if (card.isAllianceCard == true == true)
+            {
+                AllianceCard(i);
+            }
+            else if (card.isPeaceTreatyCard == true)
+            {
+                PeaceTreatyCard(i);
+            }
+            else if (card.isDeclareWarCard == true)
+            {
+                DeclareWarCard(i);
+            }
+            else if (card.assignsGovernment == true)
+            {
+                AssignGovernment(i);
+            }
         }
     }    
 
     //Different Types of Economic and Social Effects
-    public void GoldCost()
+    public void GoldCost(int i)
     {
         print("Gold Cost");
-        economyManager.currentGold = economyManager.currentGold + card.turnEffectCost;
+        economyManager.currentGold = economyManager.currentGold + card.effectManagerList[i].turnEffectCost;
     }
 
-    public void SilverCost()
+    public void SilverCost(int i)
     {
         print("Silver Cost");
-        economyManager.currentSilver = economyManager.currentSilver + card.turnEffectCost;
+        economyManager.currentSilver = economyManager.currentSilver + card.effectManagerList[i].turnEffectCost;
     }
 
-    public void LoyaltyCost()
+    public void LoyaltyCost(int i)
     {
         print("Loyalty Cost");
-        //economyManager.currentLoyalty = economyManager.currentLoyalty + card.turnEffectCost;
+        
+        //Effect the loyalty of the city that the card has been applied to
+        Settlements cardsSettlement = playerScript.playerSettlementDataList.Find(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation));
+
+        if (cardsSettlement != null)
+        {
+            cardsSettlement.calculatedLoyalty += card.effectManagerList[i].turnEffectCost;
+        }
     }
 
-    public void FoodCost()
+    public void FoodCost(int i)
     {
         print("Food Cost");
+        if(card.requiresASettlement == true)
+        {
+            //keep Count of the Tiles Being checked
+            int acceptableTileCount = 0;
+
+            Settlements buildingsSettlement = playerScript.playerSettlementDataList.Find(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation));
+            
+            for (int x = 0; x < buildingsSettlement.tilesUnderCityControl.Count; x++)
+            {
+                GameObject tile =  buildingsSettlement.tilesUnderCityControl[x];
+                if(card.desierdTileString.Contains(tile.tag))
+                {
+                    acceptableTileCount += 1;
+                }
+            }
+
+            print("previous "+ buildingsSettlement.cityFood);
+            print("Tiles " + acceptableTileCount);
+            buildingsSettlement.cityFood += (card.effectManagerList[i].turnEffectCost * acceptableTileCount);
+            print("current " + buildingsSettlement.cityFood);
+        }
     }
 
-    public void PeopleCost()
+    public void PeopleCost(int i)
     {
         print("People Cost");
+        Settlements buildingsSettlement = playerScript.playerSettlementDataList.Find(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation));
+        buildingsSettlement.cityFood += card.effectManagerList[i].turnEffectCost;
     }
 
-    public void WarSupportCost()
+    public void WarSupportCost(int i)
     {
         print("War Support Cost");
+        //Update the War Support value of the government the card effects
+        //Modular so it does not matter if the government is not listed, it will be added and then have the effect applied in a modular and scalable way
+
+        //Bool to keep track of the governments and if they exist or not
+        bool governmentExists = true;
+
+
+        for (int x = 0; x < economyManager.governmentEffectManagerList.Count; x++)
+        {
+            if (economyManager.governmentEffectManagerList[x].governmentName == card.effectManagerList[i].governmentName)
+            {
+                economyManager.governmentEffectManagerList[x].currentGovernmentWarSupport += card.effectManagerList[i].turnEffectCost;
+                governmentExists = true;
+            }
+
+            if (governmentExists && x == economyManager.governmentEffectManagerList.Count)
+            {
+                governmentExists = false;
+            }
+        }
+
+        if (governmentExists == false)
+        {
+            print("Government Does Not Exist, creating it now");
+
+            //Create the government and add it to the list. Making the system modular, and easy to change and update. Shouldn't need just redundant
+            GovernmentEffectManager newGovernment = new GovernmentEffectManager
+            {
+                governmentName = card.effectManagerList[i].governmentName, // Set the name as desired
+                currentGovernmentWarSupport = 50 + card.effectManagerList[i].turnEffectCost // Set the initial war support value as desired
+            };
+        }
     }
 
-    public void ReligionCost()
+    public void ReligionCost(int i)
     {
         print("Religion Cost");
+        //Add religious producable objects to the list in the settlement to be stored and mofified for later.
+        //Religious Units are created and added based on the empire's/player's color that added them 
+
+        Settlements religiousSettlement = playerScript.playerSettlementDataList.Find(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation));
+        Object clonedReligiousIndividual = Instantiate(card.effectManagerList[i].relgiousIndividual);
+
+        //Add the Religious Individual(s) to the settlement list
+        religiousSettlement.settlementReligiousFollowers.Add(clonedReligiousIndividual);
+        religiousSettlement.cityPopulation += 1;
     }
 
-    public void WearinessCost()
+    public void WearinessCost(int i)
     {
         print("Weariness Cost");
+
+        Settlements wearySettlement = playerScript.playerSettlementDataList.Find(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation));
+
+        wearySettlement.calculatedWeariness += card.effectManagerList[i].turnEffectCost;
+    }
+
+    public void TechCost(int i)
+    {
+        print("Tech Point Cost");
+
+        economyManager.currentTechPoints += card.effectManagerList[i].turnEffectCost;
     }
 
     //Different Types of Political Effects    
-    public void GovernmentWarSupportBoost()
+    public void GovernmentWarSupportBoost(int i)
     {
         print("Government War Support Boost");
     }
 
-    public void AllianceCard()
+    public void AllianceCard(int i)
     {
         print("Alliance Card");
     }
 
-    public void DeclareWarCard()
+    public void DeclareWarCard(int i)
     {
         print("Declare War Card");
     }
 
-    public void PeaceTreatyCard()
+    public void PeaceTreatyCard(int i)
     {
         print("Peace Treaty Card");
     }
 
-    public void AssignGovernment()
+    public void AssignGovernment(int i)
     {
         print("Assigned Government" + governmentName);
         playerScript.government = government;
@@ -264,6 +354,108 @@ public class CardEffectManager : MonoBehaviour
     public void CreateUnits()
     {
         //Create Units
+        //Get the informationabout the city that is in control of the tile
+        //Determine if the city has a building capable of producing units
+        //If so the card can be placed and used
+
+        if (card.requiresBarrack == true)
+        {
+            Settlements buildingsSettlement = playerScript.playerSettlementDataList.Find(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation));
+
+            if (buildingsSettlement != null)
+            {
+                bool hasBarrack = buildingsSettlement.settlementBuildings.Any(buildingData => buildingData.buildingName.Contains("Barrack"));
+
+                if (hasBarrack)
+                {
+                    // The settlement has a building with the name "Barrack," so the card can be placed and used
+                    // Implement the logic for using the card here
+                }
+                else
+                {
+                    print("Can't train units here. The settlement does not have a Barrack.");
+                }
+            }
+        }
+        else if (card.requiresWeaponSmith == true)
+        {
+            Settlements buildingsSettlement = playerScript.playerSettlementDataList.Find(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation));
+
+            if (buildingsSettlement != null)
+            {
+                bool hasWeaponSmith = buildingsSettlement.settlementBuildings.Any(buildingData => buildingData.buildingName.Contains("Barrack"));
+
+                if (hasWeaponSmith)
+                {
+                    // The settlement has a building with the name "Barrack," so the card can be placed and used
+                    // Implement the logic for using the card here
+                }
+                else
+                {
+                    print("Can't train units here. The settlement does not have a Weapon Smith.");
+                }
+            }
+        }
+        else if (card.requiresDiplomatTrainingHall == true)
+        {
+            Settlements buildingsSettlement = playerScript.playerSettlementDataList.Find(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation));
+
+            if (buildingsSettlement != null)
+            {
+                bool hasDiplomatHall = buildingsSettlement.settlementBuildings.Any(buildingData => buildingData.buildingName.Contains("Barrack"));
+
+                if (hasDiplomatHall)
+                {
+                    // The settlement has a building with the name "Barrack," so the card can be placed and used
+                    // Implement the logic for using the card here
+                }
+                else
+                {
+                    print("Can't train units here. The settlement does not have a Diplomat Training Hall.");
+                }
+            }
+        }
+        else if (card.requiresMachineWorkshop == true)
+        {
+            Settlements buildingsSettlement = playerScript.playerSettlementDataList.Find(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation));
+
+            if (buildingsSettlement != null)
+            {
+                bool hasMachineWorkshop = buildingsSettlement.settlementBuildings.Any(buildingData => buildingData.buildingName.Contains("Barrack"));
+
+                if (hasMachineWorkshop)
+                {
+                    // The settlement has a building with the name "Barrack," so the card can be placed and used
+                    // Implement the logic for using the card here
+                }
+                else
+                {
+                    print("Can't train units here. The settlement does not have a Machine Workshop.");
+                }
+            }
+        }
+        else if (card.requiresTrainingHall == true)
+        {
+            Settlements buildingsSettlement = playerScript.playerSettlementDataList.Find(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation));
+
+            if (buildingsSettlement != null)
+            {
+                bool hasTrainingHall = buildingsSettlement.settlementBuildings.Any(buildingData => buildingData.buildingName.Contains("Barrack"));
+
+                if (hasTrainingHall)
+                {
+                    // The settlement has a building with the name "Barrack," so the card can be placed and used
+                    // Implement the logic for using the card here
+                }
+                else
+                {
+                    print("Can't train units here. The settlement does not have a Training Hall.");
+                }
+            }
+        }
+        else {
+            print("Can't train this unit here");
+        }
     }
 
     //Manage the Currently Active Cards and their Effects
@@ -273,8 +465,6 @@ public class CardEffectManager : MonoBehaviour
 
         foreach (Card currentCard in activeCards.ToArray()) // Iterate over a copy of activeCards
         {
-            currentCard.turnsActive++;
-
             // Apply the card effect
             card = currentCard;
 
@@ -283,9 +473,22 @@ public class CardEffectManager : MonoBehaviour
             firstTime = false;
             EffectFilter();
 
-            if (currentCard.turnsActive + 1 > currentCard.turnEffectLength)
+            //Go through the effects and check if they have been running for the appropiate amount of time
+            for (int i = 0; i < card.effectManagerList.Count; i++)
             {
-                cardsToRemove.Add(currentCard);
+                currentCard.effectManagerList[i].turnsActive++;
+
+                if (currentCard.effectManagerList[i].turnsActive >= currentCard.effectManagerList[i].turnEffectLength)
+                {
+                    currentCard.effectManagerList.RemoveAt(i);
+                    i--; // Adjust the index after removing an element
+                }
+
+                if (currentCard.effectManagerList.Count <= 0)
+                {
+                    cardsToRemove.Add(currentCard);
+                    break; // No need to continue iterating if all effects have been removed
+                }
             }
         }
 

@@ -4,10 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+[System.Serializable]
+public class GovernmentEffectManager
+{
+    public string governmentName; //Name of the Government
+    public int currentGovernmentWarSupport = 50; //Initial War Support Value
+}
+
 public class EconomyManager : MonoBehaviour
 {
     //Effectable Values
-    public int currentGold;
+    public float currentGold;
     public int currentSilver;
     public float currentTechPoints;
     public int currentWarWeariness;
@@ -18,13 +25,7 @@ public class EconomyManager : MonoBehaviour
     public int passedEraCount;
 
     //War Support Against Nations
-    private int currentDemocraticWarSupport;
-    private int currentRepublicWarSupport;
-    private int currentTheocracyWarSupport;
-    private int currentFascistWarSupport;
-    private int currentCommunistWarSupport;
-    private int currentMonarchyWarSupport;
-    private int currentOligarchyWarSupport;
+    public List<GovernmentEffectManager> governmentEffectManagerList = new List<GovernmentEffectManager>();
 
     //UI Display Elements
     public TextMeshProUGUI goldDisplay;

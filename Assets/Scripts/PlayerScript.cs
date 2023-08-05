@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    // Vars for Game Management
+    //Players Visible Information
+    public string playerName;
+    public string playerColor;
+    public List<string> avaliableColors = new List<string>();
+
+    //Vars for Game Management
     public int currentEra;
     public int currentTurn;
 
@@ -50,6 +55,13 @@ public class PlayerScript : MonoBehaviour
         currentTurn = 0;
 
         dealer.filterCards();
+
+        //Determine Player Name and Player Empire Color
+        int randColorInt = Random.Range(0, avaliableColors.Count);
+        playerColor = avaliableColors[randColorInt];
+
+        //Generate Player Name
+        nameGenerator.PlayerNameGeneration();
     }
 
     public void Name()
@@ -63,10 +75,11 @@ public class PlayerScript : MonoBehaviour
         for (int i = 0; i < playerSettlementDataList.Count; i++)
         {
             Settlements settlement = playerSettlementDataList[i];
+            buildingEffectController.SettlementEffectManager(playerSettlementDataList[i]);
             for (int x = 0; x < settlement.settlementBuildings.Count; x++)
             {
                 Buildings building = settlement.settlementBuildings[x];
-                buildingEffectController.EffectController(building, settlement);
+                buildingEffectController.BuildingEffectManager(building, settlement);
             }
         }
 
@@ -74,7 +87,15 @@ public class PlayerScript : MonoBehaviour
         {
             Buildings building = playerBuildingsDataList[i];
 
-            buildingEffectController.EffectController(building, null);
+            buildingEffectController.BuildingEffectManager(building, null);
+        }
+
+        for (int i = 0; i < playerSettlementObjectList.Count; i++)
+        {
+            GameObject settlementObject = playerSettlementObjectList[i];
+            CityController cityController = settlementObject.GetComponent<CityController>();
+
+            cityController.UpdateCityDisplayValues();
         }
     }
 

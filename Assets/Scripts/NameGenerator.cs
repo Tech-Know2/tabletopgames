@@ -32,4 +32,10 @@ public class NameGenerator : MonoBehaviour
         //Combine the words together to make the name
         newName = adjFirstThree + nounFinalThree;
     }
+
+    public void PlayerNameGeneration()
+    {
+        //Generate a player name from the mid evil era
+        return;
+    }
 }

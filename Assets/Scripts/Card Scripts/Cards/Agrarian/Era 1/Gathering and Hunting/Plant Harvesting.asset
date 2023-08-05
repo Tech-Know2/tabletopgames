@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Plant Harvesting
   m_EditorClassIdentifier: 
   cardName: Plant Harvesting
-  description: Gather 1 food from each of the surround fertile tiles around a city.
-    Requires 5 people.
+  description: Gather 5 food from each of the plains tiles around a city. Requires
+    5 people.
   cardCategory: Agrarian
   cardColor: '#0CA789'
   cardTech: Gathering and Hunting
@@ -28,11 +28,11 @@ MonoBehaviour:
   isDeclareWarCard: 0
   isPeaceTreatyCard: 0
   isPurchasable: 1
-  requiresTileLocation: 1
+  requiresASettlement: 1
   createsBuildings: 0
   createsSettlement: 0
-  settlementScriptableObject: []
-  createdUnits: 0
+  settlementScriptableObject: {fileID: 0}
+  createsUnits: 0
   governmentType: 
   government: {fileID: 0}
   governmentAlliance: 
@@ -68,17 +68,23 @@ MonoBehaviour:
 
     "Loyalty Cost" to
     effect the loyalty of your people'
-  requiresMultipleTurns: 0
-  turnEffectLength: 0
-  requiresPeople: 0
-  turnEffectCost: 0
-  effectCostType: 
-  religionName: 
-  turnsActive: 0
+  effectManagerList:
+  - requiresMultipleTurns: 0
+    turnEffectLength: 0
+    turnEffectCost: 5
+    effectCostType: Food Cost
+    religionName: 
+    turnsActive: 0
+  - requiresMultipleTurns: 0
+    turnEffectLength: 0
+    turnEffectCost: -5
+    effectCostType: People Cost
+    religionName: 
+    turnsActive: 0
   buildingGameObjects: []
-  buildingScriptableObject: []
   desierdTileString: "Strings to determine the effects on the game: Don't Alter Won't
     Change\n\"Deep Sea\" \n\"Shallow Sea\" \n\"Sand\" \n\"Plains\" \n\"Mountains\"
     \n"
-  desiredTilesList: []
+  desiredTilesList:
+  - Plains
   units: []

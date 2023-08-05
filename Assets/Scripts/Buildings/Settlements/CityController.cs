@@ -19,7 +19,7 @@ public class CityController : MonoBehaviour
     public int cityPopulation;
     public float calculatedLoyalty;
     public int cityFood;
-    public List<GameObject> settlementReligiousFollowers = new List<GameObject>();
+    public List<Object> settlementReligiousFollowers = new List<Object>();
     public List<Buildings> settlementBuildings = new List<Buildings>();
     public List<GameObject> tilesUnderCityControl = new List<GameObject>();
     public List<Unit> settlementUnits = new List<Unit>();
@@ -42,7 +42,7 @@ public class CityController : MonoBehaviour
         CheckCollision();
     }
 
-    public void Update() //Update All of the variables to the new and updated data
+    public void UpdateCityDisplayValues() //Update all of the variables to the new and updated data
     {
         cityName = settlementData.cityName;
         cityLevel = settlementData.cityLevel;
