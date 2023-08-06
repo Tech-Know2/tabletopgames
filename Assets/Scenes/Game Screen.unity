@@ -25364,6 +25364,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89507d3a5fcad97499401ca544f9ebef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerName: 
+  playerColor: 
+  avaliableColors:
+  - Red
+  - Orange
+  - Yellow
+  - Black
+  - White
+  - Pink
+  - Purple
+  - Green
+  - Blue
   currentEra: 1
   currentTurn: 0
   eraOneLength: 20
@@ -25426,6 +25438,7 @@ MonoBehaviour:
   currentLoyalty: 0
   passedTurnCount: 0
   passedEraCount: 0
+  governmentEffectManagerList: []
   goldDisplay: {fileID: 774106163}
   silverDisplay: {fileID: 1669654357}
   warWearinessDisplay: {fileID: 0}

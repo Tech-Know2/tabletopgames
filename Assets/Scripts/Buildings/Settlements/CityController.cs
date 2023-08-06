@@ -19,7 +19,7 @@ public class CityController : MonoBehaviour
     public int cityPopulation;
     public float calculatedLoyalty;
     public int cityFood;
-    public List<GameObject> settlementReligiousFollowers = new List<GameObject>();
+    public List<Object> settlementReligiousFollowers = new List<Object>();
     public List<Buildings> settlementBuildings = new List<Buildings>();
     public List<GameObject> tilesUnderCityControl = new List<GameObject>();
     public List<Unit> settlementUnits = new List<Unit>();
@@ -96,7 +96,7 @@ public class CityController : MonoBehaviour
         } 
         else 
         {
-
+            //Do Something
         }
     }
 }

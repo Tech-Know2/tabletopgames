@@ -33,6 +33,11 @@ MonoBehaviour:
   createsSettlement: 0
   settlementScriptableObject: {fileID: 0}
   createsUnits: 0
+  requiresBarrack: 0
+  requiresWeaponSmith: 0
+  requiresDiplomatTrainingHall: 0
+  requiresTrainingHall: 0
+  requiresMachineWorkshop: 0
   governmentType: 
   government: {fileID: 0}
   governmentAlliance: 
@@ -74,12 +79,16 @@ MonoBehaviour:
     turnEffectCost: 5
     effectCostType: Food Cost
     religionName: 
+    governmentName: 
+    relgiousIndividual: {fileID: 0}
     turnsActive: 0
   - requiresMultipleTurns: 0
     turnEffectLength: 0
     turnEffectCost: -5
     effectCostType: People Cost
     religionName: 
+    governmentName: 
+    relgiousIndividual: {fileID: 0}
     turnsActive: 0
   buildingGameObjects: []
   desierdTileString: "Strings to determine the effects on the game: Don't Alter Won't

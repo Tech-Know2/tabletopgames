@@ -67,7 +67,7 @@ public class Dealer : MonoBehaviour
     //Dealer Locations and Spot Types
     //First Arrays store the drawn cards
     private List<Card> actionCard = new List<Card>();
-    private List<Card> eventCardSlot = new List<Card>();
+    private List<Card> eventCard = new List<Card>();
 
     //Second Array stores the spots where the cards will be displayed
     public List<GameObject> actionCardHolder = new List<GameObject>();
@@ -143,7 +143,7 @@ public class Dealer : MonoBehaviour
             }
             // Display the Cards in the Appropriate Slots
             playActionCards();
-            //playEventCards();
+            playEventCards();
 
             print("Next Turn Function Ran Through Here");
         //}
@@ -155,7 +155,7 @@ public class Dealer : MonoBehaviour
 
         //Temp Way to Clear the lists of the cards, will be changed later, and have the cards sent to the auction house
         actionCard.Clear();
-        eventCardSlot.Clear();
+        eventCard.Clear();
 
         //Remove the Game Object Cards that where just created
         for (int x = 0; x < actionCardHolder.Count; x++)
@@ -598,17 +598,29 @@ public class Dealer : MonoBehaviour
     {
         for (int e = 0; e < eventCardHolder.Count; e++)
         {
-            int eventEra = Random.Range(0, 31);
-
-            if (currentEra == 1)
+            if (playerScript.currentEra == 1)
             {
+                int randCard = Random.Range(0, eraOneEventCards.Count);
 
-            } else if (currentEra == 2)
-            {
+                Card selectedCard = eraOneEventCards[randCard];
 
-            } else if (currentEra == 3)
+                eventCard.Add(selectedCard);
+
+            } else if (playerScript.currentEra == 2)
             {
-                
+                int randCard = Random.Range(0, eraOneEventCards.Count);
+
+                Card selectedCard = eraOneEventCards[randCard];
+
+                eventCard.Add(selectedCard);
+
+            } else if (playerScript.currentEra == 3)
+            {
+                int randCard = Random.Range(0, eraOneEventCards.Count);
+
+                Card selectedCard = eraOneEventCards[randCard];
+
+                eventCard.Add(selectedCard);
             }
         }
     }
@@ -680,7 +692,61 @@ public class Dealer : MonoBehaviour
         //Assign the cards that where selectd to be placed into the slots for them
         for (int e = 0; e < eventCardHolder.Count; e++)
         {
-            //event card sorting and placements
+            Card card = eventCard[e];
+
+            GameObject physicalCard = Instantiate(cardPrefab, actionCardHolder[e].transform);
+            physicalCard.tag = "Card";
+            physicalCard.transform.position = actionCardHolder[e].transform.position;
+            physicalCard.transform.rotation = actionCardHolder[e].transform.rotation;
+            physicalCard.transform.localScale = new Vector3(1f, 1f, 1.2f);
+
+            //Attach the Sctipt, and then the Data
+            CardDataHolder cardDataHolder = physicalCard.AddComponent<CardDataHolder>();
+            cardDataHolder.cardData = card;
+
+            //Change the color of the card to coincide with the tech category that the card belongs to
+            MeshRenderer cardBackingRenderer = physicalCard.transform.Find("CardBacking")?.GetComponent<MeshRenderer>();
+            string cardColor = card.cardColor;
+
+            if (cardBackingRenderer != null)
+            {
+                Color newColor;
+                if (ColorUtility.TryParseHtmlString(cardColor, out newColor))
+                {
+                    // Get a copy of the material
+                    Material newMaterial = new Material(cardBackingRenderer.sharedMaterial);
+                    // Assign the new color to the material
+                    newMaterial.color = newColor;
+                    // Assign the updated material to the MeshRenderer
+                    cardBackingRenderer.material = newMaterial;
+                }
+                else
+                {
+                    Debug.LogError("Invalid color code: " + cardColor);
+                }
+            }
+
+            // Find the "Card UI Canvas" GameObject within the instantiated prefab, the parent of all of the UI elements for the card.
+            //Make sure that the UI element name for all of the things are without spaces, and are properly capsized with the first letter of both words being upper case and everyhting else lowercase, and with no spaces
+            Transform cardUICanvas = physicalCard.transform.Find("Card UI Canvas");
+            if (cardUICanvas != null)
+            {
+                TextMeshProUGUI nameSlot = cardUICanvas.GetComponentInChildren<TextMeshProUGUI>();
+                if (nameSlot != null)
+                    nameSlot.text = card.name;
+
+                TextMeshProUGUI cardDescriptionSlot = cardUICanvas.transform.Find("CardDescription").GetComponent<TextMeshProUGUI>();
+                if (cardDescriptionSlot != null)
+                    cardDescriptionSlot.text = card.description;
+
+                TextMeshProUGUI cardEraSlot = cardUICanvas.transform.Find("CardEra").GetComponent<TextMeshProUGUI>();
+                if (cardEraSlot != null)
+                    cardEraSlot.text = card.cardEra;
+
+                TextMeshProUGUI cardCategorySlot = cardUICanvas.transform.Find("CardCategory").GetComponent<TextMeshProUGUI>();
+                if (cardCategorySlot != null)
+                    cardCategorySlot.text = card.cardCategory;
+            }
         }
     }
 }

@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    // Vars for Game Management
+    //Players Visible Information
+    public string playerName;
+    public string playerColor;
+    public List<string> avaliableColors = new List<string>();
+
+    //Vars for Game Management
     public int currentEra;
     public int currentTurn;
 
@@ -50,6 +55,13 @@ public class PlayerScript : MonoBehaviour
         currentTurn = 0;
 
         dealer.filterCards();
+
+        //Determine Player Name and Player Empire Color
+        int randColorInt = Random.Range(0, avaliableColors.Count);
+        playerColor = avaliableColors[randColorInt];
+
+        //Generate Player Name
+        nameGenerator.PlayerNameGeneration();
     }
 
     public void Name()
