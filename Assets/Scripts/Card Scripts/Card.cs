@@ -16,6 +16,7 @@ public class EffectManagerList
     public string governmentName; //Name of the government your effecting war support for
     public Object relgiousIndividual; //Scriptable Object containing the information about the religon
     public int turnsActive = 0; //Dont Mess With This Var. It stores how many turns that this card has been active.
+    public bool requiresTiles; //Select true if the output of the cards effect is determined by tiles within the city
 }
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Card")]

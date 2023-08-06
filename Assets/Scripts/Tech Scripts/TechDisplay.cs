@@ -49,10 +49,7 @@ public class TechDisplay : MonoBehaviour
         if (previousTechButton != null)
         {
             TechDisplay techDisplay = previousTechButton.GetComponent<TechDisplay>();
-            if (techDisplay != null)
-            {
-                previousTech = techDisplay.tech;
-            }
+            previousTech = techDisplay.originalTech;
         }
     }
 
@@ -70,6 +67,14 @@ public class TechDisplay : MonoBehaviour
         updatedtechPointCount = economyManager.currentTechPoints;
 
         bool canResearch = false;
+
+        if (previousTechButton != null)
+        {
+            TechDisplay techDisplay = previousTechButton.GetComponent<TechDisplay>();
+            previousTech = techDisplay.originalTech;
+
+            print(previousTech.techName + " previous tech name");
+        }
 
         if (previousTech == null || researchedTechNames.Contains(previousTech.techName))
         {

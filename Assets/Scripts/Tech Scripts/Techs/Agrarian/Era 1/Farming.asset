@@ -17,7 +17,8 @@ MonoBehaviour:
   techType: Agrarian
   techColor: '#0CA789'
   techEra: 1
-  isResearched: 1
-  goldCost: 100
-  techButtons: []
-  techCards: []
+  isResearched: 0
+  techCards:
+  - {fileID: 11400000, guid: 459ff0d565b3c07428412d18ba0fd2c8, type: 2}
+  - {fileID: 11400000, guid: 261318bc69a3aed4c9e27291d913d5ae, type: 2}
+  - {fileID: 11400000, guid: 17837e223fc75c641a9455b7c71c734a, type: 2}

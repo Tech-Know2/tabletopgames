@@ -28,11 +28,16 @@ MonoBehaviour:
   isDeclareWarCard: 0
   isPeaceTreatyCard: 0
   isPurchasable: 1
-  requiresASettlement: 0
-  createsBuildings: 0
+  requiresASettlement: 1
+  createsBuildings: 1
   createsSettlement: 0
   settlementScriptableObject: {fileID: 0}
   createsUnits: 0
+  requiresBarrack: 0
+  requiresWeaponSmith: 0
+  requiresDiplomatTrainingHall: 0
+  requiresTrainingHall: 0
+  requiresMachineWorkshop: 0
   governmentType: 
   government: {fileID: 0}
   governmentAlliance: 
@@ -68,14 +73,9 @@ MonoBehaviour:
 
     "Loyalty Cost" to
     effect the loyalty of your people'
-  requiresMultipleTurns: 0
-  turnEffectLength: 0
-  requiresPeople: 0
-  turnEffectCost: 0
-  effectCostType: 
-  religionName: 
-  turnsActive: 0
-  buildingGameObjects: []
+  effectManagerList: []
+  buildingGameObjects:
+  - {fileID: 7244802663986789280, guid: 0d284b4a7b24ed6459db6cadec9407c3, type: 3}
   desierdTileString: "Strings to determine the effects on the game: Don't Alter Won't
     Change\n\"Deep Sea\" \n\"Shallow Sea\" \n\"Sand\" \n\"Plains\" \n\"Mountains\"
     \n"

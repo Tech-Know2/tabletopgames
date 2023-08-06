@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Game Hunting
   m_EditorClassIdentifier: 
   cardName: Game Hunting
-  description: Construct a hunting cabin in one of your cities that will produce
-    5 food every turn. Requires 5 workers.
+  description: Gather 2 food from each of the plains tiles around a city. Requires
+    10 people.
   cardCategory: Agrarian
   cardColor: '#0CA789'
   cardTech: Gathering and Hunting
@@ -29,10 +29,15 @@ MonoBehaviour:
   isPeaceTreatyCard: 0
   isPurchasable: 1
   requiresASettlement: 1
-  createsBuildings: 1
+  createsBuildings: 0
   createsSettlement: 0
   settlementScriptableObject: {fileID: 0}
   createsUnits: 0
+  requiresBarrack: 0
+  requiresWeaponSmith: 0
+  requiresDiplomatTrainingHall: 0
+  requiresTrainingHall: 0
+  requiresMachineWorkshop: 0
   governmentType: 
   government: {fileID: 0}
   governmentAlliance: 
@@ -68,9 +73,17 @@ MonoBehaviour:
 
     "Loyalty Cost" to
     effect the loyalty of your people'
-  effectManagerList: []
-  buildingGameObjects:
-  - {fileID: 0}
+  effectManagerList:
+  - requiresMultipleTurns: 0
+    turnEffectLength: 0
+    turnEffectCost: 2
+    effectCostType: Food Cost
+    religionName: 
+    governmentName: 
+    relgiousIndividual: {fileID: 0}
+    turnsActive: 0
+    requiresTiles: 1
+  buildingGameObjects: []
   desierdTileString: "Strings to determine the effects on the game: Don't Alter Won't
     Change\n\"Deep Sea\" \n\"Shallow Sea\" \n\"Sand\" \n\"Plains\" \n\"Mountains\"
     \n"

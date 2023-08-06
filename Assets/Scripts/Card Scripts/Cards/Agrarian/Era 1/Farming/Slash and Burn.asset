@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b214d7cb84762544eba4738d12acc8e9, type: 3}
-  m_Name: Plant Harvesting
+  m_Name: Slash and Burn
   m_EditorClassIdentifier: 
-  cardName: Plant Harvesting
-  description: Gather 5 food from each of the plains tiles around a city. Requires
-    5 people.
+  cardName: Slash and Burn
+  description: Start a slash and burn farm that will produce 5 food per turn for
+    5 turns. Costs 2 people per turn.
   cardCategory: Agrarian
   cardColor: '#0CA789'
-  cardTech: Gathering and Hunting
+  cardTech: Farming
   cardEra: 1
   originalPlayer: 
   cardEffectRegion: 
@@ -64,28 +64,29 @@ MonoBehaviour:
     "People Cost" to take people per turn
 
     "War Support
-    Cost" to take War Support per turn
+    Cost" to increase War Support per turn against a certain government
 
-    "Religion Cost" to take away religion
-    from area
+    "Religion
+    Cost" to take away religion from area
 
     "Weariness Cost" to effect war weariness
 
-    "Loyalty Cost" to
-    effect the loyalty of your people'
+    "Loyalty
+    Cost" to effect the loyalty of your people"Tech Cost" to effect your empire''s
+    tech points'
   effectManagerList:
-  - requiresMultipleTurns: 0
-    turnEffectLength: 0
+  - requiresMultipleTurns: 1
+    turnEffectLength: 5
     turnEffectCost: 5
     effectCostType: Food Cost
     religionName: 
     governmentName: 
     relgiousIndividual: {fileID: 0}
     turnsActive: 0
-    requiresTiles: 1
-  - requiresMultipleTurns: 0
-    turnEffectLength: 0
-    turnEffectCost: -5
+    requiresTiles: 0
+  - requiresMultipleTurns: 1
+    turnEffectLength: 5
+    turnEffectCost: -2
     effectCostType: People Cost
     religionName: 
     governmentName: 
@@ -94,8 +95,7 @@ MonoBehaviour:
     requiresTiles: 0
   buildingGameObjects: []
   desierdTileString: "Strings to determine the effects on the game: Don't Alter Won't
-    Change\n\"Deep Sea\" \n\"Shallow Sea\" \n\"Sand\" \n\"Plains\" \n\"Mountains\"
-    \n"
-  desiredTilesList:
-  - Plains
+    Change\n\"Indicates which tile the card can effect\" \n\"Deep Sea\" \n\"Shallow
+    Sea\" \n\"Sand\" \n\"Plains\" \n\"Mountains\" \n"
+  desiredTilesList: []
   units: []

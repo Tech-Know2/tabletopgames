@@ -44,10 +44,12 @@ public class BuildingEffectController : MonoBehaviour
         //Calculate City Income
         economyManager.currentGold += (float)(settlement.cityPopulation * 0.1);
 
+        /* Food Calculation
         //Have the people consume some of the food
         settlement.cityFood -= settlement.cityPopulation;
 
         //Have the people reproduce based on how much food there is (system may not work, will rework later)
         settlement.cityPopulation += (int)(settlement.cityFood * 0.25);
+        */
     }
 }

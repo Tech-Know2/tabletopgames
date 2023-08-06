@@ -196,19 +196,30 @@ public class CardEffectManager : MonoBehaviour
 
             Settlements buildingsSettlement = playerScript.playerSettlementDataList.Find(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation));
             
-            for (int x = 0; x < buildingsSettlement.tilesUnderCityControl.Count; x++)
+            if(card.effectManagerList[i].requiresTiles == true)
             {
-                GameObject tile =  buildingsSettlement.tilesUnderCityControl[x];
-                if(card.desierdTileString.Contains(tile.tag))
+                for (int x = 0; x < buildingsSettlement.tilesUnderCityControl.Count; x++)
                 {
-                    acceptableTileCount += 1;
+                    GameObject tile =  buildingsSettlement.tilesUnderCityControl[x];
+                    if(card.desierdTileString.Contains(tile.tag))
+                    {
+                        acceptableTileCount += 1;
+                    }
                 }
-            }
 
-            print("previous "+ buildingsSettlement.cityFood);
-            print("Tiles " + acceptableTileCount);
-            buildingsSettlement.cityFood += (card.effectManagerList[i].turnEffectCost * acceptableTileCount);
-            print("current " + buildingsSettlement.cityFood);
+                print("previous "+ buildingsSettlement.cityFood);
+                print("Tiles " + acceptableTileCount);
+                buildingsSettlement.cityFood += (card.effectManagerList[i].turnEffectCost * acceptableTileCount);
+                print("current " + buildingsSettlement.cityFood);
+                
+            } else 
+            {
+                print("previous "+ buildingsSettlement.cityFood);
+                buildingsSettlement.cityFood += card.effectManagerList[i].turnEffectCost;
+                print("current " + buildingsSettlement.cityFood);
+            }
+            
+            
         }
     }
 
