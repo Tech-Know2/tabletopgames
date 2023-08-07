@@ -27,8 +27,6 @@ public class TechDisplay : MonoBehaviour
         Transform playerAndCameraRig = GameObject.Find("Player and Camera Rig")?.transform;
         clonedTechData = playerAndCameraRig.GetComponentInChildren<ClonedTechData>();
 
-        originalTech.ResetTechState();
-
         currentTechButton = GetComponent<Button>();
         tech = Instantiate(originalTech);
 
@@ -49,10 +47,7 @@ public class TechDisplay : MonoBehaviour
         if (previousTechButton != null)
         {
             TechDisplay techDisplay = previousTechButton.GetComponent<TechDisplay>();
-            if (techDisplay != null)
-            {
-                previousTech = techDisplay.tech;
-            }
+            previousTech = techDisplay.originalTech;
         }
     }
 
@@ -69,7 +64,20 @@ public class TechDisplay : MonoBehaviour
         // Get the Current Amount of Tech Points from Player
         updatedtechPointCount = economyManager.currentTechPoints;
 
+        for (int i = 0; i < clonedTechData.clonedResearchedTechs.Count; i++)
+        {
+            researchedTechNames.Add(clonedTechData.clonedResearchedTechs[i].techName);
+        }
+
         bool canResearch = false;
+
+        if (previousTechButton != null)
+        {
+            TechDisplay techDisplay = previousTechButton.GetComponent<TechDisplay>();
+            previousTech = techDisplay.originalTech;
+
+            print(previousTech.techName + " previous tech name");
+        }
 
         if (previousTech == null || researchedTechNames.Contains(previousTech.techName))
         {

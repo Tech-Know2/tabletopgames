@@ -12,6 +12,12 @@ public class Unit : ScriptableObject
     public string unitColor;
     public int unitEra;
     public Sprite art;
+    public GameObject unitGameObject;
+
+    //Creation Cost Information
+    public int initialFoodCost;
+    public int initialSilverCost;
+    public int initialGoldCost;
 
     //Upkeep Information
     public int silverCostPerTurn;
@@ -53,5 +59,5 @@ public class Unit : ScriptableObject
 
     //Variables to Manage Unit Merges
     public GameObject[] mergeUnitRequierment;
-    public GameObject[] mergedunit;
+    public GameObject[] mergedUnit;
 }

@@ -16,6 +16,7 @@ public class EffectManagerList
     public string governmentName; //Name of the government your effecting war support for
     public Object relgiousIndividual; //Scriptable Object containing the information about the religon
     public int turnsActive = 0; //Dont Mess With This Var. It stores how many turns that this card has been active.
+    public bool requiresTiles; //Select true if the output of the cards effect is determined by tiles within the city
 }
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Card")]
@@ -51,6 +52,7 @@ public class Card : ScriptableObject
     public Settlements settlementScriptableObject;
 
     //Unit Creation Variables
+    public bool createUnitGlobally;
     public bool createsUnits;
     public bool requiresBarrack;
     public bool requiresWeaponSmith;
@@ -67,14 +69,6 @@ public class Card : ScriptableObject
 
     //Choose the Government to Declare War on if it is that Card Type
     public string governmentWarDecleration;
-
-    //Card Effects / Costs
-    /*public int goldPerTurnEffect;
-    public int silverPerTurnEffect;
-    public int warSupportAgainstGovernmentEffect;
-    public int wearinessEffect;
-    public int loyaltySabotageEffect;
-    public int religionEffect;*/
 
     [TextArea(12, 40)]
     public string effectDescriptionEditorDisplay =

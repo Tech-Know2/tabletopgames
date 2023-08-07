@@ -196,19 +196,30 @@ public class CardEffectManager : MonoBehaviour
 
             Settlements buildingsSettlement = playerScript.playerSettlementDataList.Find(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation));
             
-            for (int x = 0; x < buildingsSettlement.tilesUnderCityControl.Count; x++)
+            if(card.effectManagerList[i].requiresTiles == true)
             {
-                GameObject tile =  buildingsSettlement.tilesUnderCityControl[x];
-                if(card.desierdTileString.Contains(tile.tag))
+                for (int x = 0; x < buildingsSettlement.tilesUnderCityControl.Count; x++)
                 {
-                    acceptableTileCount += 1;
+                    GameObject tile =  buildingsSettlement.tilesUnderCityControl[x];
+                    if(card.desierdTileString.Contains(tile.tag))
+                    {
+                        acceptableTileCount += 1;
+                    }
                 }
-            }
 
-            print("previous "+ buildingsSettlement.cityFood);
-            print("Tiles " + acceptableTileCount);
-            buildingsSettlement.cityFood += (card.effectManagerList[i].turnEffectCost * acceptableTileCount);
-            print("current " + buildingsSettlement.cityFood);
+                print("previous "+ buildingsSettlement.cityFood);
+                print("Tiles " + acceptableTileCount);
+                buildingsSettlement.cityFood += (card.effectManagerList[i].turnEffectCost * acceptableTileCount);
+                print("current " + buildingsSettlement.cityFood);
+                
+            } else 
+            {
+                print("previous "+ buildingsSettlement.cityFood);
+                buildingsSettlement.cityFood += card.effectManagerList[i].turnEffectCost;
+                print("current " + buildingsSettlement.cityFood);
+            }
+            
+            
         }
     }
 
@@ -358,6 +369,50 @@ public class CardEffectManager : MonoBehaviour
         //Determine if the city has a building capable of producing units
         //If so the card can be placed and used
 
+        //Logic for Global Troop Creation
+        //Determine what cities have the ability to produce these troops, then record them, and then produce them there
+        // Logic for Global Troop Creation
+        if (card.createUnitGlobally == true)
+        {
+            List<Settlements> acceptableCitySpawns = new List<Settlements>();
+            bool hasRequirement = false;
+
+            for (int i = 0; i < playerScript.playerSettlementDataList.Count; i++)
+            {
+                if (card.requiresBarrack == true)
+                {
+                    hasRequirement = playerScript.playerSettlementDataList[i].settlementBuildings.Any(buildingData => buildingData.buildingName.Contains("Barrack"));
+
+                    if (hasRequirement)
+                    {
+                        acceptableCitySpawns.Add(playerScript.playerSettlementDataList[i]);
+                    }
+                }
+                else if (card.requiresWeaponSmith == true)
+                {
+                    // Add logic for Weapon Smith requirement
+                }
+                else if (card.requiresDiplomatTrainingHall == true)
+                {
+                    // Add logic for Diplomat Training Hall requirement
+                }
+                else if (card.requiresMachineWorkshop == true)
+                {
+                    // Add logic for Machine Workshop requirement
+                }
+                else if (card.requiresTrainingHall == true)
+                {
+                    // Add logic for Training Hall requirement
+                }
+            }
+
+            foreach (Settlements citySpawn in acceptableCitySpawns)
+            {
+                // Create the unit at each city, and at the building that the unit can be made at
+            }
+        }
+
+        //Logic for Single Troop Creation
         if (card.requiresBarrack == true)
         {
             Settlements buildingsSettlement = playerScript.playerSettlementDataList.Find(settlement => settlement.tilesUnderCityControl.Contains(selectedTileLocation));
