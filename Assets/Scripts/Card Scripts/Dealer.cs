@@ -121,12 +121,14 @@ public class Dealer : MonoBehaviour
             }
 
             playerScript.currentTurn += 1;
+            
+            // Discard All Unused Cards to the Auction House
+            discardCards();
 
             // Call the cards to be drawn by the dealer script
             // Filter The Cards From the Newly Researched Techs
             filterCards();
-            // Discard All Unused Cards to the Auction House
-            discardCards();
+        
             // Pick the Cards To Be Dealt From the Deck
             // Take Into Account the Current Card Effects
             cardEffectManager.CurrentlyActiveCards();
@@ -151,7 +153,10 @@ public class Dealer : MonoBehaviour
 
     public void discardCards()
     {
-        //auctionHouse.auctionHouseCards.AddRange(actionCard);
+        /*if(actionCard != null)
+        {
+            auctionHouse.auctionHouseCards.AddRange(actionCard);
+        }*/
 
         //Temp Way to Clear the lists of the cards, will be changed later, and have the cards sent to the auction house
         actionCard.Clear();
