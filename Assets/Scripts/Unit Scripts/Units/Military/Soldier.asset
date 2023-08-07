@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea2824cfa20dc4c49a37e640ea167b0a, type: 3}
+  m_Name: Soldier
+  m_EditorClassIdentifier: 
+  unitName: Soldier
+  description: Most basic unit. Can be converted into cities. Can be built without
+    a barrack.
+  unitCategory: Military
+  unitColor: 
+  unitEra: 1
+  art: {fileID: 0}
+  unitGameObject: {fileID: 0}
+  initialFoodCost: -5
+  initialSilverCost: 0
+  initialGoldCost: 0
+  silverCostPerTurn: 0
+  goldCostPerTurn: 0
+  foodCostPerTurn: -1
+  populationCost: -1
+  requiresTrainingHall: 0
+  requiresBarracks: 0
+  requiresPort: 0
+  requiresChurch: 0
+  requiresDiplomatTrainingFacility: 0
+  requiresNavalAcademy: 0
+  requiresSiegeWorkshop: 0
+  stamina: 25
+  attack: 5
+  defense: 5
+  isNaval: 0
+  isRanged: 0
+  range: 0
+  isSiege: 0
+  isPedestalMountable: 0
+  isADiplomat: 0
+  isReligious: 0
+  religiousStrength: 0
+  unitTech: []
+  requiresArmor: 0
+  requiresSword: 0
+  requiresBow: 0
+  primaryUnitForm: []
+  upgradedForm: []
+  mergeUnitRequierment: []
+  mergedUnit: []

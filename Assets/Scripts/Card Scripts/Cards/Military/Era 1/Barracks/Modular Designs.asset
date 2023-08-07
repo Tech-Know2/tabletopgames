@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b214d7cb84762544eba4738d12acc8e9, type: 3}
+  m_Name: Modular Designs
+  m_EditorClassIdentifier: 
+  cardName: Modular Designs
+  description: Construct 2 army barracks in one of your cities. Maintenance is 2
+    silver per turn and 5 people per building.
+  cardCategory: Military
+  cardColor: '#CE3131'
+  cardTech: Barracks
+  cardEra: 1
+  originalPlayer: 
+  cardEffectRegion: 
+  isGovernmentCard: 0
+  assignsGovernment: 0
+  isGovernmentWarSupportBoostCard: 0
+  isAllianceCard: 0
+  isDeclareWarCard: 0
+  isPeaceTreatyCard: 0
+  isPurchasable: 1
+  requiresASettlement: 1
+  createsBuildings: 1
+  createsSettlement: 0
+  settlementScriptableObject: {fileID: 0}
+  createsUnits: 0
+  requiresBarrack: 0
+  requiresWeaponSmith: 0
+  requiresDiplomatTrainingHall: 0
+  requiresTrainingHall: 0
+  requiresMachineWorkshop: 0
+  governmentType: 
+  government: {fileID: 0}
+  governmentAlliance: 
+  governmentWarDecleration: 
+  effectDescriptionEditorDisplay: 'Strings to determine the effects on the game:
+    Don''t Alter Won''t Change
+
+    If the effect only lasts for 1 turn, don''t select
+    the Requires Multiple Turns Bool.
+
+    If it only lasts for one turn, don''t
+    put in anything
+
+    "Gold Cost" to take gold per turn
+
+    "Loyalty Cost" to
+    take loyalty per turn
+
+    "Silver Cost" to take silver per turn
+
+    "Food Cost"
+    to take food per turn
+
+    "People Cost" to take people per turn
+
+    "War Support
+    Cost" to increase War Support per turn against a certain government
+
+    "Religion
+    Cost" to take away religion from area
+
+    "Weariness Cost" to effect war weariness
+
+    "Loyalty
+    Cost" to effect the loyalty of your people"Tech Cost" to effect your empire''s
+    tech points'
+  effectManagerList: []
+  buildingGameObjects: []
+  desierdTileString: "Strings to determine the effects on the game: Don't Alter Won't
+    Change\n\"Indicates which tile the card can effect\" \n\"Deep Sea\" \n\"Shallow
+    Sea\" \n\"Sand\" \n\"Plains\" \n\"Mountains\" \n"
+  desiredTilesList: []
+  units: []

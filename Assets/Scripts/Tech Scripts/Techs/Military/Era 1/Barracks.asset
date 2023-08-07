@@ -18,6 +18,6 @@ MonoBehaviour:
   techColor: '#CE3131'
   techEra: 1
   isResearched: 0
-  goldCost: 100
-  techButtons: []
-  techCards: []
+  techCards:
+  - {fileID: 11400000, guid: 07caa07c39787c14caa52be900f13828, type: 2}
+  - {fileID: 11400000, guid: f49eb05f4fa154240861e9abad50abcc, type: 2}

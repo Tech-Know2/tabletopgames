@@ -52,6 +52,7 @@ public class Card : ScriptableObject
     public Settlements settlementScriptableObject;
 
     //Unit Creation Variables
+    public bool createUnitGlobally;
     public bool createsUnits;
     public bool requiresBarrack;
     public bool requiresWeaponSmith;
@@ -68,14 +69,6 @@ public class Card : ScriptableObject
 
     //Choose the Government to Declare War on if it is that Card Type
     public string governmentWarDecleration;
-
-    //Card Effects / Costs
-    /*public int goldPerTurnEffect;
-    public int silverPerTurnEffect;
-    public int warSupportAgainstGovernmentEffect;
-    public int wearinessEffect;
-    public int loyaltySabotageEffect;
-    public int religionEffect;*/
 
     [TextArea(12, 40)]
     public string effectDescriptionEditorDisplay =
